@@ -52,7 +52,7 @@ canvas {
 
         #abstractThree ul {
             overflow: scroll;
-            height: 100px;
+            height: 78px;
         }
 
             #abstractThree ul li {
@@ -94,10 +94,52 @@ canvas {
         width: 25px;
     }
 
+#other-items {
+
+}
+
+    #other-items li {
+        padding: 10px;
+        border-bottom: 1px solid black;
+    }
+
+    #other-items button {
+        margin: 0;
+        float: right;
+    }
+
 #ui-controllers {
     width: 160px;
     margin: 0 auto;
 }
+
+.modal {
+    width: 700px;
+    height: 500px;
+    border: 1px solid black;
+    position: absolute;
+    top: 50px;
+    left: -1000px;
+    margin: 0 auto;
+    z-index: 10;
+    background-color: white;
+    padding: 20px;
+    transition: left 0.5s;
+    -moz-transition: left 0.5s; /* Firefox 4 */
+    -webkit-transition: left 0.5s; /* Safari and Chrome */
+    -o-transition: left 0.5s,; /* Opera */   
+}
+
+    .modal button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .modal h2 {
+        text-align: right;
+        margin-top: 0;
+    }
 
 header h1 {
   text-align: center;
