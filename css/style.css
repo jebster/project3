@@ -1,28 +1,103 @@
-
-section {
-  width: 1032px;
-  height: 562px;
-  margin: 0 auto;
-  border: 1px solid black; 
-  position: relative;
+/* CSS Reset */
+li {
+    list-style: none;
+    clear: both;
+    overflow: hidden;
 }
 
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+aside {
+    padding: 0;
+}
+
+/* UI Element Styles */
+#game-section {
+    width: 1032px;
+    height: 562px;
+    margin: 0 auto;
+    border: 1px solid black; 
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    width: 210px;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 5px 10px;
+}
 canvas { 
-  float: left;
-  position: absolute;
+    float: left;
+    position: absolute;
 }
 
     #abstractOne {
-        background-color: red;
+        background-color: rgb(238, 234, 203);
         z-index: 5;
     }
 
     #abstractTwo {
-        background-color: blue;
+        background-color: rgb(203, 236, 219);;
         z-index: 4;
     }
 
+    #abstractThree {
+        
+    }
 
+        #abstractThree ul {
+            overflow: scroll;
+            height: 100px;
+        }
+
+            #abstractThree ul li {
+                border-bottom: 1px solid black;
+                padding: 5px 10px;
+            }
+
+#player-attributes ul {
+    padding: 10px;
+}
+
+    #player-attributes .progress {
+        width: 100px;
+        margin: 0;
+    }
+
+#player-actions {
+    
+}
+
+    #player-actions ul {
+        overflow: scroll;
+        height: 100px;
+    }
+
+    #player-actions li {
+        padding: 10px;
+        border-bottom: 1px solid black;
+    }
+
+    #player-actions .progress {
+        margin: 0;
+        height: 5px;
+        width: 100px;
+    }
+
+    #player-actions input {
+        float: right;
+        width: 25px;
+    }
+
+#ui-controllers {
+    width: 160px;
+    margin: 0 auto;
+}
 
 header h1 {
   text-align: center;
@@ -33,11 +108,23 @@ header h1 {
 #sideDisplay {
 
   width: 232px;
-  height: 542px;
-  background-color: grey;
+  height: 562px;
   float: right;
-  padding: 10px;
 }
+
+    #sideDisplay > div {
+        border: 1px solid black;
+    }
+
+    #sideDisplay h4 {
+        width: 100px;
+        float: left;
+        margin: 0;
+    }
+
+    
+
+ 
 
 
 /* Progress bar */
@@ -88,7 +175,7 @@ header h1 {
 }
 
 .progress {
-  height: 5px;
+  height: 15px;
   margin-bottom: 20px;
   overflow: hidden;
   background-color: #f7f7f7;

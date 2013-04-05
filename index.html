@@ -13,15 +13,124 @@
 	  	<h1>PlayBoy</h1>
 	</header>
 	<body>
-	  	<section>
-	    	<canvas id="abstractOne" width="780" height="562"></canvas>
-	    	<canvas id="abstractTwo" width="780" height="562"></canvas>
+	  	<section id='game-section'>
+	    	<canvas id="abstractOne" width="800" height="562"></canvas>
+	    	<canvas id="abstractTwo" width="800" height="562"></canvas>
+
 	      	<aside id="sideDisplay">
+	      		<div id="abstractThree">
+	      			<h3 class="section-header">News</h3>
+	      			<ul>
+	      				<li>
+	      					Michael Jackson is coming!
+	      				</li>
+	      				<li>
+	      					Exam Fever in 5 days!
+	      				</li>
+	      				<li>
+	      					Lover's Party coming up in 2 weeks!
+	      				</li>
+	      				<li>
+	      					Holidays are coming really soon!
+	      				</li>
+	      				<li>
+	      					How are things going? We have a surprise event!
+	      				</li>
+	      			</ul>
+	      		</div>
+
+	      		<div id="player-attributes">
+	      			<h3 class="section-header">Your Attributes</h3>
+	      			<ul>
+	      				<li>
+	      					<h4>Talent</h4>
+		      				<div class="progress progress-warning progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 100%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<h4>Fitness</h4>
+		      				<div class="progress progress-warning progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 80%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<h4>Study</h4>
+		      				<div class="progress progress-warning progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 30%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<h4>Reputation</h4>
+		      				<div class="progress progress-warning progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 50%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<h4>Wealth</h4>
+		      				<div class="progress progress-warning progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 100%;"></div>
+		      				</div>
+	      				</li>
+	      			</ul>
+	      		</div>
+
+	      		<div id="player-actions">
+	      			<h3 class="section-header">Your Actions</h3>
+	      			<ul>
+	      				<li>
+	      					<input type="text" name="playmusic">
+	      					Play Music
+	      					<div class="progress progress-success progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 50%;"></div>
+		      				</div>
+
+	      				</li>
+	      				<li>
+	      					<input type="text" name="gogym">
+	      					Go to Gym
+	      					<div class="progress progress-success progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 70%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<input type="text" name="muggin">
+	      					Mugging
+	      					<div class="progress progress-success progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 0%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<input type="text" name="goconcert">
+	      					Go to concert
+	      					<div class="progress progress-success progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 3%;"></div>
+		      				</div>
+	      				</li>
+	      				<li>
+	      					<input type="text" name="teachtuition">
+	      					Teach tuition classes
+	      					<div class="progress progress-success progress-striped active">
+		      					<div id='talent-bar' class="bar" style="width: 90%;"></div>
+		      				</div>
+	      				</li>
+	      			</ul>
+	      			<button>Update</button>
+	      		</div>
+
+	      		<div id="other-items">
+	      			<h3 class="section-header">Other Items</h3>
+	      		</div>
 	    	</aside>  
+	    	
 	  	</section>
 
-	  	<button onclick="displayAbstractOne()">Abstract 1</button>
-	  	<button onclick="displayAbstractTwo()">Abstract 2</button>
+	  	<section id="ui-controllers">
+		  	<button onclick="displayAbstractOne()">Abstract 1</button>
+		  	<button onclick="displayAbstractTwo()">Abstract 2</button>
+	  	</section>
+
+	  	
 
 	</body>
 
