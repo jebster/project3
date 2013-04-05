@@ -70,12 +70,14 @@ canvas {
     }
 
 #player-actions {
-    
+    overflow: hidden;
+    background-color: rgb(226, 218, 218);
 }
 
     #player-actions ul {
         overflow: scroll;
         height: 100px;
+        background-color: white;
     }
 
     #player-actions li {
@@ -92,6 +94,10 @@ canvas {
     #player-actions input {
         float: right;
         width: 25px;
+    }
+
+    #player-actions button {
+        float: right;
     }
 
 #other-items {
