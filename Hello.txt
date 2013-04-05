@@ -1,1 +1,91 @@
-dgaad
+
+
+Theory of the game:
+
+Schematics:
+
+How the attributes are like; 
+
+
+Rules of game; 
+
+Relations between NPCs and Each of the abstract level;
+
+-----------------1.1 Theory of the Game-------------------------------------------------
+
+Abstract level 1: Within Faculty
+
+Abstract Level 2: between Faculty
+
+Abstract lvl 3:University level 
+
+AL 1:
+
+The main actions and individual interactions here - rumors etc.
+
+AL2: Betwen Fac
+
+Traffic flow, influence between each fac, player's influence differs in each faculty;
+
+AL3: Uni level
+
+Enrolment, quality of students
+Affecting the success rate of the students that are already n their respectively college.
+
+----------------------------------------------------------------------------------------
+
+
+-----------------------Schematics and Gameplay ---------------------------------------------
+
+++++++++++++++++++++++++++++   AL 1 (abstract lvl 1)  +++++++++++++++++++++++++
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+*************************** AL 2 (abstrct lvl 2) *********************************
+
+
+
+
+**********************************************************************************
+
+&&&&&&&&&&&&&&&&&&&&&&&& AL 3 (Abstract lvl 3 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+___________________________________________________________________________________________________________________________
+
+Architecture of the game
+
+
+
+___________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+Comments by the lecturer 
+
+:what he sees an image; player should not be on an abstrct level, that can be on a debug view;
+
+abstract map only for debugging;
+
+should not have extra information e.g. enrolment on anotherlvl, should be experienced on the first lvl;
+
+not make sense for 1 instance of higher lvl;
+
