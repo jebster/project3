@@ -43,7 +43,7 @@ Scene.prototype.NPC = function(id, category, university) {
     this.pos_x = 0;
     this.pos_y = 0;
 
-    this.category = category;
+    this.category = category; //faculty
     this.abstractionModifier;
 
     if (this.category === "engine") {
@@ -71,3 +71,6 @@ Scene.prototype.NPC = function(id, category, university) {
 Scene.prototype.NPC.prototype.draw = function(context, x, y) {
     // body...
 };
+
+
+
