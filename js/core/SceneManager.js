@@ -8,7 +8,7 @@ var Scene = function() {
     var spritesList = [
         {
             name : "abstract1",
-            //imageSrc : "assets/img/background/map1.png",
+            imageSrc : "images/nus_engin.png",
             stage : 0
         },
         {

@@ -8,6 +8,8 @@ var ABSTRACT_LEVEL = 1;
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
+var bgImg = new Image();
+bgImg.src = "images/nus_engin.png";
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
@@ -67,9 +69,10 @@ function GameEngine(){
             canvas = _abstract1_canvas;
             context = canvas.getContext('2d'); 
             context.clearRect(0,0,canvas.width,canvas.height);
-            context.fillStyle = "rgb(238, 234, 203)";
-            context.fillRect(0,0,canvas.width,canvas.height);
-            context.fill();         
+            // context.fillStyle = "rgb(238, 234, 203)";
+            // context.fillRect(0,0,canvas.width,canvas.height);
+            // context.fill();
+			context.drawImage(bgImg, 0, 0);
         }
         else{
             canvas = _abstract2_canvas;
