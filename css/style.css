@@ -46,19 +46,24 @@ canvas {
         z-index: 4;
     }
 
-    #abstractThree {
+#travel {
+
+}
+    #display-uni {
         
+        margin-left: 10px;
+        margin-right: 10px;
+        float: left;
     }
 
-        #abstractThree ul {
-            overflow: scroll;
-            height: 78px;
-        }
+    #travel select {
+        margin: 0;
+    }
 
-            #abstractThree ul li {
-                border-bottom: 1px solid black;
-                padding: 5px 10px;
-            }
+    #travel select, #display-uni {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
 #player-attributes ul {
     padding: 10px;
@@ -69,6 +74,12 @@ canvas {
         margin: 0;
     }
 
+    #player-attributes h4 {
+        width: 100px;
+        float: left;
+        margin: 0;
+    }
+
 #player-actions {
     overflow: hidden;
     background-color: rgb(226, 218, 218);
@@ -76,7 +87,7 @@ canvas {
 
     #player-actions ul {
         overflow: scroll;
-        height: 100px;
+        height: 140px;
         background-color: white;
     }
 
@@ -164,11 +175,7 @@ header h1 {
         border: 1px solid black;
     }
 
-    #sideDisplay h4 {
-        width: 100px;
-        float: left;
-        margin: 0;
-    }
+    
 
     
 
