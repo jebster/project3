@@ -1,4 +1,5 @@
 function gameInit(abstract1_canvas, abstract2_canvas){
+
 	gameEngine.init(abstract1_canvas,abstract2_canvas);
 }
 
@@ -7,6 +8,9 @@ var ABSTRACT_LEVEL = 1;
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
+
+// Track Location ~ jensen
+var currentUni = 'NUS'; // always start in NUS
 
 function GameEngine(){
 	var _abstract1_canvas = null;
@@ -21,10 +25,17 @@ function GameEngine(){
         _abstract1_canvas = document.getElementById(abs1_canvas);
         _abstract2_canvas = document.getElementById(abs2_canvas);
 
-        inputManager.init();
+        
 
         //initialise player object
         player = new PlayerObj(20,20);
+
+        //initialize simulation manager ~ jensen
+        simulation = new SimulationManager();
+
+        // initialize input manager
+        inputManager.init();
+
 
         gameEngine.run();
 

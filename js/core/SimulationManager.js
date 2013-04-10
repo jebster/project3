@@ -9,9 +9,46 @@ function SimulationManager(){
 
 	this.distributionCurve = function(){
 
+		//formulas and abstraction
+
 	}
 
 	this.varianceCalc = function(){
 
 	}
+
+	// will be triggered when location is changed ~ jensen
+	this.changeLocation = function(){
+
+		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+
+		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
+
+		document.getElementById('display-uni').innerHTML = destinationUni;
+
+		if(currentUni == destinationUni) {
+
+			abstractTwoMovement();
+
+			
+		} else {
+			
+			currentUni = destinationUni;
+			abstractThreeMovement();
+		}
+
+
+		function abstractTwoMovement(){
+			alert('moving within same uni');
+		}
+
+		function abstractThreeMovement(){
+			alert('going out of uni');
+		}
+
+		
+	}
+
+
 }
+

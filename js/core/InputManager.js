@@ -31,6 +31,12 @@ var InputManager = function() {
 
         window.addEventListener('keydown', 	 this.handleKeyDown, true );
         window.addEventListener('keyup', 	 this.handleKeyUp, true );
+
+        // listen for location change event ~ jensen
+        document.getElementById('location').onchange = function(){
+            simulation.changeLocation();
+        };
+
         /*
         window.addEventListener("mousedown", this.clickInCanvas, true );
         window.addEventListener("mouseup", 	 this.releaseInCanvas, true );
@@ -117,3 +123,4 @@ var InputManager = function() {
     }
 }
 var inputManager = new InputManager();
+

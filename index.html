@@ -5,11 +5,12 @@
 	  	<title>PlayBoy</title>
 	  	<meta charset="utf-8">
 	  	<link href="css/style.css" rel="stylesheet" type="text/css">
-	  	<script type="text/javascript" language="javascript" src="js/MainEngine.js"></script>
-	  	<script type="text/javascript" language="javascript" src="js/core/DisplayManager.js"></script>
-	  	<script type="text/javascript" language="javascript" src="js/core/InputManager.js"></script>
 	  	<script type="text/javascript" language="javascript" src="js/core/PlayerObject.js"></script>
 	  	<script type="text/javascript" language="javascript" src="js/core/NPCObject.js"></script>
+	  	<script type="text/javascript" language="javascript" src="js/core/DisplayManager.js"></script>
+	  	<script type="text/javascript" language="javascript" src="js/core/SimulationManager.js"></script>
+	  	<script type="text/javascript" language="javascript" src="js/MainEngine.js"></script>
+	  	<script type="text/javascript" language="javascript" src="js/core/InputManager.js"></script>
 
 	</head>
 
@@ -26,9 +27,10 @@
 
 	    	<!-- Heads Up Display -->
 	      	<aside id="sideDisplay">
-	      		<div id="abstractThree">
+	      		<div>
 	      			<h3 class="section-header">Travel</h3>
-	      			<select>
+	      			<h4 id="display-uni">NUS</h4>
+	      			<select id='location'>
 						<optgroup label="NUS">
 							<option value="engineNUS">Engine</option>
 							<option value="artsNUS">Arts</option>
