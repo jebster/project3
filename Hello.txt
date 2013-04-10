@@ -1,4 +1,4 @@
-
+﻿
 Theory of the game:
 
 Schematics:
@@ -239,6 +239,9 @@ zero to one;
 
 based on overall weightage of students being within the attracted list and repuation of the students within faculty
 
+Only using reputation;
+
+
 
 
 
@@ -251,10 +254,14 @@ based on overall weightage of students being within the attracted list and repua
 
 University level, sets the total attribute points permissible, sets the cap on the total attribute points;
 
+3 Universities - NTU,SMU;
+
+Each university has their own distribution. 
 
 
 
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
 
@@ -285,4 +292,12 @@ abstract map only for debugging;
 should not have extra information e.g. enrolment on anotherlvl, should be experienced on the first lvl;
 
 not make sense for 1 instance of higher lvl;
+
+---------------------------------------------
+
+3 rendering engines
+
+
+each NPC will have a certain attribute that cannot be reduced below a certain point.
+
 
