@@ -5,11 +5,16 @@ var PlayerObj = function(x, y){
     this.playerSpeed = 5;
 
     this.category;
-    this.fitness = 0.3;
-    this.studies = 0.6;
+    
     this.talent = 0.4;
+    this.fitness = 0.3;
+    this.intellect = 0.6;
+    
     this.girlsList = [];
     this.laidList = [];
+
+    // he has 100 units of time ~ jensen
+    this.time = 100;
 
     //other attributes to be added
     this.move = function(){

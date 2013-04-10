@@ -61,7 +61,7 @@
 		      				</div>
 	      				</li>
 	      				<li>
-	      					<h4>Study</h4>
+	      					<h4>Intellect</h4>
 		      				<div class="progress progress-warning progress-striped active">
 		      					<div id='talent-bar' class="bar" style="width: 30%;"></div>
 		      				</div>
@@ -72,12 +72,6 @@
 		      					<div id='talent-bar' class="bar" style="width: 50%;"></div>
 		      				</div>
 	      				</li>
-	      				<li>
-	      					<h4>Wealth</h4>
-		      				<div class="progress progress-warning progress-striped active">
-		      					<div id='talent-bar' class="bar" style="width: 100%;"></div>
-		      				</div>
-	      				</li>
 	      			</ul>
 	      		</div>
 
@@ -85,43 +79,33 @@
 	      			<h3 class="section-header">Your Actions</h3>
 	      			<ul>
 	      				<li>
-	      					<input type="text" name="playmusic">
-	      					Play Music
+	      					<input type="text" name="impTalent">
+	      					Improve Talent
 	      					<div class="progress progress-success progress-striped active">
 		      					<div id='talent-bar' class="bar" style="width: 50%;"></div>
 		      				</div>
 
 	      				</li>
 	      				<li>
-	      					<input type="text" name="gogym">
-	      					Go to Gym
+	      					<input type="text" name="impFitness">
+	      					Improve Fitness
 	      					<div class="progress progress-success progress-striped active">
 		      					<div id='talent-bar' class="bar" style="width: 70%;"></div>
 		      				</div>
 	      				</li>
 	      				<li>
-	      					<input type="text" name="muggin">
-	      					Mugging
+	      					<input type="text" name="impIntellect">
+	      					Improve Intellect
 	      					<div class="progress progress-success progress-striped active">
 		      					<div id='talent-bar' class="bar" style="width: 0%;"></div>
 		      				</div>
-	      				</li>
-	      				<li>
-	      					<input type="text" name="goconcert">
-	      					Go to concert
-	      					<div class="progress progress-success progress-striped active">
-		      					<div id='talent-bar' class="bar" style="width: 3%;"></div>
-		      				</div>
-	      				</li>
-	      				<li>
-	      					<input type="text" name="teachtuition">
-	      					Teach tuition classes
-	      					<div class="progress progress-success progress-striped active">
-		      					<div id='talent-bar' class="bar" style="width: 90%;"></div>
-		      				</div>
-	      				</li>
+	      				</li>	      				
 	      			</ul>
-	      			<button>Update</button>
+	      			<div id='time-left'>
+	      				<p>Unit Time Left: <span>100</span></p>
+	      				<button onclick='simulation.useTime()'>Update</button>
+	      			</div>
+	      			
 	      		</div>
 
 	      		<div id="other-items">

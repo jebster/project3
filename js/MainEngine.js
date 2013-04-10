@@ -9,6 +9,9 @@ var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
 
+// moved the player to be global variable, so that other functions can assess ~ jensen
+var player = null;
+
 // Track Location ~ jensen
 var currentUni = 'NUS'; // always start in NUS
 
@@ -16,7 +19,7 @@ function GameEngine(){
 	var _abstract1_canvas = null;
 	var _abstract2_canvas = null;
 
-    var player = null;
+    
 
 	var _frameNumber = 0;
 
@@ -25,10 +28,9 @@ function GameEngine(){
         _abstract1_canvas = document.getElementById(abs1_canvas);
         _abstract2_canvas = document.getElementById(abs2_canvas);
 
-        
-
         //initialise player object
         player = new PlayerObj(20,20);
+
 
         //initialize simulation manager ~ jensen
         simulation = new SimulationManager();
@@ -87,3 +89,4 @@ function GameEngine(){
     }
 }
 var gameEngine = new GameEngine();
+

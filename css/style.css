@@ -109,6 +109,16 @@ canvas {
 
     #player-actions button {
         float: right;
+        margin: 0;
+    }
+
+    #time-left {
+        padding: 5px 10px;
+        overflow: hidden;
+    }
+    #time-left p {
+        float: left;
+        margin: 0;
     }
 
 #other-items {
