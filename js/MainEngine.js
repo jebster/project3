@@ -30,20 +30,13 @@ function GameEngine(){
 
     }
 
-    //Game Loop
     this.run = function(){
     	_frameNumber++;
         var clock = new Date();
         var frameStartTime = clock.getTime();
 
-        if(ABSTRACT_LEVEL == 1){
-            canvas = _abstract1_canvas;          
-        }
-        else{
-            canvas = _abstract2_canvas; 
-        }
-
-        context = _abstract2_canvas.getContext('2d');
+        /*Game Loop Functions*/
+        gameEngine.renderCanvas();
         gameEngine.update(_inverseFPS);
 
         // Calculate the time until next frame;
@@ -52,17 +45,32 @@ function GameEngine(){
         var timeLeft = _inverseFPS - ((frameEndTime - frameStartTime)/1000.0);// Used time for frame execution
 
         var nextFrameTime =  (( timeLeft < 0 )? 0 :((timeLeft > _inverseFPS)? _inverseFPS :timeLeft));
-        //console.log(nextFrameTime);
         setTimeout(gameEngine.run, nextFrameTime*1000 );
         return;
+    }
+
+    this.renderCanvas = function(){       
+        if(ABSTRACT_LEVEL == 1){
+            canvas = _abstract1_canvas;
+            context = canvas.getContext('2d'); 
+            context.clearRect(0,0,canvas.width,canvas.height);
+            context.fillStyle = "rgb(238, 234, 203)";
+            context.fillRect(0,0,canvas.width,canvas.height);
+            context.fill();         
+        }
+        else{
+            canvas = _abstract2_canvas;
+            context = canvas.getContext('2d'); 
+            context.clearRect(0,0,canvas.width,canvas.height);
+            context.fillStyle = "rgb(138, 234, 203)";
+            context.fillRect(0,0,canvas.width,canvas.height);
+            context.fill();         
+        }
     }
 
     this.update = function(_inverseFPS){
     	//Loop through scene character objects and parameters for current abstraction
     	//update accordingly
-        context.clearRect(0,0,canvas.width,canvas.height);
-        context.fillStyle="white";
-        context.fillRect(0,0,canvas.width,canvas.height);
         inputManager.processEntry(player);
         player.draw();
     }

@@ -2,11 +2,13 @@
 function displayAbstractOne(){
 	document.getElementById('abstractOne').style.zIndex = 5;
 	document.getElementById('abstractTwo').style.zIndex = 4;
+	ABSTRACT_LEVEL = 1;
 }
 
 function displayAbstractTwo(){
 	document.getElementById('abstractOne').style.zIndex = 4;
 	document.getElementById('abstractTwo').style.zIndex = 5;
+	ABSTRACT_LEVEL = 2;
 }
 
 function viewCalendar(){
