@@ -23,9 +23,32 @@ function SimulationManager(){
 		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 
 		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
-
 		document.getElementById('display-uni').innerHTML = destinationUni;
-
+		switch(destinationFaculty){
+			case "engineNUS":
+				bgImg.src = "images/nus_engin.png";
+				break;
+			case "artsNUS":
+				bgImg.src = "images/nus_arts.png";
+				break;
+			case "lawNUS":
+				bgImg.src = "images/nus_law.png";
+				break;
+			case "engineNTU":
+				bgImg.src = "images/ntu_engin.png";
+				break;
+			case "artsNTU":
+				bgImg.src = "images/ntu_arts.png";
+				break;
+			case "lawNTU":
+				bgImg.src = "images/ntu_law.png";
+				break;
+		}
+		// if(ABSTRACT_LEVEL == 1){
+            // context.clearRect(0,0,canvas.width,canvas.height);
+            // context.drawImage(bgImg, 0, 0);
+        // }
+		
 		if(currentUni == destinationUni) {
 
 			abstractTwoMovement();
