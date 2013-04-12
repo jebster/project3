@@ -5,6 +5,8 @@
  * Time: 9:31 PM
  * To change this template use File | Settings | File Templates.
  */
+var daveReputation = new Array(0.5, 0.6, 0.2, 0.1, 0.9, 0.2, 0.5, 1.0, 0.6);
+
 
 function isNum(args)
 {
@@ -82,6 +84,13 @@ function variance(reputationArray)
     }
 }
 
+// Get std Deviation
+function stdDev(reputationArray) {
+    var std = Math.sqrt(variance(reputationArray));
+    return std;
+}
+
+
 //Get the largest number of a number array
 function max(arr)
 {
@@ -110,8 +119,8 @@ function min(arr)
 {
     var min = 99999;
 
-    for(var i=0;i<arr.length;i++)
-    {
+    for(var i=0;i<arr.length;i++){
+
         if (arr[i] == ""){}
         else if (!isNum(arr[i]))
         {
@@ -145,7 +154,7 @@ function median(reputationArray)
         median = (1 * reputationArray[reputationArray.length/2 - 1] + 1 * reputationArray[reputationArray.length/2] )/2;
     }
 
-    return median
+    return median;
 }
 
 function storeStats(flag,reputationArray){
@@ -172,24 +181,35 @@ function alterReputation (reputationArray,identifier,newvalue){
 
 }
 
+var NormalDistribution = function(reputationArray){
 
-var NormalDistribution = function(){
 
-    // values needed for a normal distribution
-    // extract values
-    // 
-    this.data_value;
-    this.mean;
-    this.variance;
+    this.get_Fx = function(x){
 
-    this.defineEquation = function()
-    {
+        var e = Math.E;
+        var pi = Math.PI;
+        var u = mean(reputationArray);
+        var vaR = variance(reputationArray);
+        var stdD = stdDev(reputationArray);
 
-    }
-    this.getProbabilityValueFromDist = function(value){
+        var Fx = ( 1/(stdD*Math.sqrt(2*pi)) ) *
+                    Math.pow(e, - ( Math.pow(x-u,2)/(2*vaR) ) );
 
-    }
-    this.getValueFromProbability = function(value){
+        return Fx;
 
     }
+
+    this.get_x = function(fx){
+
+
+    }
+
 }
+
+var normalDis = new NormalDistribution(daveReputation);
+
+console.log('mean is: ' +mean(daveReputation));
+console.log('variance is: ' +variance(daveReputation));
+console.log('stdDev is: ' +stdDev(daveReputation));
+
+console.log('Fx is: ' +normalDis.get_Fx(0.5));
