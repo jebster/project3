@@ -24,6 +24,7 @@ function SimulationManager(){
 
 		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
 		document.getElementById('display-uni').innerHTML = destinationUni;
+		
 		switch(destinationFaculty){
 			case "engineNUS":
 				bgImg.src = "images/nus_engin.png";
