@@ -5,6 +5,8 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
+var allAbstractionLists = [];
+var toRenderList;
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
@@ -38,7 +40,7 @@ function GameEngine(){
         simulation = new SimulationManager();
 
         // initialize input manager
-        inputManager.init();
+        inputManager.init(_inverseFPS);
 
 
         gameEngine.run();

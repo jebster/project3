@@ -77,11 +77,6 @@ var PlayerObj = function(x, y){
     }
 
     this.draw = function(){
-        // context.beginPath();
-        // context.fillStyle = "black";
-        // context.arc(this.pos_x, this.pos_y,this.radius,0,Math.PI*2,true);
-        // context.closePath();
-        // context.fill();
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
 							this.pos_y, 32, 32);

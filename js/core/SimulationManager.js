@@ -1,5 +1,8 @@
 function SimulationManager(){
-	var studentList = [];
+	var _NPCList = [];
+	var _abstractPopulation = 40;
+	var _decompressFlag = 1;
+	var storedListIndex;
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
@@ -59,23 +62,10 @@ function SimulationManager(){
 			currentUni = destinationUni;
 			abstractThreeMovement();
 		}
-
-
-		function abstractTwoMovement(){
-			alert('moving within same uni');
-		}
-
-		function abstractThreeMovement(){
-			alert('going out of uni');
-		}
-
-		
 	}
 
 	this.useTime = function() {
 
-
-		// Update Actual Value
 		var improveTalent = document.querySelectorAll('input')[0].value;
 		player.talent += improveTalent*0.1;
 
@@ -98,6 +88,66 @@ function SimulationManager(){
 
 		document.getElementById('time-left').getElementsByTagName('span').innerHTML = player.time;
 	}
+
+	this.populateLowestAbstraction = function(){
+		for(var i = 0; i<allAbstractionLists.length; ++i){
+			if(_decompressFlag == 1){
+				if(allAbstractionLists[i].university == currentUni && allAbstractionLists.faculty  == currentFaculty){
+					if(allAbstractionLists[i].timer > 0){
+						_decompressFlag = 0;
+						storedListIndex = i;
+					}
+				}
+			}
+		}
+
+		if(_decompressFlag == 1){
+			this.decompressAbstractThree();
+			this.decompressAbstractTwo();
+
+			for(var j = 0; j < _abstractPopulation; ++j){
+				
+				var NPC = new NPCObject(x, y, faculty, university, gender);
+				if(NPC.gender == "female"){
+					//set attributes by decompressing normal dist
+					NPC.preference = something;
+				}
+				else{
+					//set attributes by decompresisn normal dist
+				}
+
+				var absList = new AbstractionOneList(id, university, faculty);
+				absList.push(NPC);
+			}
+		//push the newly created list to the remembered lists
+		allAbstractionLists.push(absList)
+		//render this newly created list
+		toRenderList = allAbstractionLists[allAbstractionLists.length - 1];
+		}
+		
+		else if(_decompressFlag == 0){
+			//if there is no need for decompressing, just render the remembered list
+			toRenderList = allAbstractionLists[storedListIndex];
+		}
+	}
+
+	this.decompressAbstractTwo = function(){
+
+	}
+
+	this.decompressAbstractThree = function(){
+
+	}
+
+
+	function abstractTwoMovement(){
+		alert('moving within same uni');
+	}
+
+	function abstractThreeMovement(){
+		alert('going out of uni');
+	}
+
 
 
 }
