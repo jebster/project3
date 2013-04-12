@@ -183,14 +183,13 @@ function alterReputation (reputationArray,identifier,newvalue){
 
 var NormalDistribution = function(reputationArray){
 
+    var e = Math.E;
+    var pi = Math.PI;
+    var u = mean(reputationArray);
+    var vaR = variance(reputationArray);
+    var stdD = stdDev(reputationArray);
 
     this.get_Fx = function(x){
-
-        var e = Math.E;
-        var pi = Math.PI;
-        var u = mean(reputationArray);
-        var vaR = variance(reputationArray);
-        var stdD = stdDev(reputationArray);
 
         var Fx = ( 1/(stdD*Math.sqrt(2*pi)) ) *
                     Math.pow(e, - ( Math.pow(x-u,2)/(2*vaR) ) );
@@ -201,6 +200,11 @@ var NormalDistribution = function(reputationArray){
 
     this.get_x = function(fx){
 
+        var x = Math.sqrt(
+                -(Math.log(fx*stdD*Math.sqrt(2*pi)) * 2*vaR)
+            ) + u;
+
+        return x;
 
     }
 
@@ -208,8 +212,6 @@ var NormalDistribution = function(reputationArray){
 
 var normalDis = new NormalDistribution(daveReputation);
 
-console.log('mean is: ' +mean(daveReputation));
-console.log('variance is: ' +variance(daveReputation));
-console.log('stdDev is: ' +stdDev(daveReputation));
+console.log('If x is 0.3(daveReputation), Fx is: ' +normalDis.get_x(0.3));
+console.log('If Fx is 1.2(what does Fx represent), x is: ' +normalDis.get_Fx(1.2));
 
-console.log('Fx is: ' +normalDis.get_Fx(0.5));
