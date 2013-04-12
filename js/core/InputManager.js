@@ -18,7 +18,7 @@ var InputManager = function() {
     var COUNT;
     var DELAY_RATE = 2;
 
-    this.init = function(FPS, canvas) {
+    this.init = function(FPS) {
         _canvas = canvas;
         _FPS = FPS;
         COUNT = 0;
