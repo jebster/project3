@@ -8,29 +8,57 @@ var NPCObj = function(x,y,id, category, university, gender) {
 
     this.abstractionModifier;
 
+
+    this.daveReputation = null;
+
+    //distribution curve for preferenceType AND
+    // primaryType
+
+    // 0 - 0.3: Nerd
+    // 0.3 - 0.7: Talent
+    // 0.7-1.0: Hunk
+
+
     if(this.gender == "male"){
 
         if (this.category === "engine") {
-            this.fitness = 0.3;
-            this.studies = 0.6;
-            this.talent = 0.4;
+
+            this.primaryTypeIndex = 0.3; //want a super nerd
+            this.primaryType = 'nerd';
+            this.primaryTypeScore = 10;
+
+
         }
         if (this.category === "arts") {
-            this.fitness = 0.6;
-            this.studies = 0.3;
-            this.talent = 0.5;
+
+            this.primaryType
+          
+          
         }
         if (this.category === "law") {
-            this.fitness = 0.3;
-            this.studies = 0.6;
-            this.talent = 0.4;
+          
         }
     }
 
     if(this.gender == "female"){
-        this.preferenceType = "hunk";
-        this.bestGuyScore;
+
+        this.primaryPreferenceIndex = 0.5;
+        this.primaryPreference = 'talent';
+
+        // each interaction, girl goes into guy this.primaryTypeScore, and updates primaryPreferenceScore
+        this.primaryPreference_best = 0.2;
+
+        this.laidWithDave = true;
+
     }
+
+    /*
+    When Two NPCs meet:
+    1. Update this.PrimaryPreferenceScore to the highest one
+    2. Have an impact on daveReputation
+
+
+    */
     
 
     this.draw = function() {

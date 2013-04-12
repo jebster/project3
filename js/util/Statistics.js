@@ -171,3 +171,25 @@ function alterReputation (reputationArray,identifier,newvalue){
 
 
 }
+
+
+var NormalDistribution = function(){
+
+    // values needed for a normal distribution
+    // extract values
+    // 
+    this.data_value;
+    this.mean;
+    this.variance;
+
+    this.defineEquation = function()
+    {
+
+    }
+    this.getProbabilityValueFromDist = function(value){
+
+    }
+    this.getValueFromProbability = function(value){
+
+    }
+}

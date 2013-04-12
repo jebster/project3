@@ -14,9 +14,10 @@ var PlayerObj = function(x, y){
 
     this.category;
     
-    this.talent = 0.4;
-    this.fitness = 0.3;
-    this.intellect = 0.6;
+    this.intellect = 0.1;
+    this.talent = 0.7;
+    this.fitness = 0.8;
+    
     
     this.girlsList = [];
     this.laidList = [];

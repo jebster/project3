@@ -1,4 +1,6 @@
 var AbstractThreeHistogram = function(){
+
+
 	
 }
 
