@@ -75,6 +75,7 @@ function SimulationManager(){
 	this.useTime = function() {
 
 
+		// Update Actual Value
 		var improveTalent = document.querySelectorAll('input')[0].value;
 		player.talent += improveTalent*0.1;
 
@@ -84,7 +85,14 @@ function SimulationManager(){
 		var improveIntellect = document.querySelectorAll('input')[2].value;
 		player.intellect += improveIntellect*0.1;
 
-		player.time -= 20;
+		player.time -= improveIntellect + improveFitness + improveTalent;
+
+		//Update display of value on screen
+			//amount of time left
+			//progress bar of different attributes
+			
+
+
 
 		alert(player.time)
 
