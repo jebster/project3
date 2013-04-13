@@ -102,6 +102,10 @@ function SimulationManager(){
 			}
 		}
 
+		// Need to decompress
+		// 1. Time has passed long enough
+		// 2. Player has not been to that faculty
+		// 3. Moved to another university
 		if(_decompressFlag == 1){
 			this.decompressAbstractThree();
 			this.decompressAbstractTwo();
@@ -145,9 +149,44 @@ function SimulationManager(){
 		alert('moving within same uni');
 		compressLevelOne();
 		populateLowestAbstraction();
-		//Loop through all NPCs on the map, look at their attributes
-		//Update the normal distributions of that faculty and spill over to nearby faculties
-		//Check if there is a laid girl there who will carry added weightage in affecting the normal dist
+
+		/*
+
+		Assume Dave starts in NUSEngin
+
+		NPC_CurrentFaculty = [ guyObject, girlObject];
+			
+		daveReputation_Engin = [   ];
+
+		daveReputation_Arts = [   ];
+
+		daveReputation_Law = [   ];
+		
+
+		Case 1: Walks around within NUS, does nothing.
+		==============================================
+
+		e.g. Dave goes from NUSEngin to NUSArts. does nothing
+
+		1. Go through all NPC Objects in NUSEngin, get daveReputation in every NPC, and repopulate daveReputation_Engin [0.1, 0.7, 0.7, 0.7]
+		// Walks in Arts
+		// Dave comes back
+		2. Generate population (fixed)
+		3. Assign daveReputation_Engin to NPCs (there will be an extreme hater or admirer)
+
+
+		Case 2: Perform an action, or goes to NTU
+		=========================================
+		1. Go through all NPCs in NUSEngin, get daveReputation, update NUSEngin Stats.
+		2. Get NUSArts stats, populate daveReputationList_NUSArts.
+		3. Add inflighttoNUSArts stats to daveReputationList_NUSArts.
+		4. Recompute NUSArts stats
+		5. Add in SpreadingEffect
+		6. Get new NUSArts stats.
+		7. Do the same for NUSLaw.  
+
+		*/
+
 	}
 
 	function abstractThreeMovement(){

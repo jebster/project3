@@ -5,7 +5,24 @@
  * Time: 9:31 PM
  * To change this template use File | Settings | File Templates.
  */
-var daveReputation = new Array(0.5, 0.5, 0.5, 0.5, 0.9, 0.8, 0.7, 0.7, 0.6, 0.6, 0.4, 0.4, 0.4, 0.3, 0.3, 0.2, 0.1);
+var daveReputation_nusArt = new Array(0.5, 0.5, 0.5, 0.5, 0.9, 0.8, 0.7, 0.7, 0.6, 0.6, 0.4, 0.4, 0.4, 0.3, 0.3, 0.2, 0.1);
+
+
+var daveReputation_nusEngin_compressed = function(){
+    this.variance = 1.2;
+    this.mean = 0.5;
+}
+
+var daveReputation_nusArt_compressed = function(){
+    this.variance = 1.2;
+    this.mean = 0.5;
+}
+
+var daveReputation_nusLaw_compressed = function(){
+    this.variance = 1.2;
+    this.mean = 0.5;
+}
+
 
 
 function isNum(args)
