@@ -5,10 +5,9 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
-var allAbstractionLists = [];
 var toRenderList;
 var tempRenderList;
-var movementList;
+var inFlightList;
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
@@ -96,15 +95,18 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.draw();
 
-        /*//Check interactions between NPCs an NPC and player (Max's function)
+        //Update NPC movements (Max's function)
+        //updateNPCPositions(); 
+
+        //Check interactions between NPCs an NPC and player (Max's function)
         //Here is where we exchange reputations, ask for dates, etc.
-        //ScheckNPCInteractions();
+        //checkNPCInteractions();
 
         for(var i = 0; i < toRenderList.NPCList.length; ++i){
             removeNPCFlag = 0;
             var currNPC =  toRenderList.NPCList[i];
             var movement = checkFacultyMovement(currNPC);
-            var movementListFlag = 1;
+            var inFlightListFlag = 1;
 
             //Check if NPC is moving to another faculty
             switch(movement){
@@ -112,15 +114,7 @@ function GameEngine(){
                 case "arts":
                 case "law":
                     currNPC.currFaculty = movement;
-                    for(var i = 0; i<allAbstractionLists.length; ++i){
-                        if(allAbstractionLists[i].university == currentUni && allAbstractionLists.faculty  == currNPC.currFaculty){
-                            allAbstractionLists[i].NPCList.push(currNPC);
-                            movementListFlag = 0;
-                        }
-                    }
-                    if(storedListFlag == 1){
-                        movementList.push(currNPC);
-                    }
+                    inFlightList.push(currNPC);
                     removeNPCFlag = 1;
                     break;
                 case "nothing":

@@ -90,25 +90,9 @@ function SimulationManager(){
 		document.getElementById('time-left').getElementsByTagName('span').innerHTML = player.time;
 	}
 
-	this.populateLowestAbstraction = function(){
-		for(var i = 0; i<allAbstractionLists.length; ++i){
-			if(_decompressFlag == 1){
-				if(allAbstractionLists[i].university == currentUni && allAbstractionLists.faculty  == currentFaculty){
-					if(allAbstractionLists[i].timer > 0){
-						_decompressFlag = 0;
-						storedListIndex = i;
-					}
-				}
-			}
-		}
 
-		// Need to decompress
-		// 1. Time has passed long enough
-		// 2. Player has not been to that faculty
-		// 3. Moved to another university
-		if(_decompressFlag == 1){
+	this.decompressAbstractTwo = function(){
 			this.decompressAbstractThree();
-			this.decompressAbstractTwo();
 
 			for(var j = 0; j < _abstractPopulation; ++j){
 				
@@ -122,23 +106,19 @@ function SimulationManager(){
 				}
 
 				var absList = new AbstractionOneList(id, university, faculty);
-				absList.push(NPC);
+				absList.NPCList.push(NPC);
 			}
-		//push the newly created list to the remembered lists
-		allAbstractionLists.push(absList)
+
+			for(var i = 0; i < inFlightList.length; ++i){
+				if(inFlightList[i].currFaculty == absList.faculty &&
+					inFlightList[i].currUniversity == absList.university){
+					absList.NPCList.push(inFlightList[i]);
+				}
+			}
 		//render this newly created list
-		toRenderList = allAbstractionLists[allAbstractionLists.length - 1];
-		}
-		
-		else if(_decompressFlag == 0){
-			//if there is no need for decompressing, just render the remembered list
-			toRenderList = allAbstractionLists[storedListIndex];
-		}
+		toRenderList = absList;
 	}
 
-	this.decompressAbstractTwo = function(){
-
-	}
 
 	this.decompressAbstractThree = function(){
 
@@ -218,6 +198,10 @@ function SimulationManager(){
 		5. Get stats for Engin, Arts, Law in NTU
 
 		*/
+	}
+
+	function compressLevelOne(){
+
 	}
 
 
