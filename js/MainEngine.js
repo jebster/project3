@@ -7,6 +7,8 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 var ABSTRACT_LEVEL = 1;
 var allAbstractionLists = [];
 var toRenderList;
+var tempRenderList;
+var movementList;
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
@@ -71,9 +73,6 @@ function GameEngine(){
             canvas = _abstract1_canvas;
             context = canvas.getContext('2d'); 
             context.clearRect(0,0,canvas.width,canvas.height);
-            // context.fillStyle = "rgb(238, 234, 203)";
-            // context.fillRect(0,0,canvas.width,canvas.height);
-            // context.fill();
 			context.drawImage(bgImg, 0, 0);
         }
         else{
@@ -89,8 +88,91 @@ function GameEngine(){
     this.update = function(_inverseFPS){
     	//Loop through scene character objects and parameters for current abstraction
     	//update accordingly
+        var removeNPCFlag = 0;
         inputManager.processEntry(player);
         player.draw();
+
+        //Check interactions between NPCs an NPC and player (Max's function)
+        //Here is where we exchange reputations, ask for dates, etc.
+        //ScheckNPCInteractions();
+
+        for(var i = 0; i < toRenderList.NPCList.length; ++i){
+            removeNPCFlag = 0;
+            var currNPC =  toRenderList.NPCList[i];
+            var movement = checkFacultyMovement(currNPC);
+            var movementListFlag = 1;
+
+            //Check if NPC is moving to another faculty
+            switch(movement){
+                case "engine":
+                case "arts":
+                case "law":
+                    currNPC.currFaculty = movement;
+                    for(var i = 0; i<allAbstractionLists.length; ++i){
+                        if(allAbstractionLists[i].university == currentUni && allAbstractionLists.faculty  == currNPC.currFaculty){
+                            allAbstractionLists[i].NPCList.push(currNPC);
+                            movementListFlag = 0;
+                        }
+                    }
+                    if(storedListFlag == 1){
+                        movementList.push(currNPC);
+                    }
+                    removeNPCFlag = 1;
+                    break;
+                case "nothing":
+                default:
+                    break;
+            }
+
+            //Remove NPC from current faculty rendering if he/she has left the faculty
+            if(removeNPCFlag == 1){
+                tempRenderList = toRenderList;
+                tempRenderList.NPCList = [];
+                for(var j = 0; j < toRenderList.NPCList.length; ++j){
+                    var otherNPC = toRenderList.NPCList[i];
+                    if(!(currNPC.id == otherNPC.id)){
+                        tempRenderList.NPCList.push(otherNPC);
+                    }
+                }
+            }
+
+        }
+
+        toRenderList = tempRenderList;
+
+        //Render the characters
+        renderNPCs();
+    }
+
+    this.checkFacultyMovement = function(object){
+        if(object.currFaculty == "engine"){
+            if(object.pos_x == ENGINE_ARTS_DOOR_X && object.pos_y == ENGINE_ARTS_DOOR_Y){
+                return "arts";
+            }
+            else if(object.pos_x == ENGINE_LAW_DOOR_X && object.pos_y == ENGINE_LAW_DOOR_Y){
+                return "law";
+            }
+        }
+        if(object.currFaculty == "arts"){
+            if(object.pos_x == ARTS_ENGINE_DOOR_X && object.pos_y == ARTS_ENGINE_DOOR_Y){
+                return "engine";
+            }
+            else if(object.pos_x == ARTS_LAW_DOOR_X && object.pos_y == ARTS_LAW_DOOR_Y){
+                return "law";
+            }
+        }
+        if(object.currFaculty == "law"){
+            if(object.pos_x == LAW_ARTS_DOOR_X && object.pos_y == LAW_ARTS_DOOR_Y){
+                return "arts";
+            }
+            else if(object.pos_x == LAW_ENGINE_DOOR_X && object.pos_y == LAW_ENGINE_DOOR_Y){
+                return "engine";
+            }
+        }
+        else{
+            return "nothing";
+        }
+
     }
 }
 var gameEngine = new GameEngine();

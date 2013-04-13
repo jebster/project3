@@ -1,4 +1,6 @@
 var NPCObj = function(x,y,id, category, university, gender) {
+    this.id = id;
+    this.name = gender+"_"+id;
     this.pos_x = 0;
     this.pos_y = 0;
 
@@ -10,6 +12,10 @@ var NPCObj = function(x,y,id, category, university, gender) {
 
 
     this.daveReputation = null;
+
+    //to keep track of movement within university
+    this.currUniversity;
+    this.curFaculty;
 
     //distribution curve for preferenceType AND
     // primaryType

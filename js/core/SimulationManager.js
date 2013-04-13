@@ -143,10 +143,18 @@ function SimulationManager(){
 
 	function abstractTwoMovement(){
 		alert('moving within same uni');
+		compressLevelOne();
+		populateLowestAbstraction();
+		//Loop through all NPCs on the map, look at their attributes
+		//Update the normal distributions of that faculty and spill over to nearby faculties
+		//Check if there is a laid girl there who will carry added weightage in affecting the normal dist
 	}
 
 	function abstractThreeMovement(){
 		alert('going out of uni');
+		compressLevelOne();
+		compressLevelTwo();
+		populateLowestAbstraction();
 	}
 
 
