@@ -147,6 +147,8 @@ function SimulationManager(){
 
 	function abstractTwoMovement(){
 		alert('moving within same uni');
+		
+
 		compressLevelOne();
 		populateLowestAbstraction();
 
@@ -154,38 +156,44 @@ function SimulationManager(){
 
 		Assume Dave starts in NUSEngin
 
-		NPC_CurrentFaculty = [ guyObject, girlObject];
+		NPC_CurrentFaculty = [ guyObject, girlObject ];
 			
-		daveReputation_Engin = [   ];
+		otherFaculty_1_stats = [ mean, variance ];
 
-		daveReputation_Arts = [   ];
+		otherFaculty_2_stats = [ mean, variance ];
 
-		daveReputation_Law = [   ];
 		
-
-		Case 1: Walks around within NUS, does nothing.
-		==============================================
-
-		e.g. Dave goes from NUSEngin to NUSArts. does nothing
-
-		1. Go through all NPC Objects in NUSEngin, get daveReputation in every NPC, and repopulate daveReputation_Engin [0.1, 0.7, 0.7, 0.7]
-		// Walks in Arts
-		// Dave comes back
-		2. Generate population (fixed)
-		3. Assign daveReputation_Engin to NPCs (there will be an extreme hater or admirer)
-
-
-		Case 2: Perform an action, or goes to NTU
+		Perform an action, or goes to NTU, or more than 30 seconds
 		=========================================
+		// Within Faculty - Compression
 		1. Go through all NPCs in NUSEngin, get daveReputation, update NUSEngin Stats.
-		2. Get NUSArts stats, populate daveReputationList_NUSArts.
-		3. Add inflighttoNUSArts stats to daveReputationList_NUSArts.
+
+		// Other Faculties - Decompression
+		2. Get NUSArts stats, populate daveReputationList_NUSArts[ ].
+		3. Go through inflighttoNUSArts object, extract daveReputation
+		4. Add daveReputation to daveReputationList_NUSArts.
 		4. Recompute NUSArts stats
-		5. Add in SpreadingEffect
-		6. Get new NUSArts stats.
-		7. Do the same for NUSLaw.  
+		5. RULES
+		- Add in SpreadingEffect[ taking into account time]
+		- Action: 10 units
+		- NTU: 20 units
+		- Timer: variable
+		6. Get new NUSArts stats
+		7. From Stats to Individual daveReputation
+
+		8. Do the same for NUSLaw. 
+
+
 
 		*/
+
+		if(case1) {
+
+		}else if(case2){
+
+
+			
+		}
 
 	}
 
@@ -194,6 +202,22 @@ function SimulationManager(){
 		compressLevelOne();
 		compressLevelTwo();
 		populateLowestAbstraction();
+
+		/*
+
+		// Dave is in NUS, Dave goes to NTU - Compression
+		1. Get all stats from Engin, Arts, Law
+		2. Based on RULES, make it into NUS_stats [mean, variance]
+
+		//Entry to NTU - Decompression
+		3. Get NTU_stats
+		4. Apply RULES
+			- time - evolution rule
+			- spilloverFactor
+			- trafficFlow
+		5. Get stats for Engin, Arts, Law in NTU
+
+		*/
 	}
 
 
