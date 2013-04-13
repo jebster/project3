@@ -14,6 +14,10 @@ var context;
 var canvas;
 var bgImg = new Image();
 bgImg.src = "images/nus_engin.png";
+var DOOR_LEFT_X = 284;
+var DOOR_RIGHT_X = 500;
+var TOP_DOOR_BOUND_Y = 44;
+var BOT_DOOR_BOUND_Y = 506;
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
@@ -92,7 +96,7 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.draw();
 
-        //Check interactions between NPCs an NPC and player (Max's function)
+        /*//Check interactions between NPCs an NPC and player (Max's function)
         //Here is where we exchange reputations, ask for dates, etc.
         //ScheckNPCInteractions();
 
@@ -141,7 +145,7 @@ function GameEngine(){
         toRenderList = tempRenderList;
 
         //Render the characters
-        renderNPCs();
+        renderNPCs();*/
     }
 
     this.checkFacultyMovement = function(object){

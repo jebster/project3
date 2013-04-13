@@ -75,6 +75,74 @@ var PlayerObj = function(x, y){
 					this.whichSprite = this.width * 0;
             }
         }
+		//at top door
+		if (this.pos_y <= TOP_DOOR_BOUND_Y && 
+			this.pos_x >= DOOR_LEFT_X && 
+			this.pos_x <= DOOR_RIGHT_X){
+			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+			switch(cur_location){
+				case "artsNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNUS";
+					break;
+				case "engineNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNUS";
+					break;
+				case "lawNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNUS";
+					break;
+				case "artsNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNTU";
+					break;
+				case "engineNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNTU";
+					break;
+				case "lawNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNTU";
+					break;
+			}			
+			simulation.changeLocation();
+			_keys[K_UP].press = false;
+			_keys[K_DOWN].press = false;
+			_keys[K_LEFT].press = false;
+			_keys[K_RIGHT].press = false;
+			this.pos_x = 400;
+			this.pos_y = 480;
+		}
+		//at bot door
+		if (this.pos_y >= BOT_DOOR_BOUND_Y && 
+			this.pos_x >= DOOR_LEFT_X && 
+			this.pos_x <= DOOR_RIGHT_X){
+			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+			switch(cur_location){
+				case "artsNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNUS";
+					break;
+				case "engineNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNUS";
+					break;
+				case "lawNUS":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNUS";
+					break;
+				case "artsNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNTU";
+					break;
+				case "engineNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNTU";
+					break;
+				case "lawNTU":
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNTU";
+					break;
+			}			
+			simulation.changeLocation();
+			_keys[K_UP].press = false;
+			_keys[K_DOWN].press = false;
+			_keys[K_LEFT].press = false;
+			_keys[K_RIGHT].press = false;
+			this.pos_x = 400;
+			this.pos_x = 400;
+			this.pos_y = 50;
+		}
     }
 
     this.draw = function(){

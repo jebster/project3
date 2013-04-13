@@ -149,8 +149,8 @@ function SimulationManager(){
 		alert('moving within same uni');
 		
 
-		compressLevelOne();
-		populateLowestAbstraction();
+		//compressLevelOne();
+		//populateLowestAbstraction();
 
 		/*
 
@@ -187,13 +187,13 @@ function SimulationManager(){
 
 		*/
 
-		if(case1) {
+		// if(case1) {
 
-		}else if(case2){
+		// }else if(case2){
 
 
 			
-		}
+		// }
 
 	}
 
