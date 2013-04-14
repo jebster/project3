@@ -1,4 +1,4 @@
-var AbstractThreeHistogram = function(){
+var AbstractThreeContainer = function(){
 
 
 	

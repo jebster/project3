@@ -3,27 +3,17 @@ function SimulationManager(){
 	var _abstractPopulation = 40;
 	var _decompressFlag = 1;
 	var storedListIndex;
+	var faculty_index;
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
-	this.updateAbstraction = function(){
-		//updateNPCs();
-	}
 
-	this.distributionCurve = function(){
-
-		//formulas and abstraction
-
-	}
-
-	this.varianceCalc = function(){
-
-	}
 
 	// will be triggered when location is changed ~ jensen
 	this.changeLocation = function(){
 
 		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+		currentFaculty = destinationFaculty;
 
 		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
 		document.getElementById('display-uni').innerHTML = destinationUni;
@@ -81,59 +71,124 @@ function SimulationManager(){
 		//Update display of value on screen
 			//amount of time left
 			//progress bar of different attributes
-			
-
-
-
 		alert(player.time)
 
 		document.getElementById('time-left').getElementsByTagName('span').innerHTML = player.time;
 	}
 
+	this.compressLevelOne = function(){
+		var daveReputationArray = [];
+		var old_mean;
+		var old_var;
 
-	this.decompressAbstractTwo = function(){
-			this.decompressAbstractThree();
+		//update current facultie's mean and variance
+		for(var k = 0; k < abstractTwoContainer.faculties.length; ++k){
+			if(abstractTwoContainer.faculties[k] == currentFaculty){
+				faculty_index = k;
 
-			for(var j = 0; j < _abstractPopulation; ++j){
-				
-				var NPC = new NPCObject(x, y, faculty, university, gender);
-				if(NPC.gender == "female"){
-					//set attributes by decompressing normal dist
-					NPC.preference = something;
+				for(var i = 0; i < toRenderList.NPCList.length; ++i){
+					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
-				else{
-					//set attributes by decompresisn normal dist
-				}
 
-				var absList = new AbstractionOneList(id, university, faculty);
-				absList.NPCList.push(NPC);
+				old_mean = abstractTwoContainer.statsList[k].mean;
+				old_var = abstractTwoContainer.statsList[k].variance;
+
+				//jensen
+				var new_mean = UpdateCurrentFacultyMean(daveReputationArray, old_mean);
+				var new_var = UpdateCurrentFacultyVariance(daveReputationArray, old_var);
+
+				abstractTwoContainer.statsList[k].mean = new_mean;
+				abstractTwoContainer.statsList[k].variance = new_var;
+
 			}
-
-			for(var i = 0; i < inFlightList.length; ++i){
-				if(inFlightList[i].currFaculty == absList.faculty &&
-					inFlightList[i].currUniversity == absList.university){
-					absList.NPCList.push(inFlightList[i]);
+			//update otherfaculties' mean and variance as a result of traffic flow
+			else{
+				old_mean =  abstractTwoContainer.statsList[k].mean;
+				old_var = abstractTwoContainer.statsList[k].variance;
+				var inFlightArray = [];
+				for(var i = 0; i < inFlightList.length; ++i){
+					if(inFlightList[i].currFaculty == abstractTwoContainer.faculties[k]){
+						inFlightArray.push(inFlightList[i].daveReputation);
+					}
 				}
+
+				//Update the mean and variance using rules (jensen)
+				var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
+				var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
+
+				abstractTwoContainer.statsList[k].mean = new_mean;
+				abstractTwoContainer.statsList[k].variance = new_var;
 			}
-		//render this newly created list
-		toRenderList = absList;
+		}
 	}
 
+	this.decompressAbstractTwo = function(){
+
+		var decompression_mean = abstractTwoContainer.statsList[faculty_index].mean;
+		var decompression_var = abstractTwoContainer.statsList[faculty_index].variance;
+		var absList = new AbstractionOneList(university, faculty);
+
+		for(var j = 0; j < _abstractPopulation; ++j){
+			var gender_assign;
+			if(ProbabilityChecker(0.5) == 1){
+				gender_assign = "male";
+			}
+			else{
+				gender_assign = "female";
+			}	
+		
+			var NPC = new NPCObject(x, y, destinationFaculty, destinationUni, gender_assign);
+
+			if(NPC.gender == "female"){
+				//set preferencetype by decompressing normal dist
+				NPC.primaryPreferenceIndex = getPreferenceFromNormalDistribution();
+			}
+			else{
+				//set attributes by decompressing normal dist
+				NPC.primaryTypeIndex = getTypeFromNormalDistribution(decompression_mean,decompression_var);
+			}
+			NPC.daveReputation = getRepFromNormalDistribution(decompression_mean,decompression_var);
+			absList.NPCList.push(NPC);
+		}
+
+		//add in the inflight persons
+		for(var i = 0; i < inFlightList.length; ++i){
+			if(inFlightList[i].currFaculty == absList.faculty &&
+				inFlightList[i].currUniversity == absList.university){
+				absList.NPCList.push(inFlightList[i]);
+			}
+		
+		//render this newly created list
+		toRenderList = absList;	
+	}
+
+	this.compressLevelTwo = function(){
+		//Take all stats of three faculties, compress into one
+		abstractThreeContainer.update(newvalues);
+	}
 
 	this.decompressAbstractThree = function(){
-
+		//Get stats of three faculties, apply rules and update individual faculty stats
+		abstractTwoContainer.update(abstractThreeContainer.value);
+		//Also need to get information about PreferenceType distribution
+		//Apply rules to the preference type distribution, taking into 
+		//consideration exam week, vday events and time passed
 	}
 
 
 	function abstractTwoMovement(){
 		alert('moving within same uni');
 		
+		this.compressLevelOne();
 
-		//compressLevelOne();
-		//populateLowestAbstraction();
+		//We only need to decompress and repopulate if Dave moves to another faculty/Uni or does action
+		//that takes a lot of time
+		//If he's just standing doing nothing in the same faculty, continue in atomic state, no need to decompress.
+		if(!(daveDoesNothing)){
+			this.decompressAbstractTwo();
+		}
 
 		/*
-
 		Assume Dave starts in NUSEngin
 
 		NPC_CurrentFaculty = [ guyObject, girlObject ];
@@ -179,9 +234,10 @@ function SimulationManager(){
 
 	function abstractThreeMovement(){
 		alert('going out of uni');
-		compressLevelOne();
-		compressLevelTwo();
-		populateLowestAbstraction();
+		this.compressLevelOne();
+		this.compressLevelTwo();
+		this.decompressAbstractThree();
+		this.decompressAbstractTwo();
 
 		/*
 
@@ -200,11 +256,13 @@ function SimulationManager(){
 		*/
 	}
 
-	function compressLevelOne(){
-
+	function ProbabilityChecker(probability){
+		var chance = Math.random();
+		if(chance <= probability){
+			return 1;
+		}
+		return 0;
 	}
-
-
 
 }
 
