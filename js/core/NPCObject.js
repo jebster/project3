@@ -12,6 +12,8 @@ var NPCObj = function(x,y,id, category, university, gender) {
 	this.target_x = x;
 	this.target_y = y;
 	this.wait_time = 0;
+	this.interaction = false;
+	this.interactionTarget;
 
     this.category = category;
     this.gender = gender;
@@ -117,7 +119,18 @@ var NPCObj = function(x,y,id, category, university, gender) {
 			}
         }
     }
-
+	
+	this.interactionCheck = function(){
+		for (iter in npcCollidables){
+			if(npcCollidables[iter].id != this.id){
+				if(collisionChecker(this, npcCollidables[iter])){
+					//collided
+					console.log(this.id + " and " + npcCollidables[iter].id + " have collided");
+				}
+			}
+		}
+	}
+	
 	this.move = function(){
 			if(this.isMoving == true){
 				//using if else statements to ensure NPC move in one direction only
@@ -192,6 +205,7 @@ var NPCObj = function(x,y,id, category, university, gender) {
 
 
     */
+
     
 
     this.draw = function() {
@@ -200,4 +214,12 @@ var NPCObj = function(x,y,id, category, university, gender) {
 							this.pos_y, 32, 32);
     }
 
+}
+
+collisionChecker = function(o1, o2){
+	if( o2.pos_x > o1.width + o1.pos_x || o1.pos_x > o2.width + o2.pos_x)
+		return false;
+	if( o2.pos_y > o1.width + o1.pos_y || o1.pos_y > o2.width + o2.pos_y)
+		return false;
+	return true;
 }

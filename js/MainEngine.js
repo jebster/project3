@@ -29,6 +29,7 @@ var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 506;
 var grid_threshold = 16;	//threshold for NPC movement to random spots
+var npcCollidables = toRenderList.NPCList;
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
@@ -154,6 +155,7 @@ function GameEngine(){
 			else{
 				//if not removed, draw the character
 				currNPC.draw();
+				currNPC.interactionCheck();
 			}
 
         }
