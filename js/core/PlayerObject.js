@@ -6,7 +6,7 @@ var PlayerObj = function(x, y){
     this.playerSpeed = 5;
 	this.image = new Image();
 	this.image.src = "images/main_char.png";
-	this.whichSprite = 32;
+	this.whichSprite = 0;
 	this.facingWhichDirection;
 	this.keepMoving = false;
 	this.animSpeed;

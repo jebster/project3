@@ -5,7 +5,18 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
-var toRenderList;
+var toRenderList = {NPCList: [		new NPCObj(132, 132, 1, "engine", "NUS", "male"),
+									new NPCObj(164, 164, 2, "engine", "NUS", "male"),
+									new NPCObj(196, 196, 3, "engine", "NUS", "female"),
+									new NPCObj(228, 228, 4, "engine", "NUS", "female"),
+									new NPCObj(260, 260, 5, "arts", "NUS", "male"),
+									new NPCObj(292, 292, 6, "arts", "NUS", "male"),
+									new NPCObj(324, 292, 7, "arts", "NUS", "female"),
+									new NPCObj(356, 260, 8, "arts", "NUS", "female"),
+									new NPCObj(388, 228, 9, "law", "NUS", "male"),
+									new NPCObj(420, 196, 10, "law", "NUS", "male"),
+									new NPCObj(452, 164, 11, "law", "NUS", "female"),
+									new NPCObj(484, 132, 12, "law", "NUS", "female")	]};
 var tempRenderList;
 var inFlightList;
 var _inverseFPS = 1.0/30.0;
@@ -17,6 +28,7 @@ var DOOR_LEFT_X = 284;
 var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 506;
+var grid_threshold = 16;	//threshold for NPC movement to random spots
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
@@ -38,7 +50,7 @@ function GameEngine(){
         _abstract2_canvas = document.getElementById(abs2_canvas);
 
         //initialise player object
-        player = new PlayerObj(20,20);
+        player = new PlayerObj(0,0);
 
 
         //initialize simulation manager ~ jensen
@@ -46,8 +58,7 @@ function GameEngine(){
 
         // initialize input manager
         inputManager.init(_inverseFPS);
-
-
+							
         gameEngine.run();
 
     }
@@ -101,15 +112,21 @@ function GameEngine(){
         //Check interactions between NPCs an NPC and player (Max's function)
         //Here is where we exchange reputations, ask for dates, etc.
         //checkNPCInteractions();
-
+		
+		tempRenderList = toRenderList;
+		
         for(var i = 0; i < toRenderList.NPCList.length; ++i){
             removeNPCFlag = 0;
             var currNPC =  toRenderList.NPCList[i];
-            var movement = checkFacultyMovement(currNPC);
+			
+			//make them move
+			currNPC.move();
+			
+            //var movement = checkFacultyMovement(currNPC);
             var inFlightListFlag = 1;
 
             //Check if NPC is moving to another faculty
-            switch(movement){
+            /*switch(movement){
                 case "engine":
                 case "arts":
                 case "law":
@@ -120,11 +137,10 @@ function GameEngine(){
                 case "nothing":
                 default:
                     break;
-            }
+            }*/
 
             //Remove NPC from current faculty rendering if he/she has left the faculty
             if(removeNPCFlag == 1){
-                tempRenderList = toRenderList;
                 tempRenderList.NPCList = [];
                 for(var j = 0; j < toRenderList.NPCList.length; ++j){
                     var otherNPC = toRenderList.NPCList[i];
@@ -133,13 +149,15 @@ function GameEngine(){
                     }
                 }
             }
+			else{
+				//if not removed, draw the character
+				currNPC.draw();
+			}
 
         }
 
         toRenderList = tempRenderList;
 
-        //Render the characters
-        renderNPCs();*/
     }
 
     this.checkFacultyMovement = function(object){
