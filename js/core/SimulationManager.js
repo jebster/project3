@@ -45,13 +45,13 @@ function SimulationManager(){
 		
 		if(currentUni == destinationUni) {
 
-			abstractTwoMovement();
+			this.abstractTwoMovement();
 
 			
 		} else {
 			
 			currentUni = destinationUni;
-			abstractThreeMovement();
+			this.abstractThreeMovement();
 		}
 	}
 
@@ -81,8 +81,11 @@ function SimulationManager(){
 		var old_mean;
 		var old_var;
 
+		abstractTwoContainer.update();
+
 		//update current facultie's mean and variance
 		for(var k = 0; k < abstractTwoContainer.faculties.length; ++k){
+
 			if(abstractTwoContainer.faculties[k] == currentFaculty){
 				faculty_index = k;
 
@@ -90,8 +93,12 @@ function SimulationManager(){
 					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
 
+				
+
 				old_mean = abstractTwoContainer.statsList[k].mean;
 				old_var = abstractTwoContainer.statsList[k].variance;
+
+				
 
 				//jensen
 				var new_mean = UpdateCurrentFacultyMean(daveReputationArray, old_mean);
@@ -121,6 +128,26 @@ function SimulationManager(){
 			}
 		}
 	}
+
+		this.UpdateCurrentFacultyMean = function(daveReputationArray, old_mean) {
+
+			
+
+			return mean(daveReputationArray);
+
+
+		}
+
+		this.UpdateCurrentFacultyVariance = function(daveReputationArray, old_var) {
+
+			var new_var;
+
+			return new_var;
+
+		}
+
+
+
 
 	this.decompressAbstractTwo = function(){
 
@@ -157,6 +184,7 @@ function SimulationManager(){
 				inFlightList[i].currUniversity == absList.university){
 				absList.NPCList.push(inFlightList[i]);
 			}
+		}
 		
 		//render this newly created list
 		toRenderList = absList;	
@@ -176,47 +204,119 @@ function SimulationManager(){
 	}
 
 
-	function abstractTwoMovement(){
+	this.abstractTwoMovement = function(){
+
 		alert('moving within same uni');
 		
+		// Happens when time has passed 1 minute
+		// Or Dave did an action
+		// Or Dave change faculty
 		this.compressLevelOne();
 
 		//We only need to decompress and repopulate if Dave moves to another faculty/Uni or does action
 		//that takes a lot of time
 		//If he's just standing doing nothing in the same faculty, continue in atomic state, no need to decompress.
 		if(!(daveDoesNothing)){
-			this.decompressAbstractTwo();
+
+			// Or Dave did an action
+		// Or Dave change faculty			this.decompressAbstractTwo();
 		}
 
 		/*
 		Assume Dave starts in NUSEngin
 
+		// At any point of time, we are holding this (global)
 		NPC_CurrentFaculty = [ guyObject, girlObject ];
+
+		inFlightList[ guyObject, girlObject];
 			
 		otherFaculty_1_stats = [ mean, variance ];
 
 		otherFaculty_2_stats = [ mean, variance ];
 
+		currentFaculty_stats = [ mean, variance ];
+
+		// Abstract 3 List (extra info)
+		otherUniversity = [ mean, variance ];
+
 		
-		Perform an action, or goes to NTU, or more than 30 seconds
-		=========================================
+		X: Perform an action, or goes to NTU, or more than 1 minute - Compression Abstract 1
+		========================================================
 		// Within Faculty - Compression
-		1. Go through all NPCs in NUSEngin, get daveReputation, update NUSEngin Stats.
+		1. Go through all NPCs in NUSEngin, get daveReputation, update currentFaculty_stats.
 
-		// Other Faculties - Decompression
-		2. Get NUSArts stats, populate daveReputationList_NUSArts[ ].
-		3. Go through inflighttoNUSArts object, extract daveReputation
-		4. Add daveReputation to daveReputationList_NUSArts[    ]
-		4. Recompute NUSArts stats 
-		5. function RULE1(stats) 
-		- Add in SpreadingEffect[ taking into account time]
-		- Action: 10 units
-		- NTU: 20 units
-		- Timer: variable
-		6. Get new NUSArts stats
-		7. From Stats to Individual daveReputation
+		
+		// Other Faculties  - Compression
+		2. Get NUSArts stats, create and populate daveReputationList_NUSArts[ ].
+		3. Go through inflighttoNUSArts object, extract daveReputation, and timeNPCLeaves
+		4. function spreadingEffect(daveReputation_inflight, timeNPCLeaves) {
+	
+			// assume 5 units of time has passed since NPC left
+			// average out with 5 daveReputation values (based on some intelligence)
 
-		8. Do the same for NUSLaw. 
+		}
+		4. Recompute NUSArts stats (otherFaculty_1_stats)
+		5. do the same for NUSLaw (otherFaculty_2_stats)
+
+
+
+
+		Y: Goes to NUSEngin from NUSArts (change faculty)  
+		=========================================
+			1:Compress NUSEngin
+			================
+			Step X
+
+			2: Decompress NUSArts
+			==================
+			1. Use NUSArts stats(mean, variance), other info, create NPCs
+
+			// Populate NPC Girls
+			2. Use preferenceType percentage (0.2 nerd, 0.5 talent, 0.3 hunk) at AbstractThree to assign the number of NPC girls who has a specific preferenceType
+
+			note: preferenceType works with percentage of population.
+			for example:
+			- 0.2 of population is nerd
+			- 0.5 is talent
+			- 0.3 is hunk
+			note: when exam time happens, we change accordingly
+			- 0.3 nerd
+			- 0.5 talent
+			- 0.2 hunk
+
+			// Populate NPC Guys
+			3. Use probability to assign primaryTypeIndex to guys(0.1 is a lousy nerd, while 0.3 is a good nerd).
+
+
+
+		Z: Goes to NTUEngin 
+		==========================================
+			Compress AbstractTwo Stats (NUS)
+			=================================
+			1. Perform all steps in X (compress every faculty in NUS and take individual faculty stats), store it as it is
+			2. Take average daveReputation of three faculties
+
+			Decompress AbstractThree Stats (NTU)
+			===================================
+			1. function changeUni(NTU_stats){
+				
+				//NTU_stats is [NTUEngin_stats, NTUArts_stats, NTULaw_stats]
+
+				function spreadingEffectLevel3(NTU_stats) {
+					
+					1. Time for daveReputation to spread within NTU
+					2. SpreadingEffect from NUS
+					- take average daveReputation from all 3 faculties from NUS
+					- use it as weightage on how it affects NTU_stats
+				}
+
+				function eventsEffectLevel3() {
+					//change preferenceType (see Y.2)
+				}
+			}
+
+			2. Decompress NTUEngin stats (Y.2:)
+
 
 
 
@@ -232,7 +332,7 @@ function SimulationManager(){
 
 	}
 
-	function abstractThreeMovement(){
+	this.abstractThreeMovement = function(){
 		alert('going out of uni');
 		this.compressLevelOne();
 		this.compressLevelTwo();

@@ -18,7 +18,7 @@ var toRenderList = {NPCList: [		new NPCObj(132, 132, 1, "engine", "NUS", "male")
 									new NPCObj(452, 164, 11, "law", "NUS", "female"),
 									new NPCObj(484, 132, 12, "law", "NUS", "female")	]};
 var tempRenderList;
-var inFlightList;
+var inFlightList = new Array();
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
@@ -55,6 +55,8 @@ function GameEngine(){
 
         //initialize simulation manager ~ jensen
         simulation = new SimulationManager();
+
+        abstractTwoContainer = new AbstractTwoContainer();
 
         // initialize input manager
         inputManager.init(_inverseFPS);

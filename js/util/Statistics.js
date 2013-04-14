@@ -227,7 +227,7 @@ var NormalDistribution = function(reputationArray){
 
 }
 
-var normalDis = new NormalDistribution(daveReputation);
+var normalDis = new NormalDistribution(daveReputation_nusArt);
 
 console.log('If x is 0.5(daveReputation), Fx(no. of people) is: ' +normalDis.get_Fx(0.5));
 console.log('If Fx is 1.2(no. of people), x(daveReputation) is: ' +normalDis.get_x(1.2));

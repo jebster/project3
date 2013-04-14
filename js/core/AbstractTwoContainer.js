@@ -12,22 +12,29 @@ var AbstractTwoContainer = function(){
 
 	this.preferenceTypeStats;
 
-	this.update = function(abstractThreeValue){
+
+	this.update = function(){
+		alert('entered');
 		for(var i = 0; i < this.faculties.length; ++i){
 			var faculty_mean = getMeanFromAbstractThree();
 			var faculty_variance = getVarFromAbstractThree();
 			var faculty_stats = new AbstractTwoParameters(this.faculties[i],faculty_mean,faculty_variance);
-			statsList.push(faculty_stats);
+			this.statsList.push(faculty_stats);
 		}
 	}
 }
 
 function getMeanFromAbstractThree(){
 
+	//dummy data for now
+	return 0.5;
+
 }
 
 function getVarFromAbstractThree(){
-	
+
+	//dummy data for now
+	return 0.2;
 }
 
 var AbstractTwoParameters = function(faculty, mean, variance){
