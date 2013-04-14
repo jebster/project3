@@ -151,9 +151,9 @@ function SimulationManager(){
 		// Other Faculties - Decompression
 		2. Get NUSArts stats, populate daveReputationList_NUSArts[ ].
 		3. Go through inflighttoNUSArts object, extract daveReputation
-		4. Add daveReputation to daveReputationList_NUSArts.
-		4. Recompute NUSArts stats
-		5. RULES
+		4. Add daveReputation to daveReputationList_NUSArts[    ]
+		4. Recompute NUSArts stats 
+		5. function RULE1(stats) 
 		- Add in SpreadingEffect[ taking into account time]
 		- Action: 10 units
 		- NTU: 20 units
@@ -187,11 +187,11 @@ function SimulationManager(){
 
 		// Dave is in NUS, Dave goes to NTU - Compression
 		1. Get all stats from Engin, Arts, Law
-		2. Based on RULES, make it into NUS_stats [mean, variance]
+		2. Make it into NUS_stats [mean, variance]
 
 		//Entry to NTU - Decompression
 		3. Get NTU_stats
-		4. Apply RULES
+		4. Apply RULES2(NTU_stats)
 			- time - evolution rule
 			- spilloverFactor
 			- trafficFlow
