@@ -29,7 +29,7 @@ function SimulationManager(){
 	var withinFac = null;
 
 	//Spreading at other faculties of his reputation - jensen
-	var spreadingEffect;
+	var withinFac_interaction;
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
@@ -165,15 +165,14 @@ function SimulationManager(){
 		*/
 	}
 
-	/*
-	==========================================
-	************ Every 1 minute Refresh Stats 
-	==========================================
-	*/
+	
+	/*========================================
+	***** Every 1 minute Refresh Stats *******
+	========================================*/
 
 	this.autoCompress = function(){
 
-		//Count for every 1 minute
+		//Counter for every 1 minute
 
 		//Still within faculty
 		withinFac = true;
@@ -245,11 +244,12 @@ function SimulationManager(){
 					
 					//if leaves faculty to enter another faculty
 					//Will check how long has Dave left that other faculty
-					spreadingEffect = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
+					withinFac_interaction = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
 				
-					if(spreadingEffect < 10){
+					////TO-DO-JENSEN: Formula to have a range to spreading Effect
+					if(withinFac_interaction < 10){
 						abstractTwoContainer.statsList[k].variance -= 0.05;
-					}else if(spreadingEffect < 30){
+					}else if(withinFac_interaction < 30){
 						abstractTwoContainer.statsList[k].variance -= 0.1;
 					}
 					
@@ -262,6 +262,9 @@ function SimulationManager(){
 				old_mean =  abstractTwoContainer.statsList[k].mean;
 				old_var = abstractTwoContainer.statsList[k].variance;
 
+				var otherFac_daveReputation_dis = new NormalDistribution(old_mean,old_var);
+
+
 				//populate daveReputation list
 				var daveRep = 0.1;
 				var npcCount = 0;
@@ -269,13 +272,17 @@ function SimulationManager(){
 
 				//loop through each reputation, get no. of NPC with that reputation
 				for(daveRep; daveRep<=1.0; daveRep += 0.1){
-					npcCount=normalDis.get_Fx(daveRep);
+
+					npcCount=otherFac_daveReputation_dis.get_Fx(daveRep);
 
 					//push daveReputation with corresnponding count to the array
 					for(var i=0; i<npcCount; i++){
 						daveReputationArray.push(daveRep);
 					}
 				}
+
+				//TO-DO-JENSEN: 
+				// randomize order of daveReputationArray;
 
 				//Array of daveReputation extracted from inFlight Objects in a faculty
 				var inFlightArray_daveRep = [];
@@ -299,7 +306,7 @@ function SimulationManager(){
 
 						//Get daveReputation for inflight
 						inFlight_daveRep = inFlightList[i].daveReputation;
-						inFlight_timeLeavesFac = inFlightList[i].leftAtTime;
+						inFlight_timeLeavesFac = inFlightList[i].lastSeen;
 						timeOutFac = currentTime-inFlight_timeLeavesFac;
 
 						//Assume every five seconds away from faculty, NPC can talk to a person.
@@ -310,11 +317,15 @@ function SimulationManager(){
 							//the current NPC that inFlight is talking to
 							var npc_daveRep = daveReputationArray[array_index];
 							//after talking, they influence each other
+							//TO-DO-JENSEN: make it more intelligent
+							//Extremist people will influence the neutral people, but neutral will not be influenced
 							var afterTalk_daveRep = (npc_daveRep+inFlight_daveRep)/2;
 							//NPC being talked to has new daveRep
 							daveReputationArray[array_index] = afterTalk_daveRep;
 							//inFlight modified daveRep pushed to array
 							inFlightArray_daveRep.push(afterTalk_daveRep);
+
+							array_index++;
 						}
 					}
 				}
@@ -401,6 +412,7 @@ function SimulationManager(){
 					type_index = AssignDistributionRange(probOtherFaculty, probOtherFaculty, probCurrentFaculty);
 				}
 				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_start[type_index])) + primaryTypeIndex_end[type_index];
+					//TO-DO-VARUN: convert it to score
 			}
 
 			//====>TO-DO: NEED TO CHANGE CONSTRUCTOR TO IDENTIFY CATEGORY SO THAT CORRESPONDING SPRITE IMAGE CAN BE LOADED

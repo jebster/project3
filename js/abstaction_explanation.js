@@ -63,6 +63,9 @@
 			// Populate NPC Guys
 			3. Use probability to assign primaryTypeIndex to guys(0.1 is a lousy nerd, while 0.3 is a good nerd).
 
+			0 - 0.3: Nerd
+			0.4-0.7: Hunk
+			0.8-1.0: Talent
 
 
 		Z: Goes to NTUEngin 
