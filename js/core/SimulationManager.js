@@ -26,6 +26,8 @@ function SimulationManager(){
 
 	var preferenceTypeList = ["nerd", "hunk", "talent"];
 
+	var categoryList = ["engine", "arts", "law"];
+
 	//For auto compression purposes (see autoCompress()) - jensen
 	var withinFac = null;
 
@@ -381,12 +383,14 @@ function SimulationManager(){
 		//Only Guy NPC
 		var currNPCPrimaryTypeIndex;
 
-		//Jensen!
+		//Distribution of reputation for current faculty
 		daveReputation_distribution = new NormalDistribution(decompression_mean, decompression_var);
 
 		this.assignReputationRangeWeightage();
 
 		var index = this.assignReputationRange();
+
+		var type_index;
 
 		//Create NPC Girl and Guy 50% chance
 		for(var j = 0; j < _abstractPopulation; ++j){
@@ -398,7 +402,7 @@ function SimulationManager(){
 				gender_assign = "female";
 			}	
 		
-
+			//Get which range of reputation to assign based on prob distribution
 			var range_index = AssignDistributionRange(probBadReputation, probNeutralReputation, probGoodReputation);
 
 			currNPCDaveReputation = (Math.random()*(reputationRange_start[range_index])) + reputationRange_end[range_index];
@@ -410,9 +414,6 @@ function SimulationManager(){
 			}
 			else{
 				//set primaryType for GUYS
-
-				var type_index;
-
 				if(currentFaculty == "engine"){
 					type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty, probOtherFaculty);
 				}
@@ -423,11 +424,17 @@ function SimulationManager(){
 					type_index = AssignDistributionRange(probOtherFaculty, probOtherFaculty, probCurrentFaculty);
 				}
 				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_start[type_index])) + primaryTypeIndex_end[type_index];
-					//TO-DO-VARUN: convert it to score
 			}
 
-			//====>TO-DO: NEED TO CHANGE CONSTRUCTOR TO IDENTIFY CATEGORY SO THAT CORRESPONDING SPRITE IMAGE CAN BE LOADED
-			var NPC = new NPCObject(x, y, id, destinationFaculty, destinationUni, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+			var score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_start[type_index])*10;
+
+			var currNPCcategory = categoryList[type_index];
+
+			var NPC = new NPCObject(i+5, i+5, i, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+
+			NPC.primaryTypeScore = score;
+			NPC.primaryType = preferenceTypeList[type_index];
+
 			absList.NPCList.push(NPC);
 		}
 

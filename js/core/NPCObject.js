@@ -1,4 +1,4 @@
-var NPCObj = function(x,y,id, category, university, gender) {
+var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primaryTypeIndex) {
     this.id = id;
     this.name = gender+"_"+id;
     this.pos_x = x;
@@ -17,12 +17,12 @@ var NPCObj = function(x,y,id, category, university, gender) {
 
     this.category = category;
     this.gender = gender;
-    this.university = university;
+    this.university;
 
     this.abstractionModifier;
 
 
-    this.daveReputation;
+    this.daveReputation = daveRep;
 
     //to keep track of movement within university
     this.currUniversity;
@@ -76,7 +76,7 @@ var NPCObj = function(x,y,id, category, university, gender) {
 			}
         }
 
-            this.primaryTypeIndex;
+            this.primaryTypeIndex = primaryTypeIndex;
             this.primaryType;
             this.primaryTypeScore;
     }
@@ -84,12 +84,12 @@ var NPCObj = function(x,y,id, category, university, gender) {
     if(this.gender == "female"){
 
         //this.primaryPreferenceIndex = 0.5;
-        this.preferenceType;
+        this.preferenceType = preferenceType;
 
         // each interaction, girl goes into guy this.primaryTypeScore, and updates primaryPreferenceScore
-        this.primaryPreference_best = 0.2;
+        this.primaryPreference_best;
 
-        this.laidWithDave = true;
+        this.laidWithDave = false;
 		
 		if (this.category === "engine") {
 			//setting image source
