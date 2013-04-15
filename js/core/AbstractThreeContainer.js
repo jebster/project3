@@ -46,11 +46,11 @@ var AbstractThreeContainer = function(){
 
 		
 	}
-	this.update = function(statsMeanArray, statsVarArray, unversity ){
+	this.update = function(statsMeanArray, statsVarArray, university ){
 
 		//order of array is
 		//faculty_MeanStats[engin, arts, law]
-		var i = this.universities.indexOf(unversity);
+		var i = this.universities.indexOf(university);
 		var faculty_MeanStats = statsMeanArray;
 		var faculty_VarStats = statsVarArray;
 		var avgMean;
@@ -59,16 +59,18 @@ var AbstractThreeContainer = function(){
 		var totalMean = 0;
 		var totalVar = 0;
 
-		for(var j =0; j<faculty_MeanStats.length; ++i){
+
+		for(var j =0; j<faculty_MeanStats.length; ++j){
 			totalMean += faculty_MeanStats[j];
 			totalVar += faculty_VarStats[j];
 		}
+
 
 		avgMean = totalMean / faculty_MeanStats.length;
 		avgVar = totalVar / faculty_VarStats.length;
 
 		var parameters = new AbstractThreeParameters(university, statsMeanArray, statsVarArray, avgMean, avgVar);
-		universityStats[i] = parameters;
+		this.universityStats[i] = parameters;
 	}
 }
 

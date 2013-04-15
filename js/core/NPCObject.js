@@ -214,9 +214,11 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
     
 
     this.draw = function() {
+
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
 							this.pos_y, 32, 32);
+
     }
 
 }

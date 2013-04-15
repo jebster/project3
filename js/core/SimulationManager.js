@@ -36,6 +36,7 @@ function SimulationManager(){
 
 	// Track Location ~ jensen
 	var currentUni = 'NUS'; // always start in NUS
+	var currentFaculty = 'engine';
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
@@ -45,6 +46,7 @@ function SimulationManager(){
 	this.changeLocation = function(){
 
 		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+
 		currentFaculty = destinationFaculty;
 
 		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
