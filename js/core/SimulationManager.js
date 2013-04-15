@@ -34,6 +34,9 @@ function SimulationManager(){
 	//Spreading at other faculties of his reputation - jensen
 	var withinFac_interaction;
 
+	// Track Location ~ jensen
+	var currentUni = 'NUS'; // always start in NUS
+
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
 
@@ -356,6 +359,14 @@ function SimulationManager(){
 	}
 
 	this.compressLevelTwo = function(){
+
+		//Tag the time Dave leaves the university
+		if(currentUni == 'NUS'){
+			abstractThreeContainer.universityStats[0].lastSeen = getCurTime();
+		}else{
+			abstractThreeContainer.universityStats[1].lastSeen = getCurTime();
+		}
+
 		//Take all stats of three faculties, compress into one
 
 

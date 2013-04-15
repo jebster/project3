@@ -11,23 +11,40 @@ var AbstractThreeContainer = function(){
 	this.globalTimer;
 
 	this.updatePreference = function(){
-		//Exam week
-		if(this.globalTimer > 300 && this.globalTimer<600){
-		 	this.preferenceTypeModifier = [1.5, 0.7, 0.7];
 
+		//Get the last three digits of the time (133122334)
+		var the_number = getCurTime().toString();
+		var temp_end_index = the_number.length;
+		var temp_beginning_index = temp_end_index-3;
+
+		//Ranges from 000 - 999 
+		var thousand_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index );
+
+		//As long as it is within the cycle
+		if(this.globalTimer < 995){
+			this.globalTimer = thousand_sec_cycle;
+		}else{
+			this.globalTimer = 0;
+		}
+		
+		/*************
+			Events
+		**************/
+
+		//Exam week
+		if(this.globalTimer > 200 && this.globalTimer<500){
+		 	this.preferenceTypeModifier = [1.5, 0.7, 0.7];
 		}
 		//Sports Week
-		else if(this.globalTimer > 600 && this.globalTimer < 900){
+		else if(this.globalTimer > 500 && this.globalTimer < 700){
 			this.preferenceTypeModifier = [0.6, 1.5, 0.7];
 		}
 		//V day (Talent)
-		else if(this.globalTimer > 900){
+		else if(this.globalTimer > 700){
 			this.preferenceTypeModifier = [0.6, 0.6, 1.5];
 		}
 
-		if(this.globalTimer > 1200){
-			this.globalTimer = 0;
-		}
+		
 	}
 	this.update = function(statsMeanArray, statsVarArray, unversity ){
 
@@ -56,11 +73,15 @@ var AbstractThreeContainer = function(){
 }
 
 var AbstractThreeParameters = function(university, facultyMeanStats, facultyVarStats, averageDaveReputationMean, averageDaveReputationVariance){
-	this.unversity = university;
+	this.university = university;
+	//arrays of means [engine, arts, law]
 	this.facultyMeanStats = facultyMeanStats;
 	this.facultyVarStats = facultyVarStats;
 	this.averageDaveReputationMean = averageDaveReputationMean;
 	this.averageDaveReputationVariance = averageDaveReputationVariance;
+
+	//the last time Dave is seen in the university
+	this.lastSeen = 0;
 
 }
 

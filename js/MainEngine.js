@@ -46,8 +46,7 @@ var npcCollidables = toRenderList.NPCList;
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
 
-// Track Location ~ jensen
-var currentUni = 'NUS'; // always start in NUS
+
 
 function GameEngine(){
 	var _abstract1_canvas = null;
@@ -70,7 +69,7 @@ function GameEngine(){
         simulation = new SimulationManager();
 
         abstractTwoContainer = new AbstractTwoContainer();
-        abstractThreeContainer = new AbstractTwoContainer();
+        abstractThreeContainer = new AbstractThreeContainer();
 
         // initialize input manager
         inputManager.init(_inverseFPS);
@@ -101,6 +100,11 @@ function GameEngine(){
         gameEngine.renderCanvas();
         gameEngine.update(_inverseFPS);
         simulation.autoCompress();
+
+        
+        abstractThreeContainer.updatePreference();
+
+
 
 
 

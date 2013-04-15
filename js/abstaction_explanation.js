@@ -103,7 +103,6 @@
 
 					at time 300_seconds: Exam(nerd) {
 						
-						
 
 					}
 					600_seconds: sports day(hunk)
