@@ -5,10 +5,30 @@ var AbstractThreeContainer = function(){
 	this.universityStats = ["",""];
 
 	//???
-	this.preferenceTypeModifier;
+	this.preferenceTypeModifier = [1.0, 1.0, 1.0]
 	this.timeOutOfUniversity;
 
+	this.globalTimer;
 
+	this.updatePreference = function(){
+		//Exam week
+		if(this.globalTimer > 300 && this.globalTimer<600){
+		 	this.preferenceTypeModifier = [1.5, 0.7, 0.7];
+
+		}
+		//Sports Week
+		else if(this.globalTimer > 600 && this.globalTimer < 900){
+			this.preferenceTypeModifier = [0.6, 1.5, 0.7];
+		}
+		//V day (Talent)
+		else if(this.globalTimer > 900){
+			this.preferenceTypeModifier = [0.6, 0.6, 1.5];
+		}
+
+		if(this.globalTimer > 1200){
+			this.globalTimer = 0;
+		}
+	}
 	this.update = function(statsMeanArray, statsVarArray, unversity ){
 
 		//order of array is

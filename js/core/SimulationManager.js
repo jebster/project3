@@ -478,9 +478,14 @@ function SimulationManager(){
 	this.decompressAbstractThree = function(){
 		//Get stats of three faculties, apply rules and update individual faculty stats
 		abstractTwoContainer.update(abstractThreeContainer.value);
+
+
 		//Also need to get information about PreferenceType distribution
 		//Apply rules to the preference type distribution, taking into 
 		//consideration exam week, vday events and time passed
+		for(var i=0; i<abstractTwoContainer.preferenceTypeStats.length; ++i){
+			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * timer;
+		}
 	}
 
 
