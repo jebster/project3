@@ -35,6 +35,9 @@ var NPCObj = function(x,y,id, category, university, gender) {
     // 0.3 - 0.7: Talent
     // 0.7-1.0: Hunk
 
+    //tag the time when NPC leaves faculty
+    this.leftAtTime;
+
 
     if(this.gender == "male"){
 
@@ -127,7 +130,7 @@ var NPCObj = function(x,y,id, category, university, gender) {
 			if(npcCollidables[iter].id != this.id){
 				if(collisionChecker(this, npcCollidables[iter])){
 					//collided
-					console.log(this.id + " and " + npcCollidables[iter].id + " have collided");
+					//console.log(this.id + " and " + npcCollidables[iter].id + " have collided");
 				}
 			}
 		}

@@ -94,50 +94,107 @@ function SimulationManager(){
 
 	this.compressLevelOne = function(){
 		var daveReputationArray = [];
+		
 		var old_mean;
 		var old_var;
 
 		abstractTwoContainer.update();
 
-		//update current facultie's mean and variance
+		//update current faculty's mean and variance
 		for(var k = 0; k < abstractTwoContainer.faculties.length; ++k){
 
 			if(abstractTwoContainer.faculties[k] == currentFaculty){
 				faculty_index = k;
 
+				// Go through all NPC in current faculty, push it into daveReputationArray
 				for(var i = 0; i < toRenderList.NPCList.length; ++i){
 					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
 
-				
+				//old_mean = abstractTwoContainer.statsList[k].mean;
+				//old_var = abstractTwoContainer.statsList[k].variance;
 
-				old_mean = abstractTwoContainer.statsList[k].mean;
-				old_var = abstractTwoContainer.statsList[k].variance;
+				// Update current faculty's stats - Jensen
+				var new_mean = mean(daveReputationArray);
+				var new_var = variance(daveReputationArray);
 
-				
-
-				//jensen
+				/*
 				var new_mean = UpdateCurrentFacultyMean(daveReputationArray, old_mean);
-				var new_var = UpdateCurrentFacultyVariance(daveReputationArray, old_var);
+				var new_var = UpdateCurrentFacultyVariance(daveReputationArray, old_var); */
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
 
 			}
-			//update otherfaculties' mean and variance as a result of traffic flow
+			//update other faculties' mean and variance as a result of traffic flow
 			else{
+
+				//Get otherFaculty's stats
 				old_mean =  abstractTwoContainer.statsList[k].mean;
 				old_var = abstractTwoContainer.statsList[k].variance;
-				var inFlightArray = [];
-				for(var i = 0; i < inFlightList.length; ++i){
-					if(inFlightList[i].currFaculty == abstractTwoContainer.faculties[k]){
-						inFlightArray.push(inFlightList[i].daveReputation);
+
+				//populate daveReputation list
+				var daveRep = 0.1;
+				var npcCount = 0;
+				daveReputationArray = [] //clear the array first
+
+				//loop through each reputation, get no. of NPC with that reputation
+				for(daveRep=0.1; daveRep<=1.0; davRep += 0.1){
+					npcCount=normalDis.get_Fx(daveRep);
+
+					//push daveReputation with corresnponding count to the array
+					for(var i=0; i<npcCount; i++){
+						daveReputationArray.push(daveRep);
 					}
 				}
 
-				//Update the mean and variance using rules (jensen)
-				var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
-				var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
+				//Array of daveReputation extracted from inFlight Objects in a faculty
+				var inFlightArray_daveRep = [];
+				//The values of extracted reputation
+				var inFlight_daveRep;
+				//The time inFlight NPCs left that faculty
+				var inFlight_timeLeavesFac;
+				//The time where compression happens
+				var currentTime = getCurTime();
+				//The time difference
+				var timeOutFac;
+				//Number of people inFlight has talked to
+				var talkTo;
+				//Keep track of the people inFlight has talked to
+				var array_index=0;
+
+				//Go through inFlight list
+				for(var i = 0; i < inFlightList.length; ++i){
+
+					if(inFlightList[i].currFaculty == abstractTwoContainer.faculties[k]){
+
+						//Get daveReputation for inflight
+						inFlight_daveRep = inFlightList[i].daveReputation;
+						inFlight_timeLeavesFac = inFlightList[i].leftAtTime;
+						timeOutFac = currentTime-inFlight_timeLeavesFac;
+
+						//Assume every five seconds away from faculty, NPC can talk to a person.
+						talkTo = timeOutFac%5;
+
+						//inFlight goes to talk to this amount of people
+						for(var k=0; k<talkTo; k++){
+							//the current NPC that inFlight is talking to
+							var npc_daveRep = daveReputationArray[array_index];
+							//after talking, they influence each other
+							var afterTalk_daveRep = (npc_daveRep+inFlight_daveRep)/2;
+							//NPC being talked to has new daveRep
+							daveReputationArray[array_index] = afterTalk_daveRep;
+							//inFlight modified daveRep pushed to array
+							inFlightArray_daveRep.push(afterTalk_daveRep);
+						}
+					}
+				}
+
+				//Update the mean and variance (jensen)
+				var new_mean = mean(daveReputationArray);
+				var new_variance = variance(daveReputationArray);
+				//var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
+				//var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
@@ -182,7 +239,7 @@ function SimulationManager(){
 
 		this.assignReputationRangeWeightage();
 
-		var index = this.assignReputationRange()
+		var index = this.assignReputationRange();
 		for(var j = 0; j < _abstractPopulation; ++j){
 			var gender_assign;
 			if(ProbabilityChecker(0.5) == 1){

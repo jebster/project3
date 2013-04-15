@@ -6,13 +6,13 @@ var AbstractTwoContainer = function(){
 	this.university = null;
 
 	//Array of faculties in both NUS and NTU
-	this.faculties = ["engine", "arts", "law"]
+	this.faculties = ["engine", "arts", "law"];
 
 	this.statsList = [];
 
 	this.preferenceTypeStats = {
-		nerd : 0.2;
-		hunk : 0.5;
+		nerd : 0.2,
+		hunk : 0.5,
 		talent : 0.3
 	}
 

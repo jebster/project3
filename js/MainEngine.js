@@ -3,6 +3,13 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 	gameEngine.init(abstract1_canvas,abstract2_canvas);
 }
 
+function getCurTime(){
+    var clock = new Date();
+    var timeUnit = clock.getSeconds();
+
+    return timeUnit;
+}
+
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
 var toRenderList = {NPCList: [		new NPCObj(132, 132, 1, "engine", "NUS", "male"),
@@ -61,6 +68,13 @@ function GameEngine(){
 
         // initialize input manager
         inputManager.init(_inverseFPS);
+
+/*
+        var time1 = getCurTime();
+        alert('pause');
+        var time2 = getCurTime();
+        alert(time2-time1);
+        */
 							
         gameEngine.run();
 
@@ -68,6 +82,8 @@ function GameEngine(){
 
     this.run = function(){
     	_frameNumber++;
+
+
         var clock = new Date();
         var frameStartTime = clock.getTime();
 
