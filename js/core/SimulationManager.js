@@ -1,3 +1,7 @@
+/*
+	For explanation see abstraction_explanation.js
+*/
+
 function SimulationManager(){
 	var _NPCList = [];
 	var _abstractPopulation = 40;
@@ -91,6 +95,71 @@ function SimulationManager(){
 
 		document.getElementById('time-left').getElementsByTagName('span').innerHTML = player.time;
 	}
+
+	/*
+	==========================================
+	************ Track Movement *****************
+	==========================================
+	*/
+
+	this.abstractTwoMovement = function(){
+
+		alert('moving within same uni');
+		
+		// Happens when time has passed 1 minute
+		// Or Dave did an action
+		// Or Dave change faculty
+		this.compressLevelOne();
+
+		//add here? - Jensen - clarification needed
+		this.decompressAbstractTwo();
+
+		//We only need to decompress and repopulate if Dave moves to another faculty/Uni or does action
+		//that takes a lot of time
+		//If he's just standing doing nothing in the same faculty, continue in atomic state, no need to decompress.
+		if(!(daveDoesNothing)){
+
+			// Or Dave did an action
+			// Or Dave change faculty			
+
+			this.decompressAbstractTwo();
+		}
+
+		/*
+			For explanation see abstraction_explanation.js
+		*/
+
+	}
+
+	this.abstractThreeMovement = function(){
+		alert('going out of uni');
+		this.compressLevelOne();
+		this.compressLevelTwo();
+		this.decompressAbstractThree();
+		this.decompressAbstractTwo();
+
+		/*
+
+		// Dave is in NUS, Dave goes to NTU - Compression
+		1. Get all stats from Engin, Arts, Law
+		2. Make it into NUS_stats [mean, variance]
+
+		//Entry to NTU - Decompression
+		3. Get NTU_stats
+		4. Apply RULES2(NTU_stats)
+			- time - evolution rule
+			- spilloverFactor
+			- trafficFlow
+		5. Get stats for Engin, Arts, Law in NTU
+
+		*/
+	}
+
+	/*
+	==========================================
+	************ COMPRESSION *****************
+	==========================================
+	*/
 
 	this.compressLevelOne = function(){
 		var daveReputationArray = [];
@@ -202,44 +271,42 @@ function SimulationManager(){
 		}
 	}
 
-		this.UpdateCurrentFacultyMean = function(daveReputationArray, old_mean) {
-
-			
-
-			return mean(daveReputationArray);
+	this.compressLevelTwo = function(){
+		//Take all stats of three faculties, compress into one
 
 
-		}
+		abstractThreeContainer.update(newvalues);
+	}
 
-		this.UpdateCurrentFacultyVariance = function(daveReputationArray, old_var) {
-
-			var new_var;
-
-			return new_var;
-
-		}
-
-
-
-
+	/*
+	==========================================
+	************ DE-COMPRESSION *****************
+	==========================================
+	*/
 	this.decompressAbstractTwo = function(){
 
 		var decompression_mean = abstractTwoContainer.statsList[faculty_index].mean;
 		var decompression_var = abstractTwoContainer.statsList[faculty_index].variance;
+
+		//Info + NPC Objects in entered faculty
 		var absList = new AbstractionOneList(university, faculty);
 
 		var preferenceTypeStats = abstractTwoContainer.preferenceTypeStats;
-
+		//For all NPC
 		var currNPCDaveReputation;
+		//Only Girl NPC
 		var currNPCPreferenceType;
+		//Only Guy NPC
 		var currNPCPrimaryTypeIndex;
 
 		//Jensen!
-		daveReputation_distribution = new NormalDistribution(currentFaculty_stats);
+		daveReputation_distribution = new NormalDistribution(decompression_mean, decompression_var);
 
 		this.assignReputationRangeWeightage();
 
 		var index = this.assignReputationRange();
+
+		//Create NPC Girl and Guy 50% chance
 		for(var j = 0; j < _abstractPopulation; ++j){
 			var gender_assign;
 			if(ProbabilityChecker(0.5) == 1){
@@ -255,11 +322,13 @@ function SimulationManager(){
 			currNPCDaveReputation = (Math.random()*(reputationRange_start[range_index])) + reputationRange_end[range_index];
 
 			if(NPC.gender == "female"){
-				//set preferenceType
+				//set preferenceType for GIRLS
 				var preferencetype_index = AssignDistributionRange(preferenceTypeStats["nerd"], preferenceTypeStats["hunk"], preferenceTypeStats["talent"]);
 				currNPCPreferenceType = preferenceTypeList[preferencetype_index];
 			}
 			else{
+				//set primaryType for GUYS
+
 				var type_index;
 
 				if(currentFaculty == "engine"){
@@ -291,33 +360,30 @@ function SimulationManager(){
 		toRenderList = absList;	
 	}
 
-	this.assignReputationRangeWeightage = function(){
-		var goodRepCount = 0;
-		var neutralRepCount = 0;
-		var badRepCount = 0;
-		var totalCount = 0;
+		this.assignReputationRangeWeightage = function(){
+			var goodRepCount = 0;
+			var neutralRepCount = 0;
+			var badRepCount = 0;
+			var totalCount = 0;
 
-		for(var i= 0; i <= 1.0; i= i + 0.1){
-			if(i <= 0.3){
-				badRepCount += daveReputation_distribution.get_Fx(i);
+			for(var i= 0; i <= 1.0; i= i + 0.1){
+				if(i <= 0.3){
+					badRepCount += daveReputation_distribution.get_Fx(i);
+				}
+				else if (i > 0.3 && i <= 0.6){
+					neutralRepCount += daveReputation_distribution.get_Fx(i);
+				}
+				else{
+					goodRepCount += daveReputation_distribution.get_Fx(i);
+				}
+				totalCount = badRepCount + neutralRepCount + goodRepCount;
+				probBadReputation = badRepCount / totalCount;
+				probNeutralReputation = neutralRepCount / totalCount;
+				probGoodReputation = goodRepCount / totalCount;
 			}
-			else if (i > 0.3 && i <= 0.6){
-				neutralRepCount += daveReputation_distribution.get_Fx(i);
-			}
-			else{
-				goodRepCount += daveReputation_distribution.get_Fx(i);
-			}
-			totalCount = badRepCount + neutralRepCount + goodRepCount;
-			probBadReputation = badRepCount / totalCount;
-			probNeutralReputation = neutralRepCount / totalCount;
-			probGoodReputation = goodRepCount / totalCount;
 		}
-	}
 
-	this.compressLevelTwo = function(){
-		//Take all stats of three faculties, compress into one
-		abstractThreeContainer.update(newvalues);
-	}
+	
 
 	this.decompressAbstractThree = function(){
 		//Get stats of three faculties, apply rules and update individual faculty stats
@@ -328,159 +394,13 @@ function SimulationManager(){
 	}
 
 
-	this.abstractTwoMovement = function(){
-
-		alert('moving within same uni');
-		
-		// Happens when time has passed 1 minute
-		// Or Dave did an action
-		// Or Dave change faculty
-		this.compressLevelOne();
-
-		//We only need to decompress and repopulate if Dave moves to another faculty/Uni or does action
-		//that takes a lot of time
-		//If he's just standing doing nothing in the same faculty, continue in atomic state, no need to decompress.
-		if(!(daveDoesNothing)){
-
-			// Or Dave did an action
-		// Or Dave change faculty			this.decompressAbstractTwo();
-		}
-
-		/*
-		Assume Dave starts in NUSEngin
-
-		// At any point of time, we are holding this (global)
-		NPC_CurrentFaculty = [ guyObject, girlObject ];
-
-		inFlightList[ guyObject, girlObject];
-			
-		otherFaculty_1_stats = [ mean, variance ];
-
-		otherFaculty_2_stats = [ mean, variance ];
-
-		currentFaculty_stats = [ mean, variance ];
-
-		// Abstract 3 List (extra info)
-		otherUniversity = [ mean, variance ];
-
-		
-		X: Perform an action, or goes to NTU, or more than 1 minute - Compression Abstract 1
-		========================================================
-		// Within Faculty - Compression
-		1. Go through all NPCs in NUSEngin, get daveReputation, update currentFaculty_stats.
-
-		
-		// Other Faculties  - Compression
-		2. Get NUSArts stats, create and populate daveReputationList_NUSArts[ ].
-		3. Go through inflighttoNUSArts object, extract daveReputation, and timeNPCLeaves
-		4. function spreadingEffect(daveReputation_inflight, timeNPCLeaves) {
 	
-			// assume 5 units of time has passed since NPC left
-			// average out with 5 daveReputation values (based on some intelligence)
 
-		}
-		4. Recompute NUSArts stats (otherFaculty_1_stats)
-		5. do the same for NUSLaw (otherFaculty_2_stats)
+	/******************************/
+	/* General Functions  */
+	
+	function AssignDistributionRange(probability_range0, probability_range1, probability_range2){
 
-
-
-
-		Y: Goes to NUSEngin from NUSArts (change faculty)  
-		=========================================
-			1:Compress NUSEngin
-			================
-			Step X
-
-			2: Decompress NUSArts
-			==================
-			1. Use NUSArts stats(mean, variance), other info, create NPCs
-
-			// Populate NPC Girls
-			2. Use preferenceType percentage (0.2 nerd, 0.5 talent, 0.3 hunk) at AbstractThree to assign the number of NPC girls who has a specific preferenceType
-
-			note: preferenceType works with percentage of population.
-			for example:
-			- 0.2 of population is nerd
-			- 0.5 is talent
-			- 0.3 is hunk
-			note: when exam time happens, we change accordingly
-			- 0.3 nerd
-			- 0.5 talent
-			- 0.2 hunk
-
-			// Populate NPC Guys
-			3. Use probability to assign primaryTypeIndex to guys(0.1 is a lousy nerd, while 0.3 is a good nerd).
-
-
-
-		Z: Goes to NTUEngin 
-		==========================================
-			Compress AbstractTwo Stats (NUS)
-			=================================
-			1. Perform all steps in X (compress every faculty in NUS and take individual faculty stats), store it as it is
-			2. Take average daveReputation of three faculties
-
-			Decompress AbstractThree Stats (NTU)
-			===================================
-			1. function changeUni(NTU_stats){
-				
-				//NTU_stats is [NTUEngin_stats, NTUArts_stats, NTULaw_stats]
-
-				function spreadingEffectLevel3(NTU_stats) {
-					
-					1. Time for daveReputation to spread within NTU
-					2. SpreadingEffect from NUS
-					- take average daveReputation from all 3 faculties from NUS
-					- use it as weightage on how it affects NTU_stats
-				}
-
-				function eventsEffectLevel3() {
-					//change preferenceType (see Y.2)
-				}
-			}
-
-			2. Decompress NTUEngin stats (Y.2:)
-
-
-
-
-		*/
-
-		// if(case1) {
-
-		// }else if(case2){
-
-
-			
-		// }
-
-	}
-
-	this.abstractThreeMovement = function(){
-		alert('going out of uni');
-		this.compressLevelOne();
-		this.compressLevelTwo();
-		this.decompressAbstractThree();
-		this.decompressAbstractTwo();
-
-		/*
-
-		// Dave is in NUS, Dave goes to NTU - Compression
-		1. Get all stats from Engin, Arts, Law
-		2. Make it into NUS_stats [mean, variance]
-
-		//Entry to NTU - Decompression
-		3. Get NTU_stats
-		4. Apply RULES2(NTU_stats)
-			- time - evolution rule
-			- spilloverFactor
-			- trafficFlow
-		5. Get stats for Engin, Arts, Law in NTU
-
-		*/
-	}
-
-		function AssignDistributionRange(probability_range0, probability_range1, probability_range2){
 		var prob_array = [probability_range0, probability_range1, probability_range2];
 		var temp_array = [];
 

@@ -198,13 +198,11 @@ function alterReputation (reputationArray,identifier,newvalue){
 
 }
 
-var NormalDistribution = function(reputationArray){
+var NormalDistribution = function(u, vaR){
 
     var e = Math.E;
     var pi = Math.PI;
-    var u = mean(reputationArray);
-    var vaR = variance(reputationArray);
-    var stdD = stdDev(reputationArray);
+    var stdD = Math.sqrt(vaR);
 
     this.get_Fx = function(x){
 
@@ -229,6 +227,4 @@ var NormalDistribution = function(reputationArray){
 
 var normalDis = new NormalDistribution(daveReputation_nusArt);
 
-console.log('If x is 0.5(daveReputation), Fx(no. of people) is: ' +normalDis.get_Fx(0.5));
-console.log('If Fx is 1.2(no. of people), x(daveReputation) is: ' +normalDis.get_x(1.2));
 

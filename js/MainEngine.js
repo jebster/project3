@@ -65,6 +65,7 @@ function GameEngine(){
         simulation = new SimulationManager();
 
         abstractTwoContainer = new AbstractTwoContainer();
+        abstractThreeContainer = new AbstractTwoContainer();
 
         // initialize input manager
         inputManager.init(_inverseFPS);
