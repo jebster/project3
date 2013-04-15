@@ -7,6 +7,6 @@ var AbstractThreeBin = function(){
 	
 
 
-	}
+}
 
 

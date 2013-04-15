@@ -7,6 +7,8 @@ function getCurTime(){
     var clock = new Date();
     var timeUnit = clock.getSeconds();
 
+    //TO-DO-JENSEN: verify Seconds
+
     return timeUnit;
 }
 
@@ -76,6 +78,9 @@ function GameEngine(){
         var time2 = getCurTime();
         alert(time2-time1);
         */
+
+
+
 							
         gameEngine.run();
 

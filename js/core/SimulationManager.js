@@ -3,6 +3,7 @@
 */
 
 function SimulationManager(){
+
 	var _NPCList = [];
 	var _abstractPopulation = 40;
 	var _decompressFlag = 1;
@@ -172,7 +173,7 @@ function SimulationManager(){
 
 	this.autoCompress = function(){
 
-		//Counter for every 1 minute
+		//TO-DO-JENSEN: Counter for every 1 minute
 
 		//Still within faculty
 		withinFac = true;
@@ -207,9 +208,6 @@ function SimulationManager(){
 					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
 
-				//old_mean = abstractTwoContainer.statsList[k].mean;
-				//old_var = abstractTwoContainer.statsList[k].variance;
-
 				// Update current faculty's stats - Jensen
 				var new_mean = mean(daveReputationArray);
 				var new_var = variance(daveReputationArray);	
@@ -222,17 +220,12 @@ function SimulationManager(){
 					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 				}			
 
-				/*
-				var new_mean = UpdateCurrentFacultyMean(daveReputationArray, old_mean);
-				var new_var = UpdateCurrentFacultyVariance(daveReputationArray, old_var); */
-
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
 
 			}
 
 			//update other faculties' mean and variance as a result of traffic flow
-			//
 			else{
 
 				//Check if it is still within faculty or out of faculty
@@ -245,25 +238,18 @@ function SimulationManager(){
 					//if leaves faculty to enter another faculty
 					//Will check how long has Dave left that other faculty
 					withinFac_interaction = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
-				
-					////TO-DO-JENSEN: Formula to have a range to spreading Effect
-					if(withinFac_interaction < 10){
-						abstractTwoContainer.statsList[k].variance -= 0.05;
-					}else if(withinFac_interaction < 30){
-						abstractTwoContainer.statsList[k].variance -= 0.1;
-					}
-					
+
+					//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/400 = 0.01
+					abstractTwoContainer.statsList[k].variance -= withinFac_interaction/400;
+					//Reset the timer that keeps track of last time the faculty is being compressed
 					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 				}
-
-				
 
 				//Get otherFaculty's stats
 				old_mean =  abstractTwoContainer.statsList[k].mean;
 				old_var = abstractTwoContainer.statsList[k].variance;
 
 				var otherFac_daveReputation_dis = new NormalDistribution(old_mean,old_var);
-
 
 				//populate daveReputation list
 				var daveRep = 0.1;
@@ -281,8 +267,8 @@ function SimulationManager(){
 					}
 				}
 
-				//TO-DO-JENSEN: 
-				// randomize order of daveReputationArray;
+				// Randomize order of daveReputationArray - Jensen
+				daveReputationArray = randomizeArray(daveReputationArray);
 
 				//Array of daveReputation extracted from inFlight Objects in a faculty
 				var inFlightArray_daveRep = [];
@@ -316,14 +302,27 @@ function SimulationManager(){
 						for(var k=0; k<talkTo; k++){
 							//the current NPC that inFlight is talking to
 							var npc_daveRep = daveReputationArray[array_index];
+
 							//after talking, they influence each other
-							//TO-DO-JENSEN: make it more intelligent
-							//Extremist people will influence the neutral people, but neutral will not be influenced
-							var afterTalk_daveRep = (npc_daveRep+inFlight_daveRep)/2;
+							//influence_btwn_NPCS() returns an array of = [lowerRep, higherRep]
+							var afterInfluence = influence_btwn_NPCS(inFlight_daveRep, npc_daveRep);
+
+							//Since afterInfluence[] holds [lowerRep, higherRep], we want to reassign it back
+							if(inFlight_daveRep > npc_daveRep){
+
+								npc_daveRep = afterInfluence[0];
+								inFlight_daveRep = afterInfluence[1];
+
+							}else {
+
+								npc_daveRep = afterInfluence[1];
+								inFlight_daveRep = afterInfluence[0];
+							}
+
 							//NPC being talked to has new daveRep
-							daveReputationArray[array_index] = afterTalk_daveRep;
+							daveReputationArray[array_index] = npc_daveRep;
 							//inFlight modified daveRep pushed to array
-							inFlightArray_daveRep.push(afterTalk_daveRep);
+							inFlightArray_daveRep.push(inFlight_daveRep);
 
 							array_index++;
 						}
@@ -557,6 +556,66 @@ function SimulationManager(){
 			return 1;
 		}
 		return 0;
+	}
+
+	function randomizeArray ( myArray ) {
+
+		var i = myArray.length, j, tempi, tempj;
+
+		if ( i === 0 ) return false;
+
+		while ( --i ) {
+			j = Math.floor( Math.random() * ( i + 1 ) );
+			tempi = myArray[i];
+			tempj = myArray[j];
+			myArray[i] = tempj;
+			myArray[j] = tempi;
+		}
+
+		return myArray;
+	}
+
+	function influence_btwn_NPCS(daveRep1, daveRep2){
+
+		var daveRep1_temp = daveRep1;
+		var daveRep2_temp = daveRep2;
+
+		//Difference between the reputation
+		var daveRep_diff;
+
+		//Influence of the difference
+		var daveRep_inf;
+
+		//to return the two reputations as an array
+		var daveRepArray[];
+
+		//ensure daveRep1 is the smaller than daveRep2
+		if(daveRep1>daveRep2){
+			daveRep2 = daveRep1;
+			daveRep1 = daveRep2_temp;
+		}
+
+		//Example, daveRep_diff = 0.9
+		//0.9/4 = 0.225
+		//0.45*10 = 2.25 => ceil = 2 => 2/10 = 0.2
+		daveRep_diff = daveRep2-daveRep1;
+		daveRep_inf = Math.ceil( (daveRep_diff/4)*10 ) /10
+
+		//If neutral
+		if(daveRep1 == 0.5){
+			//Will be influenced
+			//daveRep2 will not be influenced
+			daveRep1 += daveRep_inf;
+
+		}else if(daveRep2 == 0.5){
+			
+			daveRep2 -= daveRep_inf;
+		
+		}
+
+		return daveRepArray[daveRep1,daveRep2];
+		
+
 	}
 
 }
