@@ -5,9 +5,12 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 
 function getCurTime(){
     var clock = new Date();
-    var timeUnit = clock.getSeconds();
+    var timeUnit = Math.ceil( (clock.getTime()/1000) );
 
-    //TO-DO-JENSEN: verify Seconds
+    //timeUnit will give the current time in seconds
+    //For example
+    //1366035345, 10 seconds later, it will be
+    //1366035355
 
     return timeUnit;
 }
@@ -77,9 +80,8 @@ function GameEngine(){
         alert('pause');
         var time2 = getCurTime();
         alert(time2-time1);
-        */
-
-
+        
+*/
 
 							
         gameEngine.run();
@@ -96,6 +98,10 @@ function GameEngine(){
         /*Game Loop Functions*/
         gameEngine.renderCanvas();
         gameEngine.update(_inverseFPS);
+        simulation.autoCompress();
+
+
+
 
         // Calculate the time until next frame;
         clock = new Date() ;

@@ -173,12 +173,24 @@ function SimulationManager(){
 
 	this.autoCompress = function(){
 
-		//TO-DO-JENSEN: Counter for every 1 minute
+		//Will autoCompress every 100 seconds
+
+		//Get the last two digits of the time (133122334)
+		var the_number = getCurTime().toString();
+		var temp_end_index = the_number.length;
+		var temp_beginning_index = temp_end_index-2;
+
+		var hundred_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index );
+		
 
 		//Still within faculty
 		withinFac = true;
 
-		this.compressLevelOne(withinFac);
+		//if last two digits is 00, it means it has gone through 100 seconds (except first iteration)
+		if(hundred_sec_cycle == 00){
+			this.compressLevelOne(withinFac);
+		}
+
 	}
 
 	/*
@@ -587,7 +599,7 @@ function SimulationManager(){
 		var daveRep_inf;
 
 		//to return the two reputations as an array
-		var daveRepArray[];
+		var daveRepArray = [];
 
 		//ensure daveRep1 is the smaller than daveRep2
 		if(daveRep1>daveRep2){
