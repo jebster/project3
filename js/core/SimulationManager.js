@@ -5,6 +5,22 @@ function SimulationManager(){
 	var storedListIndex;
 	var faculty_index;
 
+	var daveReputation_distribution;
+	var probBadReputation;
+	var probNeutralReputation;
+	var probGoodReputation;
+
+	var reputationRange_start = [0, 0.3, 0.6];
+	var reputationRange_end = [0.3, 0.6, 1.0];
+
+	var primaryTypeIndex_start = [0, 0.3, 0.6];
+	var primaryTypeIndex_end = [0.3, 0.6, 1.0];
+
+	var probCurrentFaculty  = 0.7;
+	var probOtherFaculty = 0.15;
+
+	var preferenceTypeList = ["nerd", "hunk", "talent"];
+
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
 
@@ -155,6 +171,18 @@ function SimulationManager(){
 		var decompression_var = abstractTwoContainer.statsList[faculty_index].variance;
 		var absList = new AbstractionOneList(university, faculty);
 
+		var preferenceTypeStats = abstractTwoContainer.preferenceTypeStats;
+
+		var currNPCDaveReputation;
+		var currNPCPreferenceType;
+		var currNPCPrimaryTypeIndex;
+
+		//Jensen!
+		daveReputation_distribution = new NormalDistribution(currentFaculty_stats);
+
+		this.assignReputationRangeWeightage();
+
+		var index = this.assignReputationRange()
 		for(var j = 0; j < _abstractPopulation; ++j){
 			var gender_assign;
 			if(ProbabilityChecker(0.5) == 1){
@@ -164,17 +192,33 @@ function SimulationManager(){
 				gender_assign = "female";
 			}	
 		
-			var NPC = new NPCObject(x, y, destinationFaculty, destinationUni, gender_assign);
+
+			var range_index = AssignDistributionRange(probBadReputation, probNeutralReputation, probGoodReputation);
+
+			currNPCDaveReputation = (Math.random()*(reputationRange_start[range_index])) + reputationRange_end[range_index];
 
 			if(NPC.gender == "female"){
-				//set preferencetype by decompressing normal dist
-				NPC.primaryPreferenceIndex = getPreferenceFromNormalDistribution();
+				//set preferenceType
+				var preferencetype_index = AssignDistributionRange(preferenceTypeStats["nerd"], preferenceTypeStats["hunk"], preferenceTypeStats["talent"]);
+				currNPCPreferenceType = preferenceTypeList[preferencetype_index];
 			}
 			else{
-				//set attributes by decompressing normal dist
-				NPC.primaryTypeIndex = getTypeFromNormalDistribution(decompression_mean,decompression_var);
+				var type_index;
+
+				if(currentFaculty == "engine"){
+					type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty, probOtherFaculty);
+				}
+				else if(currentFaculty == "arts"){
+					type_index = AssignDistributionRange(probOtherFaculty, probCurrentFaculty, probOtherFaculty);
+				}
+				else{
+					type_index = AssignDistributionRange(probOtherFaculty, probOtherFaculty, probCurrentFaculty);
+				}
+				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_start[type_index])) + primaryTypeIndex_end[type_index];
 			}
-			NPC.daveReputation = getRepFromNormalDistribution(decompression_mean,decompression_var);
+
+			//====>TO-DO: NEED TO CHANGE CONSTRUCTOR TO IDENTIFY CATEGORY SO THAT CORRESPONDING SPRITE IMAGE CAN BE LOADED
+			var NPC = new NPCObject(x, y, id, destinationFaculty, destinationUni, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
 			absList.NPCList.push(NPC);
 		}
 
@@ -188,6 +232,29 @@ function SimulationManager(){
 		
 		//render this newly created list
 		toRenderList = absList;	
+	}
+
+	this.assignReputationRangeWeightage = function(){
+		var goodRepCount = 0;
+		var neutralRepCount = 0;
+		var badRepCount = 0;
+		var totalCount = 0;
+
+		for(var i= 0; i <= 1.0; i= i + 0.1){
+			if(i <= 0.3){
+				badRepCount += daveReputation_distribution.get_Fx(i);
+			}
+			else if (i > 0.3 && i <= 0.6){
+				neutralRepCount += daveReputation_distribution.get_Fx(i);
+			}
+			else{
+				goodRepCount += daveReputation_distribution.get_Fx(i);
+			}
+			totalCount = badRepCount + neutralRepCount + goodRepCount;
+			probBadReputation = badRepCount / totalCount;
+			probNeutralReputation = neutralRepCount / totalCount;
+			probGoodReputation = goodRepCount / totalCount;
+		}
 	}
 
 	this.compressLevelTwo = function(){
@@ -354,6 +421,85 @@ function SimulationManager(){
 		5. Get stats for Engin, Arts, Law in NTU
 
 		*/
+	}
+
+		function AssignDistributionRange(probability_range0, probability_range1, probability_range2){
+		var prob_array = [probability_range0, probability_range1, probability_range2];
+		var temp_array = [];
+
+		var lowest_prob;
+		var sec_lowest_prob;
+		var high_prob;
+
+		var chance = Math.random();
+
+		lowest_prob = FindMinimum(prob_array);
+
+		for(var i=0; i < prob_array.length; ++i){
+			if(!(prob_array[i]==lowest_prob)){
+				temp_array.push(prob_array[i]);
+			}
+		}
+		prob_array = temp_array;
+
+		sec_lowest_prob = FindMinimum(prob_array);
+
+		for( i=0; i < prob_array.length; ++i){
+			if(!(prob_array[i]==sec_lowest_prob)){
+				temp_array.push(prob_array[i]);
+			}
+		}
+
+		prob_array = temp_array;
+
+		high_prob = FindMinimum(prob_array);
+
+		if(chance >=0 && chance <= 0+lowest_prob){
+			if(lowest_prob == probability_range0){
+				return 0;
+			}
+			else if(lowest_prob == probability_range1){
+				return 1;
+			}
+			else if(lowest_prob == probability_range2){
+				return 2;
+			}
+		}
+
+		else if(chance > lowest_prob && chance <= lowest_prob + sec_lowest_prob){
+			if(sec_lowest_prob == probability_range0){
+				return 0;
+			}
+			else if(sec_lowest_prob == probability_range1){
+				return 1;
+			}
+			else if(sec_lowest_prob == probability_range2){
+				return 2;
+			}
+		}
+
+		else{
+			if(high_prob == probability_range0){
+				return 0;
+			}
+			else if(high_prob == probability_range1){
+				return 1;
+			}
+			else if(high_prob == probability_range2){
+				return 2;
+			}
+
+		}
+	}
+
+	function FindMinimum( array ){
+		var min = 10;
+		for(var i = 0; i < array.length; ++i){
+			if(array[i] < min){
+				min  = array[i];
+			}
+		}
+		return min;
 	}
 
 	function ProbabilityChecker(probability){

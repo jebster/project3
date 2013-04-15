@@ -10,7 +10,11 @@ var AbstractTwoContainer = function(){
 
 	this.statsList = [];
 
-	this.preferenceTypeStats;
+	this.preferenceTypeStats = {
+		nerd : 0.2;
+		hunk : 0.5;
+		talent : 0.3
+	}
 
 
 	this.update = function(){

@@ -22,7 +22,7 @@ var NPCObj = function(x,y,id, category, university, gender) {
     this.abstractionModifier;
 
 
-    this.daveReputation = null;
+    this.daveReputation;
 
     //to keep track of movement within university
     this.currUniversity;
@@ -40,9 +40,7 @@ var NPCObj = function(x,y,id, category, university, gender) {
 
         if (this.category === "engine") {
 
-            this.primaryTypeIndex = 0.3; //want a super nerd
-            this.primaryType = 'nerd';
-            this.primaryTypeScore = 10;
+            //this.primaryTypeIndex = 0.3; //want a super nerd
 			//setting image source
 			if(this.id%2 == 0){
 				this.image.src = "images/engin_male1.png";
@@ -74,12 +72,16 @@ var NPCObj = function(x,y,id, category, university, gender) {
 				this.image.src = "images/law_male2.png";
 			}
         }
+
+            this.primaryTypeIndex;
+            this.primaryType;
+            this.primaryTypeScore;
     }
 
     if(this.gender == "female"){
 
-        this.primaryPreferenceIndex = 0.5;
-        this.primaryPreference = 'talent';
+        //this.primaryPreferenceIndex = 0.5;
+        this.preferenceType;
 
         // each interaction, girl goes into guy this.primaryTypeScore, and updates primaryPreferenceScore
         this.primaryPreference_best = 0.2;
