@@ -622,7 +622,7 @@ function SimulationManager(){
 
 		//If neutral
 		if(daveRep1 == 0.5){
-			//Will be influenced
+			//daveRep1 Will be influenced
 			//daveRep2 will not be influenced
 			daveRep1 += daveRep_inf;
 

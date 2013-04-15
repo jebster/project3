@@ -1,6 +1,11 @@
 /*
 		Assume Dave starts in NUSEngin
 
+		Global Sequence
+		================
+		[engin, art, law]
+		[nerd, hunk, talent]
+
 		// At any point of time, we are holding this (global)
 		NPC_CurrentFaculty = [ guyObject, girlObject ];
 
@@ -76,7 +81,9 @@
 			2. Take average daveReputation of three faculties
 
 			Decompress AbstractThree Stats (NTU)
-			===================================
+			==================================
+
+
 			1. function changeUni(NTU_stats){
 				
 				//NTU_stats is [NTUEngin_stats, NTUArts_stats, NTULaw_stats]
@@ -84,14 +91,33 @@
 				function spreadingEffectLevel3(NTU_stats) {
 					
 					1. Time for daveReputation to spread within NTU
+					- take average of NTU stats
+					- if negative, or positive, will go into individual faculties and modify accordingly (to time) - need withinUni variable
+
 					2. SpreadingEffect from NUS
 					- take average daveReputation from all 3 faculties from NUS
-					- use it as weightage on how it affects NTU_stats
+					- if negative, or positive, will go into individual faculties in NTU and modify accordingly (to time) - need withinUni variable, but at a LESSER extent - assume traffic flow (constant)
 				}
 
 				function eventsEffectLevel3() {
+
+					at time 300_seconds: Exam(nerd) {
+						
+						
+
+					}
+					600_seconds: sports day(hunk)
+
+					900_seconds: music festival(talent)
+
+
 					//change preferenceType (see Y.2)
 				}
 			}
 
 			2. Decompress NTUEngin stats (Y.2:)
+
+
+
+
+

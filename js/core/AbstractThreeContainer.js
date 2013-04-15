@@ -10,6 +10,9 @@ var AbstractThreeContainer = function(){
 
 
 	this.update = function(statsMeanArray, statsVarArray, unversity ){
+
+		//order of array is
+		//faculty_MeanStats[engin, arts, law]
 		var i = this.universities.indexOf(unversity);
 		var faculty_MeanStats = statsMeanArray;
 		var faculty_VarStats = statsVarArray;
