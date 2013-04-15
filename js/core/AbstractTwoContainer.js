@@ -18,7 +18,7 @@ var AbstractTwoContainer = function(){
 
 
 	this.update = function(){
-		alert('entered');
+		
 		for(var i = 0; i < this.faculties.length; ++i){
 			var faculty_mean = getMeanFromAbstractThree();
 			var faculty_variance = getVarFromAbstractThree();
@@ -45,6 +45,9 @@ var AbstractTwoParameters = function(faculty, mean, variance){
 	this.faculty = faculty;
 	this.mean = mean;
 	this.variance = variance;
+
+	//Keep track of the last time Dave is in this faculty
+	this.lastSeen = 0;
 }
 
 

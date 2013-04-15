@@ -25,6 +25,12 @@ function SimulationManager(){
 
 	var preferenceTypeList = ["nerd", "hunk", "talent"];
 
+	//For auto compression purposes (see autoCompress()) - jensen
+	var withinFac = null;
+
+	//Spreading at other faculties of his reputation - jensen
+	var spreadingEffect;
+
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
 
@@ -58,10 +64,7 @@ function SimulationManager(){
 				bgImg.src = "images/ntu_law.png";
 				break;
 		}
-		// if(ABSTRACT_LEVEL == 1){
-            // context.clearRect(0,0,canvas.width,canvas.height);
-            // context.drawImage(bgImg, 0, 0);
-        // }
+
 		
 		if(currentUni == destinationUni) {
 
@@ -105,11 +108,14 @@ function SimulationManager(){
 	this.abstractTwoMovement = function(){
 
 		alert('moving within same uni');
+
+		//Moving out of faculty
+		withinFac = false;
 		
 		// Happens when time has passed 1 minute
 		// Or Dave did an action
 		// Or Dave change faculty
-		this.compressLevelOne();
+		this.compressLevelOne(withinFac);
 
 		//add here? - Jensen - clarification needed
 		this.decompressAbstractTwo();
@@ -133,7 +139,11 @@ function SimulationManager(){
 
 	this.abstractThreeMovement = function(){
 		alert('going out of uni');
-		this.compressLevelOne();
+
+		//Moving out of faculty
+		withinFac = false;
+
+		this.compressLevelOne(withinFac);
 		this.compressLevelTwo();
 		this.decompressAbstractThree();
 		this.decompressAbstractTwo();
@@ -157,17 +167,35 @@ function SimulationManager(){
 
 	/*
 	==========================================
+	************ Every 1 minute Refresh Stats 
+	==========================================
+	*/
+
+	this.autoCompress = function(){
+
+		//Count for every 1 minute
+
+		//Still within faculty
+		withinFac = true;
+
+		this.compressLevelOne(withinFac);
+	}
+
+	/*
+	==========================================
 	************ COMPRESSION *****************
 	==========================================
 	*/
 
-	this.compressLevelOne = function(){
+	this.compressLevelOne = function(withinFac){
+
 		var daveReputationArray = [];
-		
 		var old_mean;
 		var old_var;
 
 		abstractTwoContainer.update();
+
+
 
 		//update current faculty's mean and variance
 		for(var k = 0; k < abstractTwoContainer.faculties.length; ++k){
@@ -185,7 +213,15 @@ function SimulationManager(){
 
 				// Update current faculty's stats - Jensen
 				var new_mean = mean(daveReputationArray);
-				var new_var = variance(daveReputationArray);
+				var new_var = variance(daveReputationArray);	
+
+				//Check if it is still within faculty or out of faculty
+				if(withinFac){
+					//do nothing
+				}else{
+					//if Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
+					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
+				}			
 
 				/*
 				var new_mean = UpdateCurrentFacultyMean(daveReputationArray, old_mean);
@@ -195,8 +231,32 @@ function SimulationManager(){
 				abstractTwoContainer.statsList[k].variance = new_var;
 
 			}
+
 			//update other faculties' mean and variance as a result of traffic flow
+			//
 			else{
+
+				//Check if it is still within faculty or out of faculty
+				if(withinFac){
+					//for AutoCompress, every 1 minute, will decrease the variance
+					abstractTwoContainer.statsList[k].variance -= 0.15;
+					
+				}else{
+					
+					//if leaves faculty to enter another faculty
+					//Will check how long has Dave left that other faculty
+					spreadingEffect = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
+				
+					if(spreadingEffect < 10){
+						abstractTwoContainer.statsList[k].variance -= 0.05;
+					}else if(spreadingEffect < 30){
+						abstractTwoContainer.statsList[k].variance -= 0.1;
+					}
+					
+					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
+				}
+
+				
 
 				//Get otherFaculty's stats
 				old_mean =  abstractTwoContainer.statsList[k].mean;
@@ -208,7 +268,7 @@ function SimulationManager(){
 				daveReputationArray = [] //clear the array first
 
 				//loop through each reputation, get no. of NPC with that reputation
-				for(daveRep=0.1; daveRep<=1.0; davRep += 0.1){
+				for(daveRep; daveRep<=1.0; daveRep += 0.1){
 					npcCount=normalDis.get_Fx(daveRep);
 
 					//push daveReputation with corresnponding count to the array
@@ -398,7 +458,7 @@ function SimulationManager(){
 
 	/******************************/
 	/* General Functions  */
-	
+
 	function AssignDistributionRange(probability_range0, probability_range1, probability_range2){
 
 		var prob_array = [probability_range0, probability_range1, probability_range2];
