@@ -78,9 +78,8 @@ function SimulationManager(){
 
 			
 		} else {
-			
-			currentUni = destinationUni;
 			this.abstractThreeMovement();
+			currentUni = destinationUni;
 		}
 	}
 
@@ -368,9 +367,15 @@ function SimulationManager(){
 		}
 
 		//Take all stats of three faculties, compress into one
+		var meanArray = [];
+		var varianceArray = [];
 
+		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+			meanArray.push(abstractTwoContainer.statsList[i].mean);
+			varianceArray.push(abstractTwoContainer.statsList[i].variance)
+		}
 
-		abstractThreeContainer.update(newvalues);
+		abstractThreeContainer.update(meanArray, varianceArray, currentUni);
 	}
 
 	/*

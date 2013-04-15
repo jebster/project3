@@ -16,7 +16,7 @@ var AbstractTwoContainer = function(){
 		talent : 0.3
 	}
 
-
+ 
 	this.update = function(){
 		
 		for(var i = 0; i < this.faculties.length; ++i){
@@ -26,20 +26,19 @@ var AbstractTwoContainer = function(){
 			this.statsList.push(faculty_stats);
 		}
 	}
+
+	this.getMeanFromAbstractThree = function(){
+		//dummy data for now
+		return 0.5;
+	}
+
+	this.getVarFromAbstractThree = function(){
+		//dummy data for now
+		return 0.2;
+	}
 }
 
-function getMeanFromAbstractThree(){
 
-	//dummy data for now
-	return 0.5;
-
-}
-
-function getVarFromAbstractThree(){
-
-	//dummy data for now
-	return 0.2;
-}
 
 var AbstractTwoParameters = function(faculty, mean, variance){
 	this.faculty = faculty;
