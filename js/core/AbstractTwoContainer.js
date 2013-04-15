@@ -11,33 +11,21 @@ var AbstractTwoContainer = function(){
 	this.statsList = [];
 
 	this.preferenceTypeStats = {
-		nerd : 0.2,
-		hunk : 0.5,
+		nerd : 0.3,
+		hunk : 0.4,
 		talent : 0.3
 	}
 
  
-	this.update = function(){
-		
+	this.init = function(meanArray, varianceArray){		
 		for(var i = 0; i < this.faculties.length; ++i){
-			var faculty_mean = getMeanFromAbstractThree();
-			var faculty_variance = getVarFromAbstractThree();
+			var faculty_mean = meanArray[i];
+			var faculty_variance = varianceArray[i];
 			var faculty_stats = new AbstractTwoParameters(this.faculties[i],faculty_mean,faculty_variance);
 			this.statsList.push(faculty_stats);
 		}
 	}
-
-	this.getMeanFromAbstractThree = function(){
-		//dummy data for now
-		return 0.5;
-	}
-
-	this.getVarFromAbstractThree = function(){
-		//dummy data for now
-		return 0.2;
-	}
 }
-
 
 
 var AbstractTwoParameters = function(faculty, mean, variance){
@@ -46,11 +34,5 @@ var AbstractTwoParameters = function(faculty, mean, variance){
 	this.variance = variance;
 
 	//Keep track of the last time Dave is in this faculty
-	this.lastSeen = 0;
+	this.lastSeen = getCurTime();
 }
-
-
-
-// 
-
-

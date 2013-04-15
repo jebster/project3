@@ -362,7 +362,7 @@ function SimulationManager(){
 	this.compressLevelTwo = function(){
 
 		//Tag the time Dave leaves the university
-		if(currentUni == 'NUS'){
+		if(currentUni === "NUS"){
 			abstractThreeContainer.universityStats[0].lastSeen = getCurTime();
 		}else{
 			abstractThreeContainer.universityStats[1].lastSeen = getCurTime();
@@ -495,19 +495,68 @@ function SimulationManager(){
 
 	this.decompressAbstractThree = function(){
 		//Get stats of three faculties, apply rules and update individual faculty stats
-		abstractTwoContainer.update(abstractThreeContainer.value);
+		var university_index = abstractThreeContainer.universities.indexOf(destinationUni);
+		var otherUni_index = abstractThreeContainer.universities.indexOf(currentUni);
+
+		var current_time = getCurTime();
+		var time_elapsed = currentTime - abstractThreeContainer.universityStats[university_index].lastSeen;
+
+		//===> T0-DO : Need to set this properly (varun)
+		time_factor = time_elapsed/1000;
+
+		var facultiesMeanStats = abstractThreeContainer.universityStats[university_index].facultyMeanStats;
+		var facultiesVarStats = abstractThreeContainer.universityStats[university_index].facultyVarStats;
+		var currUniAvgDaveRepMean =  abstractThreeContainer.universityStats[university_index].averageDaveReputationMean;
+		var currUniAvgDaveRepVar =  abstractThreeContainer.universityStats[university_index].averageDaveReputationVariance;
+
+		var otherUniAvgDaveRepMean = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationMean;
+		var otherUniAvgDaveRepVar = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationVariance;
+
+		var effect_factor = currUniAvgDaveRepMean - 0.5;
+		var rep_factor;
+
+		if(effect_factor <= 0){
+			rep_factor = 0.6;
+			//random value for now
+		}
+		else{
+			rep_factor = 1.4;
+			//random value for now
+		}
+
+		//Reputation spread within that university for the time passed
+		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
+			abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+		}
+
+		effect_factor = otherUniAvgDaveRepMean - 0.5;
+
+		if(effect_factor <= 0){
+			rep_factor = 0.6;
+			//random value for now
+		}
+		else{
+			rep_factor = 1.4;
+			//random value for now
+		}
+		var traffic_flow_factor = 0.3;
+
+		//Reputation spread from other university
+		for(i=0; i<abstractTwoContainer.faculties.length; ++i){
+			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;
+			abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
+		}
 
 
 		//Also need to get information about PreferenceType distribution
 		//Apply rules to the preference type distribution, taking into 
 		//consideration exam week, vday events and time passed
 		for(var i=0; i<abstractTwoContainer.preferenceTypeStats.length; ++i){
-			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * timer;
+			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * time_factor;
 		}
 	}
 
-
-	
 
 	/******************************/
 	/* General Functions  */
@@ -654,11 +703,7 @@ function SimulationManager(){
 			daveRep2 -= daveRep_inf;
 		
 		}
-
 		return daveRepArray[daveRep1,daveRep2];
-		
-
 	}
 
 }
-

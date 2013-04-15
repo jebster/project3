@@ -83,7 +83,7 @@ var AbstractThreeParameters = function(university, facultyMeanStats, facultyVarS
 	this.averageDaveReputationVariance = averageDaveReputationVariance;
 
 	//the last time Dave is seen in the university
-	this.lastSeen = 0;
+	this.lastSeen = getCurTime();
 
 }
 

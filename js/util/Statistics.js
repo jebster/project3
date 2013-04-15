@@ -227,5 +227,3 @@ var NormalDistribution = function(u, vaR){
 }
 
 var normalDis = new NormalDistribution(daveReputation_nusArt);
-
-
