@@ -27,7 +27,19 @@ var PlayerObj = function(x, y){
 
     //other attributes to be added
     this.move = function(){
-        if (_keys[K_LEFT].press) { // Player holding left
+	    if(_keys[K_SPACE].press){
+			if(!performingAction){
+				for(iter in toRenderList.NPCList){
+					if(collisionChecker(player, toRenderList.NPCList[iter])){
+						this.interactionWithNPC(toRenderList.NPCList[iter]);
+					}
+				}
+			}
+			else{
+				performingAction = false;
+			}
+		}
+		if (_keys[K_LEFT].press) { // Player holding left
             this.pos_x -= this.playerSpeed;
 			if (this.whichSprite == this.width * 4){
 				this.whichSprite = this.width * 5;
@@ -64,7 +76,7 @@ var PlayerObj = function(x, y){
             }
         }
         if (_keys[K_DOWN].press) { // Player holding down
-            this.pos_y += this.playerSpeed;  
+			this.pos_y += this.playerSpeed;  
 			if (this.whichSprite == this.width * 0){
 				this.whichSprite = this.width * 1;
 			}	else if (this.whichSprite == this.width * 1) {
@@ -144,7 +156,11 @@ var PlayerObj = function(x, y){
 			this.pos_y = 50;
 		}
     }
-
+	
+	this.interactionWithNPC = function(npc){
+		console.log("You are talking with " + npc.gender + npc.id);
+		performingAction = true;
+	}
     this.draw = function(){
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,

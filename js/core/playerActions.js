@@ -1,6 +1,7 @@
 var PlayerActions = function(){
 	
 	this.talent = function(){
+		performingAction = true;
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_talent.png";
@@ -9,6 +10,7 @@ var PlayerActions = function(){
 	}
 
 	this.fitness = function(){
+		performingAction = true;
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_fitness.png";
@@ -17,6 +19,7 @@ var PlayerActions = function(){
 	}
 
 	this.intellect = function(){
+		performingAction = true;
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_intellect.png";
