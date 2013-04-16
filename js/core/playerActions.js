@@ -1,49 +1,20 @@
 var PlayerActions = function(){
 	
 	this.talent = function(){
-
-
-		timeTravel();
+		drawOverlay = true;
+		overlayImg.src = "images/improving_talent.png";
+		player.talent += 0.01;
 	}
 
 	this.fitness = function(){
-
-		timeTravel();
+		drawOverlay = true;
+		overlayImg.src = "images/improving_fitness.png";
+		player.fitness += 0.01;
 	}
 
 	this.intellect = function(){
-		
-		timeTravel();
-	}
-
-
-	function timeTravel(){
-
-		// Simulate Exit Engin
-		/*
-
-		Accelerate Time
-		================
-		1. Accelerate Time for inFlightList NPC.leftAtTime (by decreasing the number)
-		2. Accelerate Time in abstractTwoContainer.statsList[k].lastSeen 
-		3. Accelerate Time in abstractThreeContainer.universityStats[0].lastSeen
-
-		Simulate Exit NUS and coming Back
-		1. Change destinationUni to the other Uni
-		2. Change destinationFac to Engin (random)
-		3. Store currentFaculty to var returnBack
-		1. simulation.compressLevelOne();
-		2. simulation.compressionLevelTwo();
-		3. 
-
-
-		*/
-
-		//AbstractThree Accelerate Time
-
-		//AbstractTwo Accelerate Time
-
-		//
-
+		drawOverlay = true;
+		overlayImg.src = "images/improving_intellect.png";
+		player.intellect += 0.01;
 	}
 }

@@ -91,6 +91,9 @@ var inFlightList = new Array();
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;
+var drawOverlay = false;
+var overlayTimer = 0;
+var overlayImg = new Image();
 var bgImg = new Image();
 bgImg.src = "images/nus_engin.png";
 var DOOR_LEFT_X = 284;
@@ -264,6 +267,14 @@ function GameEngine(){
 
 
         toRenderList = tempRenderList;
+		if(drawOverlay == true){
+			context.drawImage(overlayImg, 0, 0);
+			overlayTimer++;
+			if(overlayTimer > 50){
+				drawOverlay = false;
+				overlayTimer = 0;
+			}
+		}
 
     }
 
