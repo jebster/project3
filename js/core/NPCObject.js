@@ -1,8 +1,8 @@
 var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
     this.id = id;
     this.name = gender+"_"+id;
-    this.pos_x = Math.floor(Math.random()*23) * 32 + 32;
-    this.pos_y = Math.floor(Math.random()*15) * 32 + 32;
+    this.pos_x = Math.floor(Math.random()*24) * 32 + 32;
+    this.pos_y = Math.floor(Math.random()*17) * 32 + 32;
 	this.image = new Image();
 	this.whichSprite = 0;
 	this.facingWhichDirection;
@@ -240,7 +240,7 @@ var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, pre
 					this.wait_time--;
 					if(this.wait_time <= 0){
 						this.target_x = Math.floor(Math.random()*24) * 32;
-						this.target_y = Math.floor(Math.random()*16) * 32;
+						this.target_y = Math.floor(Math.random()*17) * 32;
 						this.wait_time = 50;
 					}
 				}
