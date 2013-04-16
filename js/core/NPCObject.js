@@ -7,13 +7,15 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 	this.whichSprite = 0;
 	this.facingWhichDirection;
 	this.isMoving = true;
-	this.npcSpeed = 5;
+	this.npcSpeed = 4;
 	this.width = 32;
 	this.target_x = x;
 	this.target_y = y;
 	this.wait_time = 0;
 	this.interaction = false;
-	this.interactionTarget;
+	this.interactionTarget = this;
+	this.interactionReached = false;
+	this.interactionTime = 0;
 
     this.category = category;
     this.gender = gender;
@@ -128,19 +130,54 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 	this.interactionCheck = function(){
 		for (iter in npcCollidables){
 			if(npcCollidables[iter].id != this.id){
-				if(collisionChecker(this, npcCollidables[iter])){
+				if(collisionChecker(this, npcCollidables[iter]) &&
+					this.interaction == false &&
+					npcCollidables[iter].interaction == false &&
+					this.interactionTarget.id != npcCollidables[iter].id){
 					//collided
+					npcInteraction(this, npcCollidables[iter]);
 					//console.log(this.id + " and " + npcCollidables[iter].id + " have collided");
 				}
 			}
 		}
 	}
 	
+	npcInteraction = function(npc1, npc2){
+		console.log("function called");
+		var tmpNPC1;
+		var tmpNPC2;
+		npc1.interaction = npc2.interaction = true;
+		if(npc1.id>npc2.id){
+			tmpNPC1 = npc1;
+			tmpNPC2 = npc2;
+		}
+		else{
+			tmpNPC1 = npc2;
+			tmpNPC2 = npc1;
+		}
+		//tmpNPC1.isMoving = tmpNPC2.isMoving = false;
+		tmpNPC1.isMoving = false;
+		console.log(tmpNPC1.isMoving);
+		tmpNPC2.target_y = tmpNPC1.pos_y;
+		if(tmpNPC1.pos_x >= 768){
+			tmpNPC2.target_x = tmpNPC1.pos_x - 32;
+			tmpNPC1.facingWhichDirection = "left";
+			tmpNPC2.facingWhichDirection = "right";
+		}
+		else{
+			tmpNPC2.target_x = tmpNPC1.pos_x + 32;
+			tmpNPC2.facingWhichDirection = "left";
+			tmpNPC1.facingWhichDirection = "right";
+		}
+		npc1.interactionTarget = npc2;
+		npc2.interactionTarget = npc1;
+	}
+	
 	this.move = function(){
 			if(this.isMoving == true){
 				//using if else statements to ensure NPC move in one direction only
 				//move right
-				if (this.pos_x < this.target_x - grid_threshold){
+				if (this.pos_x < this.target_x){
 					this.pos_x += this.npcSpeed;
 					if (this.whichSprite == this.width * 8){
 						this.whichSprite = this.width * 9;
@@ -153,7 +190,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
             }
 				}
 				//move left
-				else if (this.pos_x > this.target_x + grid_threshold){
+				else if (this.pos_x > this.target_x){
 					this.pos_x -= this.npcSpeed;
 					if (this.whichSprite == this.width * 4){
 						this.whichSprite = this.width * 5;
@@ -166,7 +203,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 					}
 				}
 				//move down
-				else if (this.pos_y < this.target_y - grid_threshold){
+				else if (this.pos_y < this.target_y){
 					this.pos_y += this.npcSpeed;
 					if (this.whichSprite == this.width * 0){
 						this.whichSprite = this.width * 1;
@@ -179,7 +216,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 					}
 				}
 				//move up
-				else if (this.pos_y > this.target_y + grid_threshold){
+				else if (this.pos_y > this.target_y){
 					this.pos_y -= this.npcSpeed;
 					if (this.whichSprite == this.width * 12){
 						this.whichSprite = this.width * 13;
@@ -191,13 +228,55 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 							this.whichSprite = this.width * 12;
 					}		
 				}
-				//change the target position since NPC has more or less reached its target
+				//change the target position since NPC has reached its target
 				else{
+					if (this.interaction == true){
+						this.isMoving = false;
+						this.interactionReached = true;
+					}
 					this.wait_time--;
 					if(this.wait_time <= 0){
-						this.target_x = Math.floor(Math.random()*768);
-						this.target_y = Math.floor(Math.random()*530);
-						this.wait_time = 100;
+						this.target_x = Math.floor(Math.random()*24) * 32;
+						this.target_y = Math.floor(Math.random()*16) * 32;
+						this.wait_time = 50;
+					}
+				}
+			}
+			//isMoving is false implies interaction
+			else{
+				switch(this.facingWhichDirection){
+					case "up":
+						this.whichSprite = this.width * 12;
+						break;
+					case "down":
+						this.whichSprite = this.width * 0;
+						break;
+					case "left":
+						this.whichSprite = this.width * 4;
+						break;
+					case "right":
+						this.whichSprite = this.width * 8;
+						break;
+				}
+				if(this.interactionReached == true){
+					//render speech bubble
+					var speechImage = new Image();
+					speechImage.src = "images/normal_interaction2.png";
+					context.drawImage(	speechImage, this.pos_x - 32, this.pos_y - 64);
+					this.interactionTime++;
+					if(this.interactionTime >= 50){
+						//reset all interaction values
+						//alert("a");
+						this.interactionReached = false;
+						this.isMoving = true;
+						this.interaction = false;
+						this.interactionTime = 0;
+						this.interactionTarget.interactionReached = false;
+						this.interactionTarget.isMoving = true;
+						this.interactionTarget.interaction = false;
+						this.interactionTarget.interactionTime = 0;
+						this.wait_time = 0;
+						this.interactionTarget.wait_time = 0;
 					}
 				}
 			}
