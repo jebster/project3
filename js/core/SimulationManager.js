@@ -699,15 +699,17 @@ function SimulationManager(){
 		daveRep_inf = Math.ceil( (daveRep_diff/4)*10 ) /10
 
 		//If neutral
-		if(daveRep1 == 0.5){
+		if(daveRep1 > 0.4 && daveRep1 < 0.6){
 			//daveRep1 Will be influenced
 			//daveRep2 will not be influenced
 			daveRep1 += daveRep_inf;
 
-		}else if(daveRep2 == 0.5){
-			
+		}else if(daveRep2 > 0.4 && daveRep2 < 0.6){			
 			daveRep2 -= daveRep_inf;
-		
+		}
+		else{
+			daveRep1 += daveRep_inf;
+			daveRep2 -= daveRep_inf;
 		}
 		return daveRepArray[daveRep1,daveRep2];
 	}
