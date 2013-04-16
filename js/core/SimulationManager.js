@@ -78,12 +78,12 @@ function SimulationManager(){
 			if(!(currentFaculty == destinationFaculty)){
 				this.abstractTwoMovement();
 			}
-			currentFaculty = destinationFaculty;
+			currentFaculty = destinationFaculty.substring(0, destinationFaculty.length - 3);
 			
 		} else {
 			this.abstractThreeMovement();
 			currentUni = destinationUni;
-			currentFaculty = destinationFaculty;
+			currentFaculty = destinationFaculty.substring(0, destinationFaculty.length - 3);
 		}
 	}
 
@@ -302,10 +302,10 @@ function SimulationManager(){
 						timeOutFac = currentTime-inFlight_timeLeavesFac;
 
 						//Assume every five seconds away from faculty, NPC can talk to a person.
-						talkTo = timeOutFac%5;
+						talkTo = Math.floor(timeOutFac / 5);
 
 						//inFlight goes to talk to this amount of people
-						for(var k=0; k<talkTo; k++){
+						for(var temp=0; temp<talkTo; temp++){
 							//the current NPC that inFlight is talking to
 							var npc_daveRep = daveReputationArray[array_index];
 
@@ -342,8 +342,10 @@ function SimulationManager(){
 				//var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
 				//var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
 
-				console.log(new_mean);
-				console.log(new_var);
+				console.log(currentFaculty);
+				console.log(new_mean, abstractTwoContainer.faculties[k]);
+				console.log(new_var,abstractTwoContainer.faculties[k]);
+
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
