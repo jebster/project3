@@ -15,6 +15,8 @@ function getCurTime(){
     return timeUnit;
 }
 
+
+
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
 //var toRenderList;
