@@ -4,6 +4,8 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 }
 
 function getCurTime(){
+
+    
     var clock = new Date();
     var timeUnit = Math.ceil( (clock.getTime()/1000) );
 
@@ -102,6 +104,8 @@ var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 506;
 var grid_threshold = 16;	//threshold for NPC movement to random spots
 var npcCollidables;
+
+
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;

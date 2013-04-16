@@ -1,6 +1,10 @@
-/*
-	For explanation see abstraction_explanation.js
-*/
+/* Global Variables */
+//Track Location
+var currentUni = "NUS"; // always start in NUS
+var currentFaculty = "engine";
+
+var destinationUni = "NTU";
+var destinationFaculty = "engine";
 
 function SimulationManager(){
 
@@ -34,12 +38,7 @@ function SimulationManager(){
 	//Spreading at other faculties of his reputation - jensen
 	var time_elapsed_in_fac;
 
-	// Track Location ~ jensen
-	var currentUni = "NUS"; // always start in NUS
-	var currentFaculty = "engine";
-
-	var destinationUni = "NUS";
-	var destinationFaculty = "engine";
+	
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
