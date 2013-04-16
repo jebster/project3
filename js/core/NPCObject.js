@@ -177,7 +177,7 @@ var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, pre
 	}
 	
 	this.move = function(){
-			if(this.isMoving == true){
+			if(this.isMoving == true && !performingAction){
 				//using if else statements to ensure NPC move in one direction only
 				//move right
 				if (this.pos_x < this.target_x){
@@ -266,7 +266,8 @@ var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, pre
 					var speechImage = new Image();
 					speechImage.src = "images/normal_interaction2.png";
 					context.drawImage(	speechImage, this.pos_x - 32, this.pos_y - 64);
-					this.interactionTime++;
+					if(!performingAction)
+						this.interactionTime++;
 					if(this.interactionTime >= 50){
 						//reset all interaction values
 						//alert("a");
