@@ -5,7 +5,7 @@
 function SimulationManager(){
 
 	var _NPCList = [];
-	var _abstractPopulation = 40;
+	var _abstractPopulation = 20;
 	var _decompressFlag = 1;
 	var storedListIndex;
 
@@ -21,7 +21,8 @@ function SimulationManager(){
 	var primaryTypeIndex_end = [0.3, 0.7, 1.0];
 
 	var probCurrentFaculty  = 0.7;
-	var probOtherFaculty = 0.15;
+	var probOtherFaculty1 = 0.16;
+	var probOtherFaculty2 = 0.14;
 
 	var preferenceTypeList = ["nerd", "hunk", "talent"];
 
@@ -34,8 +35,11 @@ function SimulationManager(){
 	var time_elapsed_in_fac;
 
 	// Track Location ~ jensen
-	var currentUni = 'NUS'; // always start in NUS
-	var currentFaculty = 'engine';
+	var currentUni = "NUS"; // always start in NUS
+	var currentFaculty = "engine";
+
+	var destinationUni = "NUS";
+	var destinationFaculty = "engine";
 
 	//Will update all objects of an abstracted section according to
 	//the prescribed rules/metrics e.g. distribution curves, probabilities etc.
@@ -44,9 +48,9 @@ function SimulationManager(){
 	// will be triggered when location is changed ~ jensen
 	this.changeLocation = function(){
 
-		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+		destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 
-		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
+		destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
 		document.getElementById('display-uni').innerHTML = destinationUni;
 		
 		switch(destinationFaculty){
@@ -375,6 +379,8 @@ function SimulationManager(){
 		this.assignReputationRangeWeightage();
 
 		var type_index;
+		var score;
+		var currNPCcategory;
 
 		//Create NPC Girl and Guy 50% chance
 		for(var j = 0; j < _abstractPopulation; ++j){
@@ -389,35 +395,43 @@ function SimulationManager(){
 			//Get which range of reputation to assign based on prob distribution
 			var range_index = AssignDistributionRange(probBadReputation, probNeutralReputation, probGoodReputation);
 
-			currNPCDaveReputation = (Math.random()*(reputationRange_end[range_index])) + reputationRange_start[range_index];
+			currNPCDaveReputation = GetWithinRange(reputationRange_start[range_index],reputationRange_end[range_index]);
 
-			if(NPC.gender == "female"){
+			if(gender_assign == "female"){
 				//set preferenceType for GIRLS
 				var preferencetype_index = AssignDistributionRange(preferenceTypeStats["nerd"], preferenceTypeStats["hunk"], preferenceTypeStats["talent"]);
 				currNPCPreferenceType = preferenceTypeList[preferencetype_index];
 			}
+			
+			//set primaryType for GUYS
+			if(destinationFaculty == "engine"){
+				type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty1, probOtherFaculty2);
+			}
+			else if(destinationFaculty == "arts"){
+				type_index = AssignDistributionRange(probOtherFaculty1, probCurrentFaculty, probOtherFaculty2);
+			}
 			else{
-				//set primaryType for GUYS
-				if(destinationFaculty == "engine"){
-					type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty, probOtherFaculty);
-				}
-				else if(destinationFaculty == "arts"){
-					type_index = AssignDistributionRange(probOtherFaculty, probCurrentFaculty, probOtherFaculty);
-				}
-				else{
-					type_index = AssignDistributionRange(probOtherFaculty, probOtherFaculty, probCurrentFaculty);
-				}
-				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_end[type_index])) + primaryTypeIndex_start[type_index];
+				type_index = AssignDistributionRange(probOtherFaculty1, probOtherFaculty2, probCurrentFaculty);
 			}
 
-			var score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index])*10;
+			if(gender_assign == "male"){
 
-			var currNPCcategory = categoryList[type_index];
+				currNPCPrimaryTypeIndex =  GetWithinRange(primaryTypeIndex_start[range_index], primaryTypeIndex_end[range_index]);
 
-			var NPC = new NPCObject(i+5, i+5, i, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+				score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index])*10;
 
-			NPC.primaryTypeScore = score;
-			NPC.primaryType = preferenceTypeList[type_index];
+			}
+			
+			currNPCcategory = categoryList[type_index];
+
+			var NPC = new NPCObj(i+5, i+5, i, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+
+			if(gender_assign == "male"){
+				NPC.primaryTypeScore = score;
+				NPC.primaryType = preferenceTypeList[type_index];
+			}
+
+			console.log(range_index, currNPCDaveReputation,gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
 
 			absList.NPCList.push(NPC);
 		}
@@ -578,9 +592,17 @@ function SimulationManager(){
 	/* General Functions  */
 
 	function AssignDistributionRange(probability_range0, probability_range1, probability_range2){
+		if(probability_range0 == probability_range1 || probability_range0 == probability_range2){
+			probability_range0 += 0.0001;
+			if(probability_range1 == probability_range2){
+				probability_range1 -= 0.0001;
+			}
+		}
 
 		var prob_array = [probability_range0, probability_range1, probability_range2];
 		var temp_array = [];
+
+		equal_flag = 0;
 
 		var lowest_prob;
 		var sec_lowest_prob;
@@ -594,6 +616,12 @@ function SimulationManager(){
 			if(!(prob_array[i]==lowest_prob)){
 				temp_array.push(prob_array[i]);
 			}
+			else if(equal_flag == 1){
+				temp_array.push(prob_array[i]);
+			}
+			else{
+				equal_flag = 1;
+			}
 		}
 
 		prob_array = [];
@@ -601,11 +629,19 @@ function SimulationManager(){
 			prob_array[i] = temp_array[i];
 		}
 
+		temp_array = [];
+		equal_flag = 0;
 		sec_lowest_prob = FindMinimum(prob_array);
 
-		for( i=0; i < prob_array.length; ++i){
+		for(var i=0; i < prob_array.length; ++i){
 			if(!(prob_array[i]==sec_lowest_prob)){
 				temp_array.push(prob_array[i]);
+			}
+			else if(equal_flag == 1){
+				temp_array.push(prob_array[i]);
+			}
+			else{
+				equal_flag = 1;
 			}
 		}
 
@@ -689,4 +725,8 @@ function SimulationManager(){
 		return myArray;
 	}
 
+	function GetWithinRange (min, max) {
+
+    	return Math.random() * (max - min) + min;
+	}
 }
