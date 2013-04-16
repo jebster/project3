@@ -29,7 +29,7 @@ function SimulationManager(){
 	var categoryList = ["engine", "arts", "law"];
 
 	//For auto compression purposes (see autoCompress()) - jensen
-	var withinFac = null;
+	//var withinFac = null;
 
 	//Spreading at other faculties of his reputation - jensen
 	var withinFac_interaction;
@@ -117,30 +117,16 @@ function SimulationManager(){
 		alert('moving within same uni');
 
 		//Moving out of faculty
-		withinFac = false;
+		//withinFac = false;
 		
 		// Happens when time has passed 1 minute
 		// Or Dave did an action
 		// Or Dave change faculty
-		this.compressLevelOne(withinFac);
+		this.compressLevelOne();
 
 		//add here? - Jensen - clarification needed
 		this.decompressAbstractTwo();
 
-		//We only need to decompress and repopulate if Dave moves to another faculty/Uni or does action
-		//that takes a lot of time
-		//If he's just standing doing nothing in the same faculty, continue in atomic state, no need to decompress.
-		if(!(daveDoesNothing)){
-
-			// Or Dave did an action
-			// Or Dave change faculty			
-
-			this.decompressAbstractTwo();
-		}
-
-		/*
-			For explanation see abstraction_explanation.js
-		*/
 
 	}
 
@@ -150,7 +136,7 @@ function SimulationManager(){
 		//Moving out of faculty
 		withinFac = false;
 
-		this.compressLevelOne(withinFac);
+		this.compressLevelOne();
 		this.compressLevelTwo();
 		this.decompressAbstractThree();
 		this.decompressAbstractTwo();
@@ -176,7 +162,7 @@ function SimulationManager(){
 	/*========================================
 	***** Every 1 minute Refresh Stats *******
 	========================================*/
-
+	/*
 	this.autoCompress = function(){
 
 		//Will autoCompress every 100 seconds
@@ -197,7 +183,7 @@ function SimulationManager(){
 			this.compressLevelOne(withinFac);
 		}
 
-	}
+	} */
 
 	/*
 	==========================================
@@ -205,7 +191,7 @@ function SimulationManager(){
 	==========================================
 	*/
 
-	this.compressLevelOne = function(withinFac){
+	this.compressLevelOne = function(){
 
 		var daveReputationArray = [];
 		var old_mean;
@@ -231,12 +217,13 @@ function SimulationManager(){
 				var new_var = variance(daveReputationArray);	
 
 				//Check if it is still within faculty or out of faculty
+				/*
 				if(withinFac){
 					//do nothing
 				}else{
 					//if Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
 					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
-				}			
+				}			*/
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
@@ -247,6 +234,7 @@ function SimulationManager(){
 			else{
 
 				//Check if it is still within faculty or out of faculty
+				/*
 				if(withinFac){
 					//for AutoCompress, every 1 minute, will decrease the variance
 					abstractTwoContainer.statsList[k].variance -= 0.15;
@@ -261,7 +249,7 @@ function SimulationManager(){
 					abstractTwoContainer.statsList[k].variance -= withinFac_interaction/400;
 					//Reset the timer that keeps track of last time the faculty is being compressed
 					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
-				}
+				}*/
 
 				//Get otherFaculty's stats
 				old_mean =  abstractTwoContainer.statsList[k].mean;

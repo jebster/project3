@@ -40,12 +40,10 @@
 		5. do the same for NUSLaw (otherFaculty_2_stats)
 
 
-
-
 		Y: Goes to NUSEngin from NUSArts (change faculty)  
 		=========================================
-			1:Compress NUSEngin - compressLevelOne()
-			================
+			1:Compress NUSEngin + All other Faculties - compressLevelOne()
+			==========================
 			Step X
 
 			2: Decompress NUSArts - decompressAbstractTwo()
@@ -82,7 +80,6 @@
 
 			Decompress AbstractThree Stats (NTU)
 			==================================
-
 
 			1. function changeUni(NTU_stats){
 				

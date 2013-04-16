@@ -91,17 +91,14 @@ function GameEngine(){
         alert(time2-time1);
         
 */
-
-
-
 							
         gameEngine.run();
 
     }
 
     this.run = function(){
-    	_frameNumber++;
 
+    	_frameNumber++;
 
         var clock = new Date();
         var frameStartTime = clock.getTime();
@@ -112,11 +109,6 @@ function GameEngine(){
         simulation.autoCompress();
 
         abstractThreeContainer.updatePreference();
-
-
-
-
-
 
         // Calculate the time until next frame;
         clock = new Date() ;
