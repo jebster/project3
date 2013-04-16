@@ -1,22 +1,22 @@
-var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primaryTypeIndex) {
+var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
     this.id = id;
     this.name = gender+"_"+id;
-    this.pos_x = x;
-    this.pos_y = y;
+    this.pos_x = Math.floor(Math.random()*23) * 32 + 32;
+    this.pos_y = Math.floor(Math.random()*15) * 32 + 32;
 	this.image = new Image();
 	this.whichSprite = 0;
 	this.facingWhichDirection;
 	this.isMoving = true;
 	this.npcSpeed = 4;
 	this.width = 32;
-	this.target_x = x;
-	this.target_y = y;
+	this.target_x = this.pos_x;
+	this.target_y = this.pos_y;
 	this.wait_time = 0;
 	this.interaction = false;
 	this.interactionTarget = this;
 	this.interactionReached = false;
 	this.interactionTime = 0;
-	this.leftAtTime = 0;
+	this.leftAtTime = getCurTime();
 	this.destFaculty = "nothing";
 
     this.category = category;
@@ -30,7 +30,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 
     //to keep track of movement within university
     this.currUniversity;
-    this.curFaculty;
+    this.currFaculty = destinationFaculty;
 
     //distribution curve for preferenceType AND
     // primaryType
@@ -44,7 +44,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 
 
     if(this.gender == "male"){
-
+		
         if (this.category === "engine") {
 
             //this.primaryTypeIndex = 0.3; //want a super nerd
@@ -130,18 +130,18 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
     }
 	
 	this.interactionCheck = function(){
-		for (iter in npcCollidables){
-			if(npcCollidables[iter].id != this.id){
-				if(collisionChecker(this, npcCollidables[iter]) &&
+		for (iter in toRenderList.NPCList){
+			if(toRenderList.NPCList[iter].id != this.id){
+				if(collisionChecker(this, toRenderList.NPCList[iter]) &&
 					this.interaction == false &&
-					npcCollidables[iter].interaction == false &&
-					this.interactionTarget.id != npcCollidables[iter].id){
+					toRenderList.NPCList[iter].interaction == false &&
+					this.interactionTarget.id != toRenderList.NPCList[iter].id){
 					//collided
-					npcInteraction(this, npcCollidables[iter]);
-					var tmpArray = influence_btwn_NPCS(this.daveReputation, npcCollidables[iter].daveReputation);
-					console.log(tmpArray[0] + ", " + tmpArray[1]);
+					npcInteraction(this, toRenderList.NPCList[iter]);
+					var tmpArray = influence_btwn_NPCS(this.daveReputation, toRenderList.NPCList[iter].daveReputation);
+					//console.log(tmpArray[0] + ", " + tmpArray[1]);
 					this.daveReputation = tmpArray[0];
-					npcCollidables[iter].daveReputation = tmpArray[1];
+					toRenderList.NPCList[iter].daveReputation = tmpArray[1];
 				}
 			}
 		}

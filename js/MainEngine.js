@@ -5,9 +5,8 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 
 function getCurTime(){
 
-    
-    var clock = new Date();
-    var timeUnit = Math.ceil( (clock.getTime()/1000) );
+   // var clock = new Date();
+    //var timeUnit = Math.ceil( (clock.getTime()/1000) );
 
     //timeUnit will give the current time in seconds
     //For example
@@ -71,6 +70,8 @@ var abstractTwoContainer;
 var abstractThreeContainer;
 
 var faculty_index;
+
+var timeUnit = 0;
 // var toRenderList = {NPCList: [		
 
 //     new NPCObj(132, 132, 1, "engine", "male",0,0,0),
@@ -102,8 +103,6 @@ var DOOR_LEFT_X = 284;
 var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 506;
-var grid_threshold = 16;	//threshold for NPC movement to random spots
-var npcCollidables;
 
 
 
@@ -158,8 +157,6 @@ function GameEngine(){
         //Decompress for first time and populate faculty
         faculty_index = 0;
         simulation.decompressAbstractTwo();
-
-        npcCollidables = toRenderList.NPCList;
 
 /*
         var time1 = getCurTime();
@@ -222,7 +219,8 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.draw();
 
-
+        timeUnit += _inverseFPS;
+        
         //Update NPC movements (Max's function)
         //updateNPCPositions(); 
 
@@ -231,36 +229,35 @@ function GameEngine(){
         //checkNPCInteractions();
 		
 		tempRenderList = toRenderList;
-		
-        for(var i = 0; i < toRenderList.NPCList.length; ++i){
-            removeNPCFlag = 0;
-            var currNPC =  toRenderList.NPCList[i];
+		for(var i = 0; i < toRenderList.NPCList.length; ++i){
+			removeNPCFlag = 0;
+			var currNPC =  toRenderList.NPCList[i];
 			
 			//make them move
 			currNPC.move();
 			
-            var movement = this.checkFacultyMovement(currNPC);
-            var inFlightListFlag = 1;
+			var movement = this.checkFacultyMovement(currNPC);
+			var inFlightListFlag = 1;
 
-            //Check if NPC is moving to another faculty
-            switch(movement){
-                case "engine":
-                case "arts":
-                case "law":
-                    currNPC.currFaculty = movement;
-                    inFlightList.push(currNPC);
-                    removeNPCFlag = 1;
-                    break;
-                case "nothing":
-                default:
-                    break;
-            }
+			//Check if NPC is moving to another faculty
+			switch(movement){
+				case "engine":
+				case "arts":
+				case "law":
+					currNPC.currFaculty = movement;
+					inFlightList.push(currNPC);
+					removeNPCFlag = 1;
+					break;
+				case "nothing":
+				default:
+					break;
+			}
 
-            //Remove NPC from current faculty rendering if he/she has left the faculty
+			//Remove NPC from current faculty rendering if he/she has left the faculty
 			if(removeNPCFlag == 1){
 				currNPC.leavingTime = getCurTime();
-                toRenderList.NPCList.splice(i,1);
-            }
+				toRenderList.NPCList.splice(i,1);
+			}
 			else{
 				//if not removed, draw the character
 
@@ -268,8 +265,7 @@ function GameEngine(){
 				currNPC.interactionCheck();
 			}
 
-        }
-
+		}
 
 
         toRenderList = tempRenderList;
@@ -278,10 +274,12 @@ function GameEngine(){
 			overlayTimer++;
 			if(overlayTimer > 50){
 				drawOverlay = false;
+				performingAction = false;
 				overlayTimer = 0;
 			}
 		}
-
+		updateAttributes();
+		
     }
 
     this.checkFacultyMovement = function(object){

@@ -41,5 +41,11 @@ function globalTimer(){
 
 }
 
-
+function updateAttributes(){
+	document.getElementById('talent-bar').style.cssText = "width: " + player.talent * 100 + "%";
+	document.getElementById('fitness-bar').style.cssText = "width: " + player.fitness * 100 + "%";
+	document.getElementById('intellect-bar').style.cssText = "width: " + player.intellect * 100 + "%";
+	document.getElementById('reputation-bar').style.cssText = "width: " + player.reputation * 100 + "%";
+	
+}
 

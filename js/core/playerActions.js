@@ -3,6 +3,7 @@ var PlayerActions = function(){
 	this.timeTaken = 0;
 	
 	this.talent = function(){
+		
 		drawOverlay = true;
 		overlayImg.src = "images/improving_talent.png";
 		player.talent += 0.01;
