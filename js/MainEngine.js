@@ -277,6 +277,7 @@ function GameEngine(){
 				overlayTimer = 0;
 			}
 		}
+		updateAttributes();
 		
     }
 
