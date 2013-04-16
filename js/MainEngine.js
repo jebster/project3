@@ -19,18 +19,18 @@ function getCurTime(){
 var ABSTRACT_LEVEL = 1;
 var toRenderList = {NPCList: [		
 
-    new NPCObj(132, 132, 1, "engine", "NUS", "male"),
-    new NPCObj(164, 164, 2, "engine", "NUS", "male"),
-    new NPCObj(196, 196, 3, "engine", "NUS", "female"),
-    new NPCObj(228, 228, 4, "engine", "NUS", "female"),
-    new NPCObj(260, 260, 5, "arts", "NUS", "male"),
-    new NPCObj(292, 292, 6, "arts", "NUS", "male"),
-    new NPCObj(324, 292, 7, "arts", "NUS", "female"),
-    new NPCObj(356, 260, 8, "arts", "NUS", "female"),
-    new NPCObj(388, 228, 9, "law", "NUS", "male"),
-    new NPCObj(420, 196, 10, "law", "NUS", "male"),
-    new NPCObj(452, 164, 11, "law", "NUS", "female"),
-    new NPCObj(484, 132, 12, "law", "NUS", "female")
+    new NPCObj(132, 132, 1, "engine", "male",0,0,0),
+    new NPCObj(164, 164, 2, "engine", "male",0,0,0),
+    // new NPCObj(196, 196, 3, "engine", "NUS", "female"),
+    // new NPCObj(228, 228, 4, "engine", "NUS", "female"),
+    // new NPCObj(260, 260, 5, "arts", "NUS", "male"),
+    // new NPCObj(292, 292, 6, "arts", "NUS", "male"),
+    // new NPCObj(324, 292, 7, "arts", "NUS", "female"),
+    // new NPCObj(356, 260, 8, "arts", "NUS", "female"),
+    // new NPCObj(388, 228, 9, "law", "NUS", "male"),
+    // new NPCObj(420, 196, 10, "law", "NUS", "male"),
+    // new NPCObj(452, 164, 11, "law", "NUS", "female"),
+    // new NPCObj(484, 132, 12, "law", "NUS", "female")
 
 	]};
 
