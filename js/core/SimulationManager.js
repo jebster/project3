@@ -468,8 +468,9 @@ function SimulationManager(){
 
 	this.decompressAbstractThree = function(){
 		//Get stats of three faculties, apply rules and update individual faculty stats
-		//destinationUni is destination, currentUni is origin
+		//Destination Uni
 		var university_index = abstractThreeContainer.universities.indexOf(destinationUni);
+		//Origin Uni
 		var otherUni_index = abstractThreeContainer.universities.indexOf(currentUni);
 
 		var current_time = getCurTime();
@@ -511,14 +512,33 @@ function SimulationManager(){
 			//random value for now
 		}
 
-		//Reputation spread within that university for the time passed
-		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+		// 1.Reputation spread within destination university for the time passed
+		//=====================================================================
 
-			abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+		//Get the last four digits of the time (133122334)
+		var the_number = getCurTime().toString();
+		var temp_end_index = the_number.length;
+		var temp_beginning_index = temp_end_index-4;
 
-			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
-			//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+		//ranges from 0000 - 9999 seconds (almost 2 hours)
+		var time_cycle = the_number.substring( temp_beginning_index , temp_end_index );
+	
+		//Assume after 9999, spreading effect within university will stabilize
+		if(time_cycle<9999){
+
+			//QUESTION: Where do you get abstractTwoContainer?
+			for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+
+				//range of variance decrease is from 0 to 0.01
+				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - time_cycle/999900;
+
+				//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
+				//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+			}
+
 		}
+		
+		/*
 
 		effect_factor = otherUniAvgDaveRepMean - 0.5;
 
@@ -529,10 +549,13 @@ function SimulationManager(){
 		else{
 			rep_factor = 1.4;
 			//random value for now
-		}
+		}*/
+
 		//var traffic_flow_factor = 0.3;
 
-		//Reputation spread from other university
+
+		// 2. Reputation spread from other university
+		//=====================================================================
 		for(i=0; i<abstractTwoContainer.faculties.length; ++i){
 			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;
 			abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
