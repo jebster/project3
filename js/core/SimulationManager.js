@@ -6,6 +6,8 @@ var currentFaculty = "engine";
 var destinationUni = "NTU";
 var destinationFaculty = "engine";
 
+var destinationFaculty_trunc = "engine";
+
 function SimulationManager(){
 
 	var _NPCList = [];
@@ -75,10 +77,12 @@ function SimulationManager(){
 
 		
 		if(currentUni == destinationUni) {
-			if(!(currentFaculty == destinationFaculty)){
+			destinationFaculty_trunc = destinationFaculty.substring(0, destinationFaculty.length - 3);
+
+			if(!(currentFaculty == destinationFaculty_trunc)){
 				this.abstractTwoMovement();
 			}
-			currentFaculty = destinationFaculty.substring(0, destinationFaculty.length - 3);
+			currentFaculty = destinationFaculty_trunc;
 			
 		} else {
 			this.abstractThreeMovement();
@@ -213,8 +217,8 @@ function SimulationManager(){
 				
 
 				// Update current faculty's stats - Jensen
-				var new_mean = mean(daveReputationArray);
-				var new_var = variance(daveReputationArray);
+				var new_mean_1 = mean(daveReputationArray);
+				var new_var_1 = variance(daveReputationArray);
 
 	
 				//Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
@@ -227,8 +231,8 @@ function SimulationManager(){
 				}
 				
 
-				abstractTwoContainer.statsList[k].mean = new_mean;
-				abstractTwoContainer.statsList[k].variance = new_var;
+				abstractTwoContainer.statsList[k].mean = new_mean_1;
+				abstractTwoContainer.statsList[k].variance = new_var_1;
 
 				
 
@@ -339,16 +343,15 @@ function SimulationManager(){
 				//Update the mean and variance (jensen)
 				var new_mean = mean(daveReputationArray);
 				var new_variance = variance(daveReputationArray);
-				//var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
-				//var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
+
 
 				console.log(currentFaculty);
 				console.log(new_mean, abstractTwoContainer.faculties[k]);
-				console.log(new_var,abstractTwoContainer.faculties[k]);
+				console.log(new_variance,abstractTwoContainer.faculties[k]);
 
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
-				abstractTwoContainer.statsList[k].variance = new_var;
+				abstractTwoContainer.statsList[k].variance = new_variance;
 			}
 		}
 	}
@@ -380,6 +383,8 @@ function SimulationManager(){
 	==========================================
 	*/
 	this.decompressAbstractTwo = function(){
+
+		faculty_index = abstractTwoContainer.faculties.indexOf(destinationFaculty_trunc);
 
 		var decompression_mean = abstractTwoContainer.statsList[faculty_index].mean;
 		var decompression_var = abstractTwoContainer.statsList[faculty_index].variance;
@@ -426,10 +431,10 @@ function SimulationManager(){
 			}
 			
 			//set primaryType for GUYS
-			if(destinationFaculty == "engine"){
+			if(destinationFaculty_trunc == "engine"){
 				type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty1, probOtherFaculty2);
 			}
-			else if(destinationFaculty == "arts"){
+			else if(destinationFaculty_trunc == "arts"){
 				type_index = AssignDistributionRange(probOtherFaculty1, probCurrentFaculty, probOtherFaculty2);
 			}
 			else{
@@ -446,14 +451,14 @@ function SimulationManager(){
 			
 			currNPCcategory = categoryList[type_index];
 
-			var NPC = new NPCObj(j+5, j+5, j, destinationFaculty, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+			var NPC = new NPCObj(j, destinationFaculty_trunc, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
 
 			if(gender_assign == "male"){
 				NPC.primaryTypeScore = score;
 				NPC.primaryType = preferenceTypeList[type_index];
 			}
 
-			console.log(range_index, currNPCDaveReputation,gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
+			console.log(range_index, currNPCDaveReputation, gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
 
 			absList.NPCList.push(NPC);
 		}

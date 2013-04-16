@@ -1,4 +1,4 @@
-var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
+var NPCObj = function(id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
     this.id = id;
     this.name = gender+"_"+id;
     this.pos_x = Math.floor(Math.random()*24) * 32 + 32;
