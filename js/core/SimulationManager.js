@@ -8,7 +8,6 @@ function SimulationManager(){
 	var _abstractPopulation = 40;
 	var _decompressFlag = 1;
 	var storedListIndex;
-	var faculty_index;
 
 	var daveReputation_distribution;
 	var probBadReputation;
@@ -47,8 +46,6 @@ function SimulationManager(){
 
 		var destinationFaculty = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 
-		currentFaculty = destinationFaculty;
-
 		var destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
 		document.getElementById('display-uni').innerHTML = destinationUni;
 		
@@ -75,13 +72,15 @@ function SimulationManager(){
 
 		
 		if(currentUni == destinationUni) {
-
-			this.abstractTwoMovement();
-
+			if(!(currentFaculty == destinationFaculty)){
+				this.abstractTwoMovement();
+			}
+			currentFaculty = destinationFaculty;
 			
 		} else {
 			this.abstractThreeMovement();
 			currentUni = destinationUni;
+			currentFaculty = destinationFaculty;
 		}
 	}
 
@@ -196,10 +195,6 @@ function SimulationManager(){
 		var daveReputationArray = [];
 		var old_mean;
 		var old_var;
-
-		abstractTwoContainer.update();
-
-
 
 		//update current faculty's mean and variance
 		for(var k = 0; k < abstractTwoContainer.faculties.length; ++k){
@@ -364,7 +359,7 @@ function SimulationManager(){
 		var decompression_var = abstractTwoContainer.statsList[faculty_index].variance;
 
 		//Info + NPC Objects in entered faculty
-		var absList = new AbstractionOneList(university, faculty);
+		var absList = new AbstractionOneList(currentUni, abstractTwoContainer.faculties[faculty_index]);
 
 		var preferenceTypeStats = abstractTwoContainer.preferenceTypeStats;
 		//For all NPC
@@ -378,8 +373,6 @@ function SimulationManager(){
 		daveReputation_distribution = new NormalDistribution(decompression_mean, decompression_var);
 
 		this.assignReputationRangeWeightage();
-
-		var index = this.assignReputationRange();
 
 		var type_index;
 
@@ -396,7 +389,7 @@ function SimulationManager(){
 			//Get which range of reputation to assign based on prob distribution
 			var range_index = AssignDistributionRange(probBadReputation, probNeutralReputation, probGoodReputation);
 
-			currNPCDaveReputation = (Math.random()*(reputationRange_start[range_index])) + reputationRange_end[range_index];
+			currNPCDaveReputation = (Math.random()*(reputationRange_end[range_index])) + reputationRange_start[range_index];
 
 			if(NPC.gender == "female"){
 				//set preferenceType for GIRLS
@@ -405,19 +398,19 @@ function SimulationManager(){
 			}
 			else{
 				//set primaryType for GUYS
-				if(currentFaculty == "engine"){
+				if(destinationFaculty == "engine"){
 					type_index = AssignDistributionRange(probCurrentFaculty, probOtherFaculty, probOtherFaculty);
 				}
-				else if(currentFaculty == "arts"){
+				else if(destinationFaculty == "arts"){
 					type_index = AssignDistributionRange(probOtherFaculty, probCurrentFaculty, probOtherFaculty);
 				}
 				else{
 					type_index = AssignDistributionRange(probOtherFaculty, probOtherFaculty, probCurrentFaculty);
 				}
-				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_start[type_index])) + primaryTypeIndex_end[type_index];
+				currNPCPrimaryTypeIndex = (Math.random()*(primaryTypeIndex_end[type_index])) + primaryTypeIndex_start[type_index];
 			}
 
-			var score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_start[type_index])*10;
+			var score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index])*10;
 
 			var currNPCcategory = categoryList[type_index];
 

@@ -81,6 +81,9 @@ function GameEngine(){
         abstractThreeContainer.update(statsMeanArray,statsVarArray,"NUS");
         abstractThreeContainer.update(statsMeanArray,statsVarArray,"NTU");
 
+        //Initialize abstractTwoValues
+        abstractTwoContainer.init(statsMeanArray, statsVarArray);
+
         // initialize input manager
         inputManager.init(_inverseFPS);
 
