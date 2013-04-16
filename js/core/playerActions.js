@@ -3,28 +3,33 @@ var PlayerActions = function(){
 	this.timeTaken = 0;
 	
 	this.talent = function(){
-		
+		performingAction = true;
 		drawOverlay = true;
 		overlayImg.src = "images/improving_talent.png";
 		player.talent += 0.01;
 
 		timeTravel(2);
+		performingAction = false;
 	}
 
 	this.fitness = function(){
+		performingAction = true;
 		drawOverlay = true;
 		overlayImg.src = "images/improving_fitness.png";
 		player.fitness += 0.01;
 
-		timeTravel(3);
+		timeTravel(2);
+		performingAction = false;
 	}
 
 	this.intellect = function(){
+		performingAction = true;
 		drawOverlay = true;
 		overlayImg.src = "images/improving_intellect.png";
 		player.intellect += 0.01;
 
-		timeTravel(2);
+		timeTravel(3);
+		performingAction = false;
 	}
 
 	function timeTravel(timeTaken){
