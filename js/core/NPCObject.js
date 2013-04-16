@@ -16,6 +16,8 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 	this.interactionTarget = this;
 	this.interactionReached = false;
 	this.interactionTime = 0;
+	this.leavingTime = 0;
+	this.destFaculty = "nothing";
 
     this.category = category;
     this.gender = gender;

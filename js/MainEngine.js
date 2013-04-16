@@ -242,7 +242,8 @@ function GameEngine(){
             }
 
             //Remove NPC from current faculty rendering if he/she has left the faculty
-if(removeNPCFlag == 1){
+			if(removeNPCFlag == 1){
+				currNPC.leavingTime = getCurTime();
                 toRenderList.NPCList.splice(i,1);
             }
 			else{
@@ -265,36 +266,42 @@ if(removeNPCFlag == 1){
             if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
 				object.pos_x >= DOOR_LEFT_X && 
 				object.pos_x <= DOOR_RIGHT_X){
-                return "arts";
+                object.destFaculty = "arts";
+				return "arts";
             }
             else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
 					this.pos_x >= DOOR_LEFT_X && 
 					this.pos_x <= DOOR_RIGHT_X){
-                return "law";
+                object.destFaculty = "law";
+				return "law";
             }
         }
         if(object.currFaculty == "arts"){
             if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
 				object.pos_x >= DOOR_LEFT_X && 
 				object.pos_x <= DOOR_RIGHT_X){
+				object.destFaculty = "law";
                 return "law";
             }
             else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
 					this.pos_x >= DOOR_LEFT_X && 
 					this.pos_x <= DOOR_RIGHT_X){
-                return "engine";
+                object.destFaculty = "engine";
+				return "engine";
             }
         }
         if(object.currFaculty == "law"){
             if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
 				object.pos_x >= DOOR_LEFT_X && 
 				object.pos_x <= DOOR_RIGHT_X){
-                return "engine";
+                object.destFaculty = "engine";
+				return "engine";
             }
             else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
 					this.pos_x >= DOOR_LEFT_X && 
 					this.pos_x <= DOOR_RIGHT_X){
-                return "arts";
+                object.destFaculty = "arts";
+				return "arts";
             }
         }
         else{
