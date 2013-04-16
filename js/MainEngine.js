@@ -217,7 +217,9 @@ function GameEngine(){
     	//update accordingly
         var removeNPCFlag = 0;
         inputManager.processEntry(player);
-        player.draw();
+        player.move();
+		player.draw();
+		
 
         timeUnit += _inverseFPS;
         
