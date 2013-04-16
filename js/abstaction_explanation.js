@@ -21,7 +21,7 @@
 		otherUniversity = [ mean, variance ];
 
 		
-		X: Perform an action, or goes to NTU, or more than 1 minute - Compression Abstract 1
+		X: Perform an action, or goes to NTU - Compression Abstract 1
 		========================================================
 		// Within Faculty - compressLevelOne()
 		1. Go through all NPCs in NUSEngin, get daveReputation, update currentFaculty_stats.

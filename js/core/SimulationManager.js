@@ -32,7 +32,7 @@ function SimulationManager(){
 	//var withinFac = null;
 
 	//Spreading at other faculties of his reputation - jensen
-	var withinFac_interaction;
+	var time_elapsed_in_fac;
 
 	// Track Location ~ jensen
 	var currentUni = 'NUS'; // always start in NUS
@@ -231,25 +231,15 @@ function SimulationManager(){
 			}
 
 			//update other faculties' mean and variance as a result of traffic flow
-			else{
+			else{				
 
-				//Check if it is still within faculty or out of faculty
-				/*
-				if(withinFac){
-					//for AutoCompress, every 1 minute, will decrease the variance
-					abstractTwoContainer.statsList[k].variance -= 0.15;
-					
-				}else{
-					
-					//if leaves faculty to enter another faculty
-					//Will check how long has Dave left that other faculty
-					withinFac_interaction = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
+				//Will check how long has Dave left that other faculty
+				time_elapsed_in_fac = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
 
-					//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/400 = 0.01
-					abstractTwoContainer.statsList[k].variance -= withinFac_interaction/400;
-					//Reset the timer that keeps track of last time the faculty is being compressed
-					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
-				}*/
+				//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/400 = 0.01
+				abstractTwoContainer.statsList[k].variance -= time_elapsed_in_fac/400;
+				//Reset the timer that keeps track of last time the faculty is being compressed
+				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
 				//Get otherFaculty's stats
 				old_mean =  abstractTwoContainer.statsList[k].mean;
@@ -483,25 +473,39 @@ function SimulationManager(){
 
 	this.decompressAbstractThree = function(){
 		//Get stats of three faculties, apply rules and update individual faculty stats
+		//destinationUni is destination, currentUni is origin
 		var university_index = abstractThreeContainer.universities.indexOf(destinationUni);
 		var otherUni_index = abstractThreeContainer.universities.indexOf(currentUni);
 
 		var current_time = getCurTime();
 		var time_elapsed = currentTime - abstractThreeContainer.universityStats[university_index].lastSeen;
 
-		//===> T0-DO : Need to set this properly (varun)
-		time_factor = time_elapsed/1000;
-
 		var facultiesMeanStats = abstractThreeContainer.universityStats[university_index].facultyMeanStats;
 		var facultiesVarStats = abstractThreeContainer.universityStats[university_index].facultyVarStats;
+
+		//Note: CurrentUni is your destination
 		var currUniAvgDaveRepMean =  abstractThreeContainer.universityStats[university_index].averageDaveReputationMean;
 		var currUniAvgDaveRepVar =  abstractThreeContainer.universityStats[university_index].averageDaveReputationVariance;
 
+		//Note: otherUni is your origin
 		var otherUniAvgDaveRepMean = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationMean;
 		var otherUniAvgDaveRepVar = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationVariance;
 
+
+		//===> T0-DO : Need to set this properly (varun)
+		/*****************************************
+		==== Factors that Affect Decompression ==
+		******************************************/
+		var time_factor = time_elapsed/1000;
+
+		//spreading within arrival University
 		var effect_factor = currUniAvgDaveRepMean - 0.5;
+		//spreading due to traffic flow
+		var traffic_flow_factor = 0.3;
+		
+
 		var rep_factor;
+		
 
 		if(effect_factor <= 0){
 			rep_factor = 0.6;
@@ -514,8 +518,11 @@ function SimulationManager(){
 
 		//Reputation spread within that university for the time passed
 		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
-			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
-			abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+
+			abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
+
+			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
+			//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
 		}
 
 		effect_factor = otherUniAvgDaveRepMean - 0.5;
@@ -528,7 +535,7 @@ function SimulationManager(){
 			rep_factor = 1.4;
 			//random value for now
 		}
-		var traffic_flow_factor = 0.3;
+		//var traffic_flow_factor = 0.3;
 
 		//Reputation spread from other university
 		for(i=0; i<abstractTwoContainer.faculties.length; ++i){

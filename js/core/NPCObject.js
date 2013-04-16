@@ -208,7 +208,6 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
     1. Update this.PrimaryPreferenceScore to the highest one
     2. Have an impact on daveReputation
 
-
     */
 
     
@@ -218,8 +217,6 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
 							this.pos_y, 32, 32);
-
-        alert('here');
 
     }
 
