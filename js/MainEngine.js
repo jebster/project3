@@ -102,7 +102,7 @@ var npcCollidables = toRenderList.NPCList;
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
-
+var playerActions;
 
 
 function GameEngine(){
@@ -140,6 +140,9 @@ function GameEngine(){
 
         // initialize input manager
         inputManager.init(_inverseFPS);
+
+        //initialize player actions
+        playerActions = new PlayerActions();
 
         
         faculty_index = 0;

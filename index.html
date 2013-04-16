@@ -19,6 +19,7 @@
 
 	  	<!-- Controllers -->
 	  	<script type="text/javascript" language="javascript" src="js/core/DisplayManager.js"></script>
+	  	<script type="text/javascript" language="javascript" src="js/core/playerActions.js"></script>
 	  	<script type="text/javascript" language="javascript" src="js/core/SimulationManager.js"></script>
 	  	<script type="text/javascript" language="javascript" src="js/MainEngine.js"></script>
 	  	<script type="text/javascript" language="javascript" src="js/core/InputManager.js"></script>
@@ -90,26 +91,21 @@
 	      			<h3 class="section-header">Your Actions</h3>
 	      			<ul>
 	      				<li>
-	      					<input type="text" name="impTalent">
+	      					<!--<input type="text" name="impTalent">-->
 	      					Improve Talent
+	      					<button onclick='playerActions.talent()'>2 hours</button>
 	      					<div class="progress progress-success progress-striped active">
 		      					<div id='talent-bar' class="bar" style="width: 50%;"></div>
 		      				</div>
 
 	      				</li>
 	      				<li>
-	      					<input type="text" name="impFitness">
 	      					Improve Fitness
-	      					<div class="progress progress-success progress-striped active">
-		      					<div id='talent-bar' class="bar" style="width: 70%;"></div>
-		      				</div>
+	      					<button onclick='playerActions.fitness()'>2 hours</button>
 	      				</li>
 	      				<li>
-	      					<input type="text" name="impIntellect">
 	      					Improve Intellect
-	      					<div class="progress progress-success progress-striped active">
-		      					<div id='talent-bar' class="bar" style="width: 0%;"></div>
-		      				</div>
+	      					<button onclick='playerActions.intellect()'>3 hours</button>
 	      				</li>	      				
 	      			</ul>
 	      			<div id='time-left'>
