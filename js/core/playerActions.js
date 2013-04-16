@@ -4,19 +4,22 @@ var PlayerActions = function(){
 	
 	this.talent = function(){
 		performingAction = true;
-		drawOverlay = true;
-		overlayImg.src = "images/improving_talent.png";
-		player.talent += 0.01;
-
+		if(drawOverlay == false){
+			drawOverlay = true;
+			overlayImg.src = "images/improving_talent.png";
+			player.talent += 0.01;
+		}
 		timeTravel(2);
 		performingAction = false;
 	}
 
 	this.fitness = function(){
 		performingAction = true;
-		drawOverlay = true;
-		overlayImg.src = "images/improving_fitness.png";
-		player.fitness += 0.01;
+		if(drawOverlay == false){
+			drawOverlay = true;
+			overlayImg.src = "images/improving_fitness.png";
+			player.fitness += 0.01;
+		}
 
 		timeTravel(2);
 		performingAction = false;
@@ -24,9 +27,11 @@ var PlayerActions = function(){
 
 	this.intellect = function(){
 		performingAction = true;
-		drawOverlay = true;
-		overlayImg.src = "images/improving_intellect.png";
-		player.intellect += 0.01;
+		if(drawOverlay == false){
+			drawOverlay = true;
+			overlayImg.src = "images/improving_intellect.png";
+			player.intellect += 0.01;
+		}
 
 		timeTravel(3);
 		performingAction = false;

@@ -102,7 +102,7 @@ bgImg.src = "images/nus_engin.png";
 var DOOR_LEFT_X = 284;
 var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
-var BOT_DOOR_BOUND_Y = 506;
+var BOT_DOOR_BOUND_Y = 500;
 
 
 
@@ -292,9 +292,9 @@ function GameEngine(){
                 object.destFaculty = "arts";
 				return "arts";
             }
-            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
-					this.pos_x >= DOOR_LEFT_X && 
-					this.pos_x <= DOOR_RIGHT_X){
+            else if(object.pos_y >= BOT_DOOR_BOUND_Y && 
+					object.pos_x >= DOOR_LEFT_X && 
+					object.pos_x <= DOOR_RIGHT_X){
                 object.destFaculty = "law";
 				return "law";
             }
@@ -306,9 +306,9 @@ function GameEngine(){
 				object.destFaculty = "law";
                 return "law";
             }
-            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
-					this.pos_x >= DOOR_LEFT_X && 
-					this.pos_x <= DOOR_RIGHT_X){
+            else if(object.pos_y >= BOT_DOOR_BOUND_Y && 
+					object.pos_x >= DOOR_LEFT_X && 
+					object.pos_x <= DOOR_RIGHT_X){
                 object.destFaculty = "engine";
 				return "engine";
             }
@@ -320,9 +320,9 @@ function GameEngine(){
                 object.destFaculty = "engine";
 				return "engine";
             }
-            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
-					this.pos_x >= DOOR_LEFT_X && 
-					this.pos_x <= DOOR_RIGHT_X){
+            else if(object.pos_y >= BOT_DOOR_BOUND_Y && 
+					object.pos_x >= DOOR_LEFT_X && 
+					object.pos_x <= DOOR_RIGHT_X){
                 object.destFaculty = "arts";
 				return "arts";
             }
