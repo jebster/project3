@@ -14,11 +14,11 @@ function SimulationManager(){
 	var probNeutralReputation;
 	var probGoodReputation;
 
-	var reputationRange_start = [0, 0.3, 0.6];
-	var reputationRange_end = [0.3, 0.6, 1.0];
+	var reputationRange_start = [0, 0.3, 0.7];
+	var reputationRange_end = [0.3, 0.7, 1.0];
 
-	var primaryTypeIndex_start = [0, 0.3, 0.6];
-	var primaryTypeIndex_end = [0.3, 0.6, 1.0];
+	var primaryTypeIndex_start = [0, 0.3, 0.7];
+	var primaryTypeIndex_end = [0.3, 0.7, 1.0];
 
 	var probCurrentFaculty  = 0.7;
 	var probOtherFaculty = 0.15;
@@ -444,18 +444,19 @@ function SimulationManager(){
 				if(i <= 0.3){
 					badRepCount += daveReputation_distribution.get_Fx(i);
 				}
-				else if (i > 0.3 && i <= 0.6){
+				else if (i > 0.3 && i <= 0.7){
 					neutralRepCount += daveReputation_distribution.get_Fx(i);
 				}
 				else{
 					goodRepCount += daveReputation_distribution.get_Fx(i);
 				}
 				totalCount = badRepCount + neutralRepCount + goodRepCount;
-				probBadReputation = badRepCount / totalCount;
-				probNeutralReputation = neutralRepCount / totalCount;
-				probGoodReputation = goodRepCount / totalCount;
 			}
-		}
+
+			probBadReputation = badRepCount / totalCount;
+			probNeutralReputation = neutralRepCount / totalCount;
+			probGoodReputation = goodRepCount / totalCount;
+	}
 
 	
 
@@ -594,7 +595,11 @@ function SimulationManager(){
 				temp_array.push(prob_array[i]);
 			}
 		}
-		prob_array = temp_array;
+
+		prob_array = [];
+		for(i =0; i< temp_array.length; ++i){
+			prob_array[i] = temp_array[i];
+		}
 
 		sec_lowest_prob = FindMinimum(prob_array);
 
@@ -604,7 +609,10 @@ function SimulationManager(){
 			}
 		}
 
-		prob_array = temp_array;
+		prob_array = [];
+		for(i =0; i< temp_array.length; ++i){
+			prob_array[i] = temp_array[i];
+		}
 
 		high_prob = FindMinimum(prob_array);
 

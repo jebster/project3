@@ -17,23 +17,28 @@ function getCurTime(){
 
 /* Global Variables */
 var ABSTRACT_LEVEL = 1;
-var toRenderList;
-// var toRenderList = {NPCList: [		
+//var toRenderList;
 
-//     new NPCObj(132, 132, 1, "engine", "male",0,0,0),
-//     new NPCObj(164, 164, 2, "engine", "male",0,0,0),
-//     // new NPCObj(196, 196, 3, "engine", "NUS", "female"),
-//     // new NPCObj(228, 228, 4, "engine", "NUS", "female"),
-//     // new NPCObj(260, 260, 5, "arts", "NUS", "male"),
-//     // new NPCObj(292, 292, 6, "arts", "NUS", "male"),
-//     // new NPCObj(324, 292, 7, "arts", "NUS", "female"),
-//     // new NPCObj(356, 260, 8, "arts", "NUS", "female"),
-//     // new NPCObj(388, 228, 9, "law", "NUS", "male"),
-//     // new NPCObj(420, 196, 10, "law", "NUS", "male"),
-//     // new NPCObj(452, 164, 11, "law", "NUS", "female"),
-//     // new NPCObj(484, 132, 12, "law", "NUS", "female")
+var abstractTwoContainer;
+var abstractThreeContainer;
 
-// 	]};
+var faculty_index;
+var toRenderList = {NPCList: [		
+
+    new NPCObj(132, 132, 1, "engine", "male",0,0,0),
+    new NPCObj(164, 164, 2, "engine", "male",0,0,0),
+    // new NPCObj(196, 196, 3, "engine", "NUS", "female"),
+    // new NPCObj(228, 228, 4, "engine", "NUS", "female"),
+    // new NPCObj(260, 260, 5, "arts", "NUS", "male"),
+    // new NPCObj(292, 292, 6, "arts", "NUS", "male"),
+    // new NPCObj(324, 292, 7, "arts", "NUS", "female"),
+    // new NPCObj(356, 260, 8, "arts", "NUS", "female"),
+    // new NPCObj(388, 228, 9, "law", "NUS", "male"),
+    // new NPCObj(420, 196, 10, "law", "NUS", "male"),
+    // new NPCObj(452, 164, 11, "law", "NUS", "female"),
+    // new NPCObj(484, 132, 12, "law", "NUS", "female")
+
+	]};
 
 var tempRenderList;
 var inFlightList = new Array();
@@ -47,12 +52,12 @@ var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 506;
 var grid_threshold = 16;	//threshold for NPC movement to random spots
-//var npcCollidables = toRenderList.NPCList;
+var npcCollidables = toRenderList.NPCList;
 
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
 
-var faculty_index;
+
 
 function GameEngine(){
 	var _abstract1_canvas = null;
@@ -85,13 +90,13 @@ function GameEngine(){
         //Initialize abstractTwoValues
         abstractTwoContainer.init(statsMeanArray, statsVarArray);
 
-        //Decompress for first time and populate
-        faculty_index = 0;
-        simulation.decompressAbstractTwo();
-
 
         // initialize input manager
         inputManager.init(_inverseFPS);
+
+        
+        faculty_index = 0;
+        //simulation.decompressAbstractTwo();
 
 /*
         var time1 = getCurTime();
@@ -115,7 +120,7 @@ function GameEngine(){
         /*Game Loop Functions*/
         gameEngine.renderCanvas();
         gameEngine.update(_inverseFPS);
-
+        
         abstractThreeContainer.updatePreference();
 
         // Calculate the time until next frame;
