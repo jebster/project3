@@ -277,7 +277,7 @@ function GameEngine(){
 				overlayTimer = 0;
 			}
 		}
-
+		
     }
 
     this.checkFacultyMovement = function(object){
