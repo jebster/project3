@@ -211,11 +211,11 @@ function SimulationManager(){
 					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
 
-				console.log(daveReputationArray);
+				
 
 				// Update current faculty's stats - Jensen
 				var new_mean = mean(daveReputationArray);
-				var new_var = variance(daveReputationArray);	
+				var new_var = variance(daveReputationArray);
 
 	
 				//Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
@@ -231,6 +231,8 @@ function SimulationManager(){
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
 
+				
+
 			}
 
 			//update other faculties' mean and variance as a result of traffic flow
@@ -239,8 +241,8 @@ function SimulationManager(){
 				//Will check how long has Dave left that other faculty
 				time_elapsed_in_fac = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
 
-				//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/400 = 0.01
-				abstractTwoContainer.statsList[k].variance -= time_elapsed_in_fac/400;
+				//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/4000 = 0.001
+				abstractTwoContainer.statsList[k].variance -= time_elapsed_in_fac/4000;
 				//Reset the timer that keeps track of last time the faculty is being compressed
 				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
@@ -255,8 +257,10 @@ function SimulationManager(){
 				var npcCount = 0;
 				daveReputationArray = [] //clear the array first
 
+
+
 				//loop through each reputation, get no. of NPC with that reputation
-				for(daveRep; daveRep<=1.0; daveRep += 0.1){
+				for(daveRep; daveRep<=0.9; daveRep += 0.1){
 
 					npcCount=otherFac_daveReputation_dis.get_Fx(daveRep);
 
@@ -266,8 +270,12 @@ function SimulationManager(){
 					}
 				}
 
+				
+
 				// Randomize order of daveReputationArray - Jensen
 				daveReputationArray = randomizeArray(daveReputationArray);
+
+				
 
 				//Array of daveReputation extracted from inFlight Objects in a faculty
 				var inFlightArray_daveRep = [];
@@ -328,11 +336,15 @@ function SimulationManager(){
 					}
 				}
 
+
 				//Update the mean and variance (jensen)
 				var new_mean = mean(daveReputationArray);
 				var new_variance = variance(daveReputationArray);
 				//var new_mean = UpdateMeanUsingRules(inFlightArray, old_mean, time_difference);
 				//var new_var = UpdateVarUsingRules(inFlightArray, old_var, time_difference);
+
+				console.log(new_mean);
+				console.log(new_var);
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;

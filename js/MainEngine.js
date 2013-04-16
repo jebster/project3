@@ -132,7 +132,7 @@ function GameEngine(){
         //initialize simulation manager ~ jensen
         simulation = new SimulationManager();
 
-        simulation.compressLevelOne();
+        
 
         abstractTwoContainer = new AbstractTwoContainer();
         abstractThreeContainer = new AbstractThreeContainer();
@@ -166,6 +166,8 @@ function GameEngine(){
 */
 							
         gameEngine.run();
+        
+        
 
     }
 
