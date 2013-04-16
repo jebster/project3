@@ -689,46 +689,4 @@ function SimulationManager(){
 		return myArray;
 	}
 
-	function influence_btwn_NPCS(daveRep1, daveRep2){
-
-		var daveRep1_temp = daveRep1;
-		var daveRep2_temp = daveRep2;
-
-		//Difference between the reputation
-		var daveRep_diff;
-
-		//Influence of the difference
-		var daveRep_inf;
-
-		//to return the two reputations as an array
-		var daveRepArray = [];
-
-		//ensure daveRep1 is the smaller than daveRep2
-		if(daveRep1>daveRep2){
-			daveRep2 = daveRep1;
-			daveRep1 = daveRep2_temp;
-		}
-
-		//Example, daveRep_diff = 0.9
-		//0.9/4 = 0.225
-		//0.45*10 = 2.25 => ceil = 2 => 2/10 = 0.2
-		daveRep_diff = daveRep2-daveRep1;
-		daveRep_inf = Math.ceil( (daveRep_diff/4)*10 ) /10
-
-		//If neutral
-		if(daveRep1 > 0.4 && daveRep1 < 0.6){
-			//daveRep1 Will be influenced
-			//daveRep2 will not be influenced
-			daveRep1 += daveRep_inf;
-
-		}else if(daveRep2 > 0.4 && daveRep2 < 0.6){			
-			daveRep2 -= daveRep_inf;
-		}
-		else{
-			daveRep1 += daveRep_inf;
-			daveRep2 -= daveRep_inf;
-		}
-		return daveRepArray[daveRep1,daveRep2];
-	}
-
 }
