@@ -211,13 +211,22 @@ function SimulationManager(){
 					daveReputationArray.push(toRenderList.NPCList[i].daveReputation);
 				}
 
+				console.log(daveReputationArray);
+
 				// Update current faculty's stats - Jensen
 				var new_mean = mean(daveReputationArray);
 				var new_var = variance(daveReputationArray);	
 
 	
 				//Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
-				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
+
+				//If Dave is performing Action, we will accelerate time, hence don't take down current Time
+				if(performingAction){
+					//
+				}else{
+					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
+				}
+				
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;

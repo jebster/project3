@@ -103,6 +103,7 @@ var npcCollidables;
 // moved the player to be global variable, so that other functions can assess ~ jensen
 var player = null;
 var playerActions;
+var performingAction = false;
 
 
 function GameEngine(){
@@ -112,6 +113,7 @@ function GameEngine(){
 	var _frameNumber = 0;
 
 	this.init = function(abs1_canvas, abs2_canvas) {
+
 
         
         _abstract1_canvas = document.getElementById(abs1_canvas);
@@ -126,6 +128,8 @@ function GameEngine(){
 
         //initialize simulation manager ~ jensen
         simulation = new SimulationManager();
+
+        simulation.compressLevelOne();
 
         abstractTwoContainer = new AbstractTwoContainer();
         abstractThreeContainer = new AbstractThreeContainer();

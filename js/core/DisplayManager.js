@@ -35,17 +35,11 @@ function closeModal(){
 	document.getElementById('competitor-list-modal').style.left = "-1000px";
 }
 
-function chatBox(){
+function globalTimer(){
 
-	//pop up a box 
-
-	//ask for option
-		//a. BeFriend
-		//b. Ask for a Date
-
+	document.getElementById('global-timer').innerHTML = getCurTime();
 
 }
-
 
 
 
