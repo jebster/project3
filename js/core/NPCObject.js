@@ -16,7 +16,7 @@ var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, pre
 	this.interactionTarget = this;
 	this.interactionReached = false;
 	this.interactionTime = 0;
-	this.leftAtTime = 0;
+	this.leftAtTime = getCurTime();
 	this.destFaculty = "nothing";
 
     this.category = category;
@@ -139,7 +139,7 @@ var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, pre
 					//collided
 					npcInteraction(this, toRenderList.NPCList[iter]);
 					var tmpArray = influence_btwn_NPCS(this.daveReputation, toRenderList.NPCList[iter].daveReputation);
-					console.log(tmpArray[0] + ", " + tmpArray[1]);
+					//console.log(tmpArray[0] + ", " + tmpArray[1]);
 					this.daveReputation = tmpArray[0];
 					toRenderList.NPCList[iter].daveReputation = tmpArray[1];
 				}

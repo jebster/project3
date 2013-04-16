@@ -4,8 +4,8 @@ function gameInit(abstract1_canvas, abstract2_canvas){
 }
 
 function getCurTime(){
-    var clock = new Date();
-    var timeUnit = Math.ceil( (clock.getTime()/1000) );
+   // var clock = new Date();
+    //var timeUnit = Math.ceil( (clock.getTime()/1000) );
 
     //timeUnit will give the current time in seconds
     //For example
@@ -69,6 +69,8 @@ var abstractTwoContainer;
 var abstractThreeContainer;
 
 var faculty_index;
+
+var timeUnit = 0;
 // var toRenderList = {NPCList: [		
 
 //     new NPCObj(132, 132, 1, "engine", "male",0,0,0),
@@ -214,7 +216,8 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.draw();
 
-
+        timeUnit += _inverseFPS;
+        
         //Update NPC movements (Max's function)
         //updateNPCPositions(); 
 

@@ -242,7 +242,7 @@ function SimulationManager(){
 				time_elapsed_in_fac = getCurTime() - abstractTwoContainer.statsList[k].lastSeen;
 
 				//E.g. if inFlight NPC is at another faculty for 4 seconds, they will change the variance by 4/4000 = 0.001
-				abstractTwoContainer.statsList[k].variance -= time_elapsed_in_fac/4000;
+				abstractTwoContainer.statsList[k].variance -= time_elapsed_in_fac/10000;
 				//Reset the timer that keeps track of last time the faculty is being compressed
 				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
@@ -260,7 +260,7 @@ function SimulationManager(){
 
 
 				//loop through each reputation, get no. of NPC with that reputation
-				for(daveRep; daveRep<=0.9; daveRep += 0.1){
+				for(daveRep; daveRep<=1.0; daveRep += 0.03){
 
 					npcCount=otherFac_daveReputation_dis.get_Fx(daveRep);
 
@@ -299,7 +299,7 @@ function SimulationManager(){
 
 						//Get daveReputation for inflight
 						inFlight_daveRep = inFlightList[i].daveReputation;
-						inFlight_timeLeavesFac = inFlightList[i].lastSeen;
+						inFlight_timeLeavesFac = inFlightList[i].leftAtTime;
 						timeOutFac = currentTime-inFlight_timeLeavesFac;
 
 						//Assume every five seconds away from faculty, NPC can talk to a person.
@@ -520,16 +520,16 @@ function SimulationManager(){
 		==== Factors that Affect Decompression ==
 		******************************************/
 
-		//1. TIME FACTOR
-		//==============
-			//Get the last four digits of the time (133122334)
-			var temp_end_index = time_elapsed.length;
-			var temp_beginning_index = temp_end_index-4;
+		// //1. TIME FACTOR
+		// //==============
+		// 	//Get the last four digits of the time (133122334)
+		// 	var temp_end_index = time_elapsed.length;
+		// 	var temp_beginning_index = temp_end_index-4;
 
-			//ranges from 0000 - 9999 seconds (almost 2 hours)
-			var time_cycle = time_elapsed.substring( temp_beginning_index , temp_end_index );
+		// 	//ranges from 0000 - 9999 seconds (almost 2 hours)
+		// 	var time_cycle = time_elapsed.substring( temp_beginning_index , temp_end_index );
 
-			var time_factor; //different for variance and mean
+		// 	var time_factor; //different for variance and mean
 
 
 		//2. TRAFFIC FLOW FACTOR
@@ -546,15 +546,17 @@ function SimulationManager(){
 		//=====================================================================
 
 		//range of variance decrease is from 0 to 0.01
-		time_factor = time_cycle/999900;
+		//time_factor = time_cycle/999900;
+		var time_factor = time_elapsed/1200;
+
 	
 		//Assume after 9999, spreading effect within university will stabilize
-		if(time_cycle<9999){
+		if(getCurTime()<9999){
 
 			//QUESTION: Where do you get abstractTwoContainer?
 			for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
 
-				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - time_factor;
+				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - (time_factor * facultiesVarStats[i]);
 
 				//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
 				//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
@@ -578,8 +580,9 @@ function SimulationManager(){
 		*/
 
 		//1.0 to 2.0
-		time_factor = time_cycle/9999 + 1;
+		//time_factor = time_cycle/9999 + 1;
 
+		
 		//ranges 0.5 to 3.0
 		//0.5 to 1.75 = -ve
 		// 1.75 to 3 = +ve
