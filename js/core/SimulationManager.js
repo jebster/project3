@@ -480,41 +480,37 @@ function SimulationManager(){
 		var otherUniAvgDaveRepMean = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationMean;
 		var otherUniAvgDaveRepVar = abstractThreeContainer.universityStats[otherUni_index].averageDaveReputationVariance;
 
-
-		//===> T0-DO : Need to set this properly (varun)
 		/*****************************************
 		==== Factors that Affect Decompression ==
 		******************************************/
-		var time_factor = time_elapsed/1000;
 
-		//spreading within arrival University
-		var effect_factor = currUniAvgDaveRepMean - 0.5;
-		//spreading due to traffic flow
+		//1. TIME FACTOR
+		//==============
+			//Get the last four digits of the time (133122334)
+			var temp_end_index = time_elapsed.length;
+			var temp_beginning_index = temp_end_index-4;
+
+			//ranges from 0000 - 9999 seconds (almost 2 hours)
+			var time_cycle = time_elapsed.substring( temp_beginning_index , temp_end_index );
+
+			var time_factor; //different for variance and mean
+
+
+		//2. TRAFFIC FLOW FACTOR
+		//======================
 		var traffic_flow_factor = 0.3;
-		
 
 		var rep_factor;
-		
 
-		if(effect_factor <= 0){
-			rep_factor = 0.6;
-			//random value for now
-		}
-		else{
-			rep_factor = 1.4;
-			//random value for now
-		}
+		//ranges from 0.5 to 1.5
+		var rep_factor = (otherUniAvgDaveRepMean - 0.5) +1;
+
 
 		// 1.Reputation spread within destination university for the time passed
 		//=====================================================================
 
-		//Get the last four digits of the time (133122334)
-		var the_number = getCurTime().toString();
-		var temp_end_index = the_number.length;
-		var temp_beginning_index = temp_end_index-4;
-
-		//ranges from 0000 - 9999 seconds (almost 2 hours)
-		var time_cycle = the_number.substring( temp_beginning_index , temp_end_index );
+		//range of variance decrease is from 0 to 0.01
+		time_factor = time_cycle/999900;
 	
 		//Assume after 9999, spreading effect within university will stabilize
 		if(time_cycle<9999){
@@ -522,36 +518,49 @@ function SimulationManager(){
 			//QUESTION: Where do you get abstractTwoContainer?
 			for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
 
-				//range of variance decrease is from 0 to 0.01
-				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - time_cycle/999900;
+				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - time_factor;
 
 				//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
 				//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
 			}
 
 		}
-		
-		/*
-
-		effect_factor = otherUniAvgDaveRepMean - 0.5;
-
-		if(effect_factor <= 0){
-			rep_factor = 0.6;
-			//random value for now
-		}
-		else{
-			rep_factor = 1.4;
-			//random value for now
-		}*/
-
-		//var traffic_flow_factor = 0.3;
-
 
 		// 2. Reputation spread from other university
 		//=====================================================================
+
+		/*
+			//For now, ranges from 0.5 to 1.5
+			//0.5 means it's bad influence, 1.5 is good
+			1. rep_factor = ; 
+
+			// Ranges from 0 to 1.0
+			2. traffic_flow_factor = ; //
+
+			// Ranges from 0.0 to 1.0
+			3. time_factor
+		*/
+
+		//1.0 to 2.0
+		time_factor = time_cycle/9999 + 1;
+
+		//ranges 0.5 to 3.0
+		//0.5 to 1.75 = -ve
+		// 1.75 to 3 = +ve
+
+
+		var overall_inf_factor = (time_factor * rep_factor * traffic_flow_factor) - 1.75;
+
+		//ranges from 0 to 2
+		var overall_inf_factor = ( (traffic_flow_factor + time_factor)/1.5 )*rep_factor;
+		
+
 		for(i=0; i<abstractTwoContainer.faculties.length; ++i){
-			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;
-			abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
+
+			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * 1;
+
+			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;
+			//abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
 		}
 
 
