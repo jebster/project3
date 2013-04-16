@@ -495,6 +495,7 @@ function SimulationManager(){
 	
 
 	this.decompressAbstractThree = function(){
+
 		//Get stats of three faculties, apply rules and update individual faculty stats
 		//Destination Uni
 		var university_index = abstractThreeContainer.universities.indexOf(destinationUni);
@@ -581,11 +582,9 @@ function SimulationManager(){
 		//1.0 to 2.0
 		//time_factor = time_cycle/9999 + 1;
 
-		
 		//ranges 0.5 to 3.0
 		//0.5 to 1.75 = -ve
 		// 1.75 to 3 = +ve
-
 
 		var overall_inf_factor = (time_factor * rep_factor * traffic_flow_factor) - 1.75;
 
