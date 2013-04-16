@@ -136,14 +136,12 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 					this.interactionTarget.id != npcCollidables[iter].id){
 					//collided
 					npcInteraction(this, npcCollidables[iter]);
-					//console.log(this.id + " and " + npcCollidables[iter].id + " have collided");
 				}
 			}
 		}
 	}
 	
 	npcInteraction = function(npc1, npc2){
-		console.log("function called");
 		var tmpNPC1;
 		var tmpNPC2;
 		npc1.interaction = npc2.interaction = true;
@@ -157,7 +155,6 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 		}
 		//tmpNPC1.isMoving = tmpNPC2.isMoving = false;
 		tmpNPC1.isMoving = false;
-		console.log(tmpNPC1.isMoving);
 		tmpNPC2.target_y = tmpNPC1.pos_y;
 		if(tmpNPC1.pos_x >= 768){
 			tmpNPC2.target_x = tmpNPC1.pos_x - 32;
