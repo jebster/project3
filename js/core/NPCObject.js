@@ -1,4 +1,4 @@
-var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primaryTypeIndex) {
+var NPCObj = function(x,y,id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
     this.id = id;
     this.name = gender+"_"+id;
     this.pos_x = Math.floor(Math.random()*23) * 32 + 32;
@@ -30,7 +30,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 
     //to keep track of movement within university
     this.currUniversity;
-    this.curFaculty;
+    this.currFaculty = destinationFaculty;
 
     //distribution curve for preferenceType AND
     // primaryType
