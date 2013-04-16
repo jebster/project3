@@ -445,7 +445,7 @@ function SimulationManager(){
 			
 			currNPCcategory = categoryList[type_index];
 
-			var NPC = new NPCObj(i+5, i+5, i, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+			var NPC = new NPCObj(j+5, j+5, j, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
 
 			if(gender_assign == "male"){
 				NPC.primaryTypeScore = score;
