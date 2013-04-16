@@ -216,14 +216,9 @@ function SimulationManager(){
 				var new_mean = mean(daveReputationArray);
 				var new_var = variance(daveReputationArray);	
 
-				//Check if it is still within faculty or out of faculty
-				/*
-				if(withinFac){
-					//do nothing
-				}else{
-					//if Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
-					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
-				}			*/
+	
+				//Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
+				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
 				abstractTwoContainer.statsList[k].variance = new_var;
