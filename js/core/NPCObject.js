@@ -136,7 +136,7 @@ var NPCObj = function(x,y,id, category, gender, daveRep, preferenceType, primary
 					this.interactionTarget.id != npcCollidables[iter].id){
 					//collided
 					npcInteraction(this, npcCollidables[iter]);
-					var tmpArray = daveReputationinfluence_btwn_NPCS(this.daveReputation, npcCollidables[iter].daveReputation);
+					var tmpArray = influence_btwn_NPCS(this.daveReputation, npcCollidables[iter].daveReputation);
 					console.log(tmpArray[0] + ", " + tmpArray[1]);
 					this.daveReputation = tmpArray[0];
 					npcCollidables[iter].daveReputation = tmpArray[1];

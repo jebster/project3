@@ -224,11 +224,11 @@ function GameEngine(){
 			//make them move
 			currNPC.move();
 			
-            //var movement = checkFacultyMovement(currNPC);
+            var movement = this.checkFacultyMovement(currNPC);
             var inFlightListFlag = 1;
 
             //Check if NPC is moving to another faculty
-            /*switch(movement){
+            switch(movement){
                 case "engine":
                 case "arts":
                 case "law":
@@ -239,7 +239,7 @@ function GameEngine(){
                 case "nothing":
                 default:
                     break;
-            }*/
+            }
 
             //Remove NPC from current faculty rendering if he/she has left the faculty
 if(removeNPCFlag == 1){
