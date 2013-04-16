@@ -194,14 +194,8 @@ function GameEngine(){
             }*/
 
             //Remove NPC from current faculty rendering if he/she has left the faculty
-            if(removeNPCFlag == 1){
-                tempRenderList.NPCList = [];
-                for(var j = 0; j < toRenderList.NPCList.length; ++j){
-                    var otherNPC = toRenderList.NPCList[i];
-                    if(!(currNPC.id == otherNPC.id)){
-                        tempRenderList.NPCList.push(otherNPC);
-                    }
-                }
+if(removeNPCFlag == 1){
+                toRenderList.NPCList.splice(i,1);
             }
 			else{
 				//if not removed, draw the character
@@ -220,27 +214,39 @@ function GameEngine(){
 
     this.checkFacultyMovement = function(object){
         if(object.currFaculty == "engine"){
-            if(object.pos_x == ENGINE_ARTS_DOOR_X && object.pos_y == ENGINE_ARTS_DOOR_Y){
+            if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
+				object.pos_x >= DOOR_LEFT_X && 
+				object.pos_x <= DOOR_RIGHT_X){
                 return "arts";
             }
-            else if(object.pos_x == ENGINE_LAW_DOOR_X && object.pos_y == ENGINE_LAW_DOOR_Y){
+            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
+					this.pos_x >= DOOR_LEFT_X && 
+					this.pos_x <= DOOR_RIGHT_X){
                 return "law";
             }
         }
         if(object.currFaculty == "arts"){
-            if(object.pos_x == ARTS_ENGINE_DOOR_X && object.pos_y == ARTS_ENGINE_DOOR_Y){
-                return "engine";
-            }
-            else if(object.pos_x == ARTS_LAW_DOOR_X && object.pos_y == ARTS_LAW_DOOR_Y){
+            if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
+				object.pos_x >= DOOR_LEFT_X && 
+				object.pos_x <= DOOR_RIGHT_X){
                 return "law";
+            }
+            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
+					this.pos_x >= DOOR_LEFT_X && 
+					this.pos_x <= DOOR_RIGHT_X){
+                return "engine";
             }
         }
         if(object.currFaculty == "law"){
-            if(object.pos_x == LAW_ARTS_DOOR_X && object.pos_y == LAW_ARTS_DOOR_Y){
-                return "arts";
-            }
-            else if(object.pos_x == LAW_ENGINE_DOOR_X && object.pos_y == LAW_ENGINE_DOOR_Y){
+            if(	object.pos_y <= TOP_DOOR_BOUND_Y && 
+				object.pos_x >= DOOR_LEFT_X && 
+				object.pos_x <= DOOR_RIGHT_X){
                 return "engine";
+            }
+            else if(this.pos_y >= BOT_DOOR_BOUND_Y && 
+					this.pos_x >= DOOR_LEFT_X && 
+					this.pos_x <= DOOR_RIGHT_X){
+                return "arts";
             }
         }
         else{
