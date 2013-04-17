@@ -528,7 +528,7 @@ function SimulationManager(){
 		******************************************/
 		
 		/* 1. TIME FACTOR
-		==============
+		=================
 	 	Ranges from 1.0 to 2.0
 		1.0 means no time factor (upon multiplication, will not affect)
 		2.0 means double the time factor */
@@ -540,10 +540,9 @@ function SimulationManager(){
 		}else{
 			time_factor = time_cycle/600 + 1;
 		}
-
 		
 		/* 2. TRAFFIC FLOW FACTOR
-		======================
+		=========================
 		Ranges from 1.0 to 2.0
 		1.0 means no traffic flow from other uni (upon multiplication, will not affect)
 		2.0 means max high traffic flow effect */
@@ -551,24 +550,27 @@ function SimulationManager(){
 
 		
 		/* 3. Reputation Influence from Origin Uni
-		=======================================
+		==========================================
 		Ranges from 0.5 to 1.5
 		0.5 means it's bad influence, will pull down score
 		1.5 is good influence, will pull up score */
 		var rep_factor = (otherUniAvgDaveRepMean - 0.5) +1;
 
-		// Will be tweaked based on Implement 1 or Implement 2
+		// Will be tweaked based on Implement 1 or Implement 2 or Implement 3
 		var overall_inf_factor;
 
+		/**********************
+		==== Implementation ==
+		**********************/
 		
-		/* Implement 1: Reputation spread within destination university
+		/* Implement 1: Reputation spread WITHIN destination university
 		===============================================================
 		Only take into account time_factor
 		Note: time_factor ranges from 1.0 to 2.0
 		Need to convert it to 0.9 to 0.5 (upon multiplication will always decrease variance)
 		Think: the longer it is, larger the time, multiplication needs to result it a smaller variance. Hence a 2.0 time factor will result in a multiplication of 0.5 (half the variance) */
 		
-		//this formula converts 1.0-2.0 to 0.9-0.5
+		//this formula converts range 1.0-2.0 to 0.9-0.5
 		overall_inf_factor = time_factor*(-0.4) + 1.3;
 
 		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
@@ -585,8 +587,8 @@ function SimulationManager(){
 
 		for(i=0; i<abstractTwoContainer.faculties.length; ++i){
 
-			//if the result of mean is more than 1, cap it
-			if(facultiesMeanStats[i]*overall_inf_factor>1){
+			//if the result of multiplication is more than 1, cap it
+			if( facultiesMeanStats[i]*overall_inf_factor > 1 ){
 				abstractTwoContainer.statsList[i].mean = 1;
 			}else{
 				abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i]*overall_inf_factor;
@@ -594,12 +596,17 @@ function SimulationManager(){
 			
 		}
 
-		// TO-DO: Have not thought of it yet
-		//Also need to get information about PreferenceType distribution
-		//Apply rules to the preference type distribution, taking into 
-		//consideration exam week, vday events and time passed
+		/* Implement 3: Global Events
+		=============================
+		Think: The longer the time, the nearer the effect will reach its max.
+		if preferenceTypeModifier is [1.5, 0.7, 0.7] as the maximum effect, it will start off with say [1.1, 0.5, 0.5] and then slowly increase to reach [1.5, 0.7, 0.7]
+
+		So as time_factor ranges from 1.0 to 2.0,
+		the overall_inf_factor needs to range from 0.8 to 1.0 (assume it will start with 80% of the max effect) */
+		overall_inf_factor = time_factor*0.2 + 0.6;
+
 		for(var i=0; i<abstractTwoContainer.preferenceTypeStats.length; ++i){
-			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * time_factor;
+			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * overall_inf_factor;
 		}
 	}
 
