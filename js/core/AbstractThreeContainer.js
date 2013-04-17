@@ -12,7 +12,8 @@ var AbstractThreeContainer = function(){
 
 	this.updatePreference = function(){
 
-		//Get the last three digits of the time (133122334)
+		//Purpose: Loop through all events every 999 seconds = 16 minutes
+		//Get the last three digits of the time (22334) - time keeps increasing in seconds
 		var the_number = getCurTime().toString();
 		var temp_end_index = the_number.length;
 		var temp_beginning_index = temp_end_index-3;
