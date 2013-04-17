@@ -156,9 +156,10 @@ function GameEngine(){
         //Decompress for first time and populate faculty
         faculty_index = 0;
         simulation.decompressAbstractTwo();
-							
+			
         gameEngine.run();
-
+        
+        
 
     }
 
@@ -271,6 +272,9 @@ function GameEngine(){
 				performingAction = false;
 				overlayTimer = 0;
 			}
+		}
+		if(player.currInteractionStage != 0){
+			displayDecisionBox();
 		}
 		updateAttributes();
 		

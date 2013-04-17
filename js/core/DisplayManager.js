@@ -47,3 +47,13 @@ function updateAttributes(){
 	document.getElementById('intellect-bar').style.cssText = "width: " + player.intellect * 100 + "%";	
 }
 
+function displayDecisionBox(){
+	var decisionBoxImage = new Image();
+	if(player.currInteractionStage == 1){
+		decisionBoxImage.src = "images/first_interaction.png";
+	}
+	if(player.currInteractionStage == 2){
+		decisionBoxImage.src = "images/second_interaction.png";
+	}
+	context.drawImage(decisionBoxImage, 200,100);
+}

@@ -15,6 +15,8 @@ var InputManager = function() {
     K_DOWN = 40;
     K_SPACE = 32;
 	K_R = 82;
+	K_A = 65;
+	K_D = 68;
 
     var COUNT;
     var DELAY_RATE = 2;

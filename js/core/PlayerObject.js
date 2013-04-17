@@ -11,10 +11,12 @@ var PlayerObj = function(x, y){
 	this.keepMoving = false;
 	this.animSpeed;
 	this.lastRender;
+	this.success = true;
+	this.currInteractionStage = 0;
 
 	//a NPC object that he interacts with
 	this.targetNPC = 0;
-
+	
     this.category;
     
     this.intellect = 0.3;
@@ -25,9 +27,8 @@ var PlayerObj = function(x, y){
     this.primaryType;
     this.primaryTypeScore;
     this.primaryTypeIndex;
-
-    this.skillArray = [this.intellect, this.talent, this.fitness];
-    
+	
+	this.skillArray = [this.intellect, this.talent, this.fitness];
     
     this.girlsList = [];
     this.laidList = [];
@@ -39,7 +40,7 @@ var PlayerObj = function(x, y){
 	    if(_keys[K_SPACE].press){
 			if(!performingAction){
 				for(iter in toRenderList.NPCList){
-					if(collisionChecker(player, toRenderList.NPCList[iter]) && !toRenderList.NPCList[iter].interaction){
+					if(collisionChecker(player, toRenderList.NPCList[iter]) && !toRenderList.NPCList[iter].interaction && toRenderList.NPCList[iter].gender == "female"){
 						this.targetNPC = toRenderList.NPCList[iter];
 					}
 				}
@@ -48,13 +49,31 @@ var PlayerObj = function(x, y){
 		if(this.targetNPC != 0){
 			this.interactionWithNPC(this.targetNPC);
 		}
-		if(_keys[K_R].press){
-			if(performingAction){
-				this.targetNPC.isMoving = true;
-				this.targetNPC = 0;
-				performingAction = false;
+		if(performingAction){
+			if(_keys[K_A].press){
+				if(this.currInteractionStage == 1){
+					this.befriend(this.targetNPC);
+				}
+				if(this.currInteractionStage == 2){
+					this.hangout(this.targetNPC);
+				}
+				_keys[K_A].press = false;
+			}
+			if(_keys[K_D].press){
+				if(this.currInteractionStage == 1){
+					this.date(this.targetNPC);
+				}
+				if(this.currInteractionStage == 2){
+					this.laid(this.targetNPC);
+				}
+				_keys[K_D].press = false;
+			}
+			if(_keys[K_R].press){
+				this.resume();
 			}
 		}
+	
+		
 		if(!performingAction){
 			if (_keys[K_LEFT].press) { // Player holding left
 				this.pos_x -= this.playerSpeed;
@@ -208,6 +227,7 @@ var PlayerObj = function(x, y){
 		this.moveNPC(npc);
 		if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
 			performingAction = true;
+			this.currInteractionStage = 1;
 		}
 	}
 	
@@ -253,18 +273,17 @@ var PlayerObj = function(x, y){
 
     	//Player skill decay over time
     	if(this.intellect > 0.1){
-    		this.intellect -= 0.0001;
-    	}
-
-    	if(this.talent > 0.1){
-    		this.talent -= 0.0001;
-    	}
-
-    	if(this.fitness > 0.1){
-    		this.fitness -= 0.0001;
-    	}
-    	
-	    
+			this.intellect -= 0.0001;
+		}
+		
+		if(this.talent > 0.1){
+			this.talent -= 0.0001;
+		}
+		
+		if(this.fitness > 0.1){
+			this.fitness -= 0.0001;
+		}
+		
 
 	    //Updates player's primaryType parameters
 	    this.primaryTypeScore = Array.max(this.skillArray);
@@ -278,17 +297,47 @@ var PlayerObj = function(x, y){
 	    	this.primaryType = 'fitness';
 	    }
     }
-
-    this.successfulLaid = function(){
+	
+	this.resume = function(){
+		this.targetNPC.isMoving = true;
+		this.targetNPC = 0;
+		performingAction = false;
+		this.currInteractionStage = 0;
+	}
+	
+	this.befriend = function(npc){
+		alert("You have befriended " + npc.gender + " " + npc.id);
+		this.resume();
+	}
+	
+	this.date = function(npc){
+		alert(npc.gender + " " + npc.id + " is making a decision");
+		if(this.success){
+			currInteractionStage = 2;
+		}
+		if(!this.success){
+			this.resume();
+		}
+	}
+	
+	this.hangout = function(npc){
+		alert("You have just hanged out with " + npc.gender + " " + npc.id);
+		this.resume();
+	}
+	
+	this.laid = function(npc){
+		alert("You have successfully get yourself laid with " + npc.gender + " " + npc.id);
+		this.resume();
+	}
+	
+	this.successfulLaid = function(){
 
     	//change the target NPC as status laid
     	this.targetNPC.laidWithDave = true;
 
     	//push it to the laidList array
     	laidList.push(this.targetNPC);
-
-    	laidCount++;
-    	document.getElementById('laid-count-dis').innerHTML = laidCount;
-
+		laidCount++;
+		document.getElementById('laid-count-dis').innerHTML = laidCount;
     }
 }
