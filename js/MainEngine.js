@@ -91,6 +91,8 @@ var timeUnit = 0;
 
 var tempRenderList;
 var inFlightList = new Array();
+var laidList = new Array();
+
 var _inverseFPS = 1.0/30.0;
 var context;
 var canvas;

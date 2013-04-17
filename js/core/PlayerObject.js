@@ -11,6 +11,8 @@ var PlayerObj = function(x, y){
 	this.keepMoving = false;
 	this.animSpeed;
 	this.lastRender;
+
+	//a NPC object that he interacts with
 	this.targetNPC = 0;
 
     this.category;
@@ -265,6 +267,14 @@ var PlayerObj = function(x, y){
 	    }else{
 	    	this.primaryType = 'fitness';
 	    }
+    }
 
+    this.successfulLaid = function(){
+
+    	//change the target NPC as status laid
+    	this.targetNPC.laidWithDave = true;
+
+    	//push it to the laidList array
+    	laidList.push(this.targetNPC);
     }
 }
