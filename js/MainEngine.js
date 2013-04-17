@@ -82,6 +82,7 @@ var ABSTRACT_LEVEL = 1;
 var facPopulation_thresh = initialPopulation - 4;
 var populateCount = initialPopulation;
 var toRenderList;
+var debug = true;
 
 var abstractTwoContainer;
 var abstractThreeContainer;
@@ -280,6 +281,9 @@ function GameEngine(){
 				currNPC.draw();
 				currNPC.interactionCheck();
 			}
+			
+			if(debug)
+			displayStats();
 
 		}
 

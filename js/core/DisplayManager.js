@@ -57,3 +57,23 @@ function displayDecisionBox(){
 	}
 	context.drawImage(decisionBoxImage, 200,100);
 }
+
+function displayStats(){
+	for(iter in toRenderList.NPCList){
+		var currNPC = toRenderList.NPCList[iter];
+		context.font = "16px Helvetica";
+		
+		if (currNPC.gender == "female"){
+			context.fillStyle = "#B0171F";
+			context.fillText(currNPC.preferenceType, currNPC.pos_x, currNPC.pos_y-16);
+			context.fillStyle = "rgb(0,0,0)";
+			context.fillText(currNPC.daveReputation.toFixed(2), currNPC.pos_x, currNPC.pos_y);
+		}
+		else{
+			//context.fillStyle = "rgb(1,0,0)";
+			context.fillText(currNPC.primaryType, currNPC.pos_x, currNPC.pos_y - 32);
+			context.fillText(currNPC.primaryTypeScore.toFixed(2), currNPC.pos_x, currNPC.pos_y-16);
+			context.fillText(currNPC.daveReputation.toFixed(2), currNPC.pos_x, currNPC.pos_y);
+		}
+	}
+}
