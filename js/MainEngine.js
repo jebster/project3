@@ -233,6 +233,7 @@ function GameEngine(){
 			var currNPC =  toRenderList.NPCList[i];
 			
 			//make them move
+			if(!performingAction)
 			currNPC.move();
 			
 			var movement = this.checkFacultyMovement(currNPC);

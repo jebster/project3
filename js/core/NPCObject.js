@@ -177,7 +177,7 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 	}
 	
 	this.move = function(){
-			if(this.isMoving == true && !performingAction){
+			if(this.isMoving == true){
 				//using if else statements to ensure NPC move in one direction only
 				//move right
 				if (this.pos_x < this.target_x){

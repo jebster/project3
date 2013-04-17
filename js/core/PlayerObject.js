@@ -11,6 +11,7 @@ var PlayerObj = function(x, y){
 	this.keepMoving = false;
 	this.animSpeed;
 	this.lastRender;
+	this.targetNPC = 0;
 
     this.category;
     
@@ -30,11 +31,18 @@ var PlayerObj = function(x, y){
 			if(!performingAction){
 				for(iter in toRenderList.NPCList){
 					if(collisionChecker(player, toRenderList.NPCList[iter]) && !toRenderList.NPCList[iter].interaction){
-						this.interactionWithNPC(toRenderList.NPCList[iter]);
+						this.targetNPC = toRenderList.NPCList[iter];
 					}
 				}
 			}
-			else{
+		}
+		if(this.targetNPC != 0){
+			this.interactionWithNPC(this.targetNPC);
+		}
+		if(_keys[K_R].press){
+			if(performingAction){
+				this.targetNPC.isMoving = true;
+				this.targetNPC = 0;
 				performingAction = false;
 			}
 		}
@@ -164,7 +172,7 @@ var PlayerObj = function(x, y){
 	
 	this.interactionWithNPC = function(npc){
 		console.log("You are talking with " + npc.gender + npc.id);
-		performingAction = true;
+		
 		var finalFacing;
 		switch(this.facingWhichDirection){
 			case "up":
@@ -188,75 +196,44 @@ var PlayerObj = function(x, y){
 				finalFacing = "left";
 				break;				
 		}
-		if (npc.pos_x < npc.target_x){
-			npc.pos_x += npc.npcSpeed;
-			if (npc.whichSprite == npc.width * 8){
-				npc.whichSprite = npc.width * 9;
-			}	else if (npc.whichSprite == npc.width * 9) {
-					npc.whichSprite = npc.width * 10;
-			} else if (npc.whichSprite == npc.width * 10) {
-					npc.whichSprite = npc.width * 11;
-			} else {
-					npc.whichSprite = npc.width * 8;
-            }
-		}
-		//move left
-		else if (npc.pos_x > npc.target_x){
-			npc.pos_x -= npc.npcSpeed;
-			if (npc.whichSprite == npc.width * 4){
-				npc.whichSprite = npc.width * 5;
-			}	else if (npc.whichSprite == npc.width * 5) {
-					npc.whichSprite = npc.width * 6;
-			} else if (npc.whichSprite == npc.width * 6) {
-					npc.whichSprite = npc.width * 7;
-			} else {
-					npc.whichSprite = npc.width * 4;
-			}
-		}
-		//move down
-		else if (npc.pos_y < npc.target_y){
-			npc.pos_y += npc.npcSpeed;
-			if (npc.whichSprite == npc.width * 0){
-				npc.whichSprite = npc.width * 1;
-			}	else if (npc.whichSprite == npc.width * 1) {
-					npc.whichSprite = npc.width * 2;
-			} else if (npc.whichSprite == npc.width * 2) {
-					npc.whichSprite = npc.width * 3;
-			} else {
-					npc.whichSprite = npc.width * 0;
-			}
-		}
-		//move up
-		else if (npc.pos_y > npc.target_y){
-			npc.pos_y -= npc.npcSpeed;
-			if (npc.whichSprite == npc.width * 12){
-				npc.whichSprite = npc.width * 13;
-			}	else if (npc.whichSprite == npc.width * 13) {
-					npc.whichSprite = npc.width * 14;
-			} else if (npc.whichSprite == npc.width * 14) {
-					npc.whichSprite = npc.width * 15;
-			} else {
-					npc.whichSprite = npc.width * 12;
-			}		
-		}
-		else{
-			npc.facingWhichDirection = finalFacing;
-			switch(npc.facingWhichDirection){
-				case "up":
-					npc.whichSprite = npc.width * 12;
-					break;
-				case "down":
-					npc.whichSprite = npc.width * 0;
-					break;
-				case "left":
-					npc.whichSprite = npc.width * 4;
-					break;
-				case "right":
-					npc.whichSprite = npc.width * 8;
-					break;
-			}
+		this.moveNPC(npc);
+		if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
+			performingAction = true;
 		}
 	}
+	
+	this.moveNPC = function(npc){
+		console.log("function called");
+		var finalFacing;
+		switch(this.facingWhichDirection){
+			case "up":
+				npc.target_x = this.pos_x;
+				npc.target_y = this.pos_y - 32;
+				finalFacing = "down";
+				break;
+			case "down":
+				npc.target_x = this.pos_x;
+				npc.target_y = this.pos_y + 32;
+				finalFacing = "up";
+				break;
+			case "left":
+				npc.target_x = this.pos_x - 32;
+				npc.target_y = this.pos_y;
+				finalFacing = "right";
+				break;
+			case "right":
+				npc.target_x = this.pos_x + 32;
+				npc.target_y = this.pos_y;
+				finalFacing = "left";
+				break;				
+		}
+		npc.move();
+		if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
+			npc.facingWhichDirection = finalFacing;
+			npc.isMoving = false;
+		}
+	}
+	
     this.draw = function(){
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
