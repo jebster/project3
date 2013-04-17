@@ -77,7 +77,10 @@ function influence_btwn_NPCS(daveRep1, daveRep2){
     }
 
 /* Global Variables */
+var initialPopulation = 20;
 var ABSTRACT_LEVEL = 1;
+var facPopulation_thresh = initialPopulation - 4;
+var populateCount = initialPopulation;
 var toRenderList;
 
 var abstractTwoContainer;
@@ -120,6 +123,8 @@ var DOOR_LEFT_X = 284;
 var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 500;
+
+var newEntryFlag = 0;
 
 
 
@@ -230,13 +235,13 @@ function GameEngine(){
 		
 
         timeUnit += _inverseFPS;
-        
-        //Update NPC movements (Max's function)
-        //updateNPCPositions(); 
 
-        //Check interactions between NPCs an NPC and player (Max's function)
-        //Here is where we exchange reputations, ask for dates, etc.
-        //checkNPCInteractions();
+        //Check if too many people have left the faculty, introduce new ones
+        if(toRenderList.NPCList.length < facPopulation_thresh){
+            populateCount = Math.floor((Math.random()*3) + 1);
+            newEntryFlag = 1;
+            simulation.decompressAbstractTwo();
+        }
 		
 		tempRenderList = toRenderList;
 		for(var i = 0; i < toRenderList.NPCList.length; ++i){

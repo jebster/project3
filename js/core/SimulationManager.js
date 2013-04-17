@@ -11,7 +11,7 @@ var destinationFaculty_trunc = "engine";
 function SimulationManager(){
 
 	var _NPCList = [];
-	var _abstractPopulation = 20;
+	var _abstractPopulation = populateCount;
 	var _decompressFlag = 1;
 	var storedListIndex;
 
@@ -133,8 +133,14 @@ function SimulationManager(){
 		// Or Dave did an action
 		// Or Dave change faculty
 		this.compressLevelOne();
-
 		//add here? - Jensen - clarification needed
+		var transitcount = 0;
+		for(var i =0; i<inFlightList.length; ++i){
+			if(inFlightList[i].currFaculty == destinationFaculty_trunc){
+				transitcount++;
+			}
+		}
+		populateCount = initialPopulation - transitcount;
 		this.decompressAbstractTwo();
 
 		//Clear inflight list after adding them to current faculty
@@ -151,6 +157,7 @@ function SimulationManager(){
 		this.compressLevelOne();
 		this.compressLevelTwo();
 		this.decompressAbstractThree();
+		populateCount = initialPopulation;
 		this.decompressAbstractTwo();
 
 		/*
@@ -396,6 +403,7 @@ function SimulationManager(){
 	************ DE-COMPRESSION *****************
 	==========================================
 	*/
+
 	this.decompressAbstractTwo = function(){
 
 		faculty_index = abstractTwoContainer.faculties.indexOf(destinationFaculty_trunc);
@@ -422,6 +430,8 @@ function SimulationManager(){
 		var type_index;
 		var score;
 		var currNPCcategory;
+
+		_abstractPopulation = populateCount;
 
 		//Create NPC Girl and Guy 50% chance
 		for(var j = 0; j < _abstractPopulation; ++j){
@@ -457,7 +467,7 @@ function SimulationManager(){
 
 			if(gender_assign == "male"){
 
-				currNPCPrimaryTypeIndex =  GetWithinRange(primaryTypeIndex_start[range_index], primaryTypeIndex_end[range_index]);
+				currNPCPrimaryTypeIndex =  GetWithinRange(primaryTypeIndex_start[type_index], primaryTypeIndex_end[type_index]);
 
 				score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index])*10;
 
@@ -478,15 +488,25 @@ function SimulationManager(){
 		}
 
 		//add in the inflight persons
-		for(var i = 0; i < inFlightList.length; ++i){
-			if(inFlightList[i].currFaculty == absList.faculty &&
-				inFlightList[i].currUniversity == absList.university){
-				absList.NPCList.push(inFlightList[i]);
+		if(newEntryFlag == 0){
+			for(var i = 0; i < inFlightList.length; ++i){
+				if(inFlightList[i].currFaculty == absList.faculty &&
+					inFlightList[i].currUniversity == absList.university){
+					absList.NPCList.push(inFlightList[i]);
+				}
 			}
 		}
-		
+
 		//render this newly created list
-		toRenderList = absList;	
+		if(newEntryFlag == 1){
+			for(i = 0; i<absList.NPCList.length; ++i){
+				toRenderList.NPCList.push(absList.NPCList[i]);
+			}
+			newEntryFlag = 0;
+		}
+		else{
+			toRenderList = absList;	
+		}
 	}
 
 		this.assignReputationRangeWeightage = function(){
