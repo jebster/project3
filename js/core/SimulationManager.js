@@ -510,7 +510,7 @@ function SimulationManager(){
 		var otherUni_index = abstractThreeContainer.universities.indexOf(currentUni);
 
 		var current_time = getCurTime();
-		var time_elapsed = currentTime - abstractThreeContainer.universityStats[university_index].lastSeen;
+		var time_elapsed = current_time - abstractThreeContainer.universityStats[university_index].lastSeen;
 
 		var facultiesMeanStats = abstractThreeContainer.universityStats[university_index].facultyMeanStats;
 		var facultiesVarStats = abstractThreeContainer.universityStats[university_index].facultyVarStats;
