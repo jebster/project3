@@ -17,7 +17,7 @@ var PlayerObj = function(x, y){
 
     this.category;
     
-    this.intellect = 0.1;
+    this.intellect = 0.3;
     this.talent = 0.7;
     this.fitness = 0.5;
 
@@ -252,9 +252,19 @@ var PlayerObj = function(x, y){
     this.skillRender = function(){
 
     	//Player skill decay over time
-    	this.intellect -= 0.0001;
-	    this.talent -= 0.0001;
-	    this.fitness -= 0.0001;
+    	if(this.intellect > 0.1){
+    		this.intellect -= 0.0001;
+    	}
+
+    	if(this.talent > 0.1){
+    		this.talent -= 0.0001;
+    	}
+
+    	if(this.fitness > 0.1){
+    		this.fitness -= 0.0001;
+    	}
+    	
+	    
 
 	    //Updates player's primaryType parameters
 	    this.primaryTypeScore = Array.max(this.skillArray);
