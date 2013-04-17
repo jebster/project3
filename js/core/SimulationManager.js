@@ -85,9 +85,10 @@ function SimulationManager(){
 			currentFaculty = destinationFaculty_trunc;
 			
 		} else {
+			destinationFaculty_trunc = destinationFaculty.substring(0, destinationFaculty.length - 3);
 			this.abstractThreeMovement();
 			currentUni = destinationUni;
-			currentFaculty = destinationFaculty.substring(0, destinationFaculty.length - 3);
+			currentFaculty = destinationFaculty_trunc
 		}
 	}
 
