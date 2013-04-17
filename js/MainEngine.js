@@ -36,11 +36,11 @@ function influence_btwn_NPCS(daveRep1, daveRep2){
             daveRep1 = daveRep2_temp;
         }
 
-        //Example, daveRep_diff = 0.9
-        //0.9/4 = 0.225
-        //0.45*10 = 2.25 => ceil = 2 => 2/10 = 0.2
         daveRep_diff = daveRep2-daveRep1;
-        daveRep_inf = Math.ceil( (daveRep_diff/4)*10 ) /10
+
+        //The difference ranges from 0 to 0.99
+        //Convert it to 0 to 0.2 (maximum can influence reputation by 0.2 points)
+        daveRep_inf = daveRep_diff/4.95;
 
         //If neutral
         if(daveRep1 > 0.4 && daveRep1 < 0.6){
@@ -142,6 +142,8 @@ function GameEngine(){
 	var _frameNumber = 0;
 
 	this.init = function(abs1_canvas, abs2_canvas) {
+
+        //console.log(influence_btwn_NPCS(0.2, 0.9));
         
         _abstract1_canvas = document.getElementById(abs1_canvas);
         _abstract2_canvas = document.getElementById(abs2_canvas);
