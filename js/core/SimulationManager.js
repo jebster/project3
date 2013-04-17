@@ -278,7 +278,7 @@ function SimulationManager(){
 				// Randomize order of daveReputationArray - Jensen
 				daveReputationArray = randomizeArray(daveReputationArray);
 
-				
+			
 
 				//Array of daveReputation extracted from inFlight Objects in a faculty
 				var inFlightArray_daveRep = [];
@@ -592,7 +592,7 @@ function SimulationManager(){
 		//ranges 0.5 to 3.0
 		//0.5 to 1.75 = -ve
 		// 1.75 to 3 = +ve
-
+ 
 		var overall_inf_factor = (time_factor * rep_factor * traffic_flow_factor) - 1.75;
 
 		//ranges from 0 to 2
@@ -603,7 +603,7 @@ function SimulationManager(){
 
 			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * 1;
 
-			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;
+			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;   
 			//abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
 		}
 
