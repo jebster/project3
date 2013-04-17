@@ -41,6 +41,31 @@ var PlayerActions = function(){
 
 		/*
 
+		LOGIC
+		******
+
+		When player performs an action, time passes.
+		When time passes, there is:
+
+		In NUS
+		=======
+		1. daveReputation spreading within current Faculty.
+		2. daveReputation spread within other faculties
+		3. daveReputation spread due to traffic flow
+		No 2, No 3 is done when we simulate Dave leaving a faculty
+		No 1 is done when Dave returns to original faculty 
+
+		In NTU
+		=======
+		1. daveReputation spreading within NTU
+		2. daveReputation influence in NTU due to traffic from NUS
+		No 1, No 2 is achieved when we simulate Dave leaving NUS
+
+		CONCLUSION: So, by simulating Dave leaving NUSEngin to NTUEngin and coming back again, we can achieve all the above goals
+
+		IMPLEMENTATION
+		*******************
+
 		Accelerate Time
 		================
 		1. Accelerate Time for inFlightList NPC.leftAtTime (by decreasing the number)
