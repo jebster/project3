@@ -22,8 +22,7 @@ var PlayerObj = function(x, y){
     this.girlsList = [];
     this.laidList = [];
 
-    // he has 100 units of time ~ jensen
-    this.time = 100;
+
 
     //other attributes to be added
     this.move = function(){
@@ -262,5 +261,15 @@ var PlayerObj = function(x, y){
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
 							this.pos_y, 32, 32);
+    }
+
+    this.skillDecay = function(){
+
+    	
+    	this.intellect -= 0.0001;
+	    this.talent -= 0.0001;
+	    this.fitness -= 0.0001;
+
+
     }
 }

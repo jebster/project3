@@ -119,8 +119,6 @@ function GameEngine(){
 	var _frameNumber = 0;
 
 	this.init = function(abs1_canvas, abs2_canvas) {
-
-
         
         _abstract1_canvas = document.getElementById(abs1_canvas);
         _abstract2_canvas = document.getElementById(abs2_canvas);
@@ -134,8 +132,6 @@ function GameEngine(){
 
         //initialize simulation manager ~ jensen
         simulation = new SimulationManager();
-
-        
 
         abstractTwoContainer = new AbstractTwoContainer();
         abstractThreeContainer = new AbstractThreeContainer();
@@ -219,6 +215,7 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.move();
 		player.draw();
+        player.skillDecay();
 		
 
         timeUnit += _inverseFPS;
