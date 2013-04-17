@@ -92,19 +92,20 @@ function displayStats(){
 }
 
 function displayGlobalEvents(){
-	if(getCurTime() > 200 && getCurTime()<500){
+	
+	if(getCurTime()%1000 > 200 && getCurTime()%1000 < 500){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(366,50,104,30);
 		context.fillStyle = "#000000";
 		context.fillText("EXAM WEEK", 368, 70);
 	}
-	if(getCurTime() > 500 && getCurTime() < 700){
+	if(getCurTime()%1000 > 500 && getCurTime()%1000 < 700){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(358,50,120,30);
 		context.fillStyle = "#000000";
 		context.fillText("SPORTS WEEK", 360, 70);
 	}
-	if(getCurTime() > 700){
+	if(getCurTime()%1000 > 700 && getCurTime()%1000 < 995){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(385,50,55,30);
 		context.fillStyle = "#000000";
