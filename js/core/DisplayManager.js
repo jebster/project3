@@ -88,3 +88,25 @@ function displayStats(){
 		}
 	}
 }
+
+function displayGlobalEvents(){
+	if(getCurTime() > 200 && getCurTime()<500){
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(366,80,104,30);
+		context.fillStyle = "#000000";
+		context.fillText("EXAM WEEK", 368, 100);
+	}
+	if(getCurTime() > 500 && getCurTime() < 700){
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(358,80,120,30);
+		context.fillStyle = "#000000";
+		context.fillText("SPORTS WEEK", 360, 100);
+	}
+	if(getCurTime() > 700){
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(385,80,55,30);
+		context.fillStyle = "#000000";
+		context.fillText("V DAY", 388, 100);
+	}
+	
+}

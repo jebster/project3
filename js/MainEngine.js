@@ -282,13 +282,14 @@ function GameEngine(){
 				currNPC.interactionCheck();
 			}
 			
-			if(debug)
-			displayStats();
+			
 
 		}
 
 
         toRenderList = tempRenderList;
+		if(debug)
+		displayStats();
 		if(drawOverlay == true){
 			context.drawImage(overlayImg, 0, 0);
 			overlayTimer++;
@@ -302,6 +303,7 @@ function GameEngine(){
 			displayDecisionBox();
 		}
 		updateAttributes();
+		displayGlobalEvents();
 		
     }
 
