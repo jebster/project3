@@ -7,9 +7,11 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_talent.png";
-			player.talent += 0.01;
+			if(player.talent<1){
+				player.talent += 0.01;
+			}
 		}
-		timeTravel(2);
+		//timeTravel(2);
 		performingAction = false;
 	}
 
@@ -18,7 +20,9 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_fitness.png";
-			player.fitness += 0.01;
+			if(player.fitness<1){
+				player.fitness += 0.01;
+			}
 		}
 
 		timeTravel(2);
@@ -30,7 +34,9 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_intellect.png";
-			player.intellect += 0.01;
+			if(player.intellect < 1){
+				player.intellect += 0.01;
+			}
 		}
 
 		timeTravel(3);
