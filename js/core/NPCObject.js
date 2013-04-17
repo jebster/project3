@@ -305,7 +305,19 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 
     this.dateDaveDecision = function(){
 
-    	
+		//will date Dave when daveReputation is more than 0.7 and Dave's skill is higher than her best score
+		if( 
+			(player.primaryType == this.preferenceType) &&
+			(this.daveReputation > 0.7) &&
+			(player.primaryTypeScore > this.primaryPreference_best)
+																	){
+
+		//will choose to date Dave.
+		return true;
+
+		}else{
+			return false;
+		}
 
     }
 
