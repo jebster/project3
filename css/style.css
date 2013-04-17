@@ -87,7 +87,7 @@ canvas {
 
     #player-actions ul {
         overflow: scroll;
-        height: 140px;
+        height: 117px;
         background-color: white;
     }
 
@@ -133,6 +133,15 @@ canvas {
     #other-items button {
         margin: 0;
         float: right;
+    }
+
+#laid-count {
+
+}
+
+    #laid-count .section-header {
+        font-weight: 100;
+        font-size: 30px;
     }
 
 #ui-controllers {
