@@ -325,7 +325,7 @@ var PlayerObj = function(x, y){
 		if(this.success){
 
 			alert(npc.gender + " " + npc.id + " has decided to go on a date with you!");
-			viewInteractionEva();
+			
 			this.currInteractionStage = 2;
 		}
 		if(!this.success){
@@ -343,20 +343,20 @@ var PlayerObj = function(x, y){
 	}
 	
 	this.laid = function(npc){
-		alert("You just banged " + npc.name);
+		//alert("You just banged " + npc.name);
 		this.successfulLaid();
 
 		this.resume();
 		
 	}
 	
-	this.successfulLaid = function(npc){
-
+	this.successfulLaid = function(){
+		viewInteractionEva();
     	//change the target NPC as status laid
-    	npc.laidWithDave = true;
+    	this.targetNPC.laidWithDave = true;
 
     	//push it to the laidList array
-    	laidList.push(npc);
+    	laidList.push(this.targetNPC);
 		laidCount++;
 		document.getElementById('laid-count-dis').innerHTML = laidCount;
 
