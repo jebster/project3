@@ -44,6 +44,8 @@ canvas {
     #abstractTwo {
         background-color: rgb(203, 236, 219);;
         z-index: 4;
+
+
     }
 
 #travel {
@@ -87,7 +89,7 @@ canvas {
 
     #player-actions ul {
         overflow: scroll;
-        height: 117px;
+        height: 140px;
         background-color: white;
     }
 
@@ -135,15 +137,6 @@ canvas {
         float: right;
     }
 
-#laid-count {
-
-}
-
-    #laid-count .section-header {
-        font-weight: 100;
-        font-size: 30px;
-    }
-
 #ui-controllers {
     width: 160px;
     margin: 0 auto;
@@ -177,20 +170,6 @@ canvas {
         margin-top: 0;
     }
 
-    #evaluation-modal span {
-        font-size: 20px;
-        font-weight: bold;
-        color: green;
-    }
-
-    #evaluation-modal h2 {
-        text-align: center;
-    }
-
-    #evaluation-modal h3 {
-        text-decoration: underline;
-    }
-
 header h1 {
   text-align: center;
   margin: 0;
@@ -208,11 +187,18 @@ header h1 {
         border: 1px solid black;
     }
 
-    
 
-    
+#Debug {
+    background-color: rgb(203, 236, 219);;
 
- 
+    border: 1px solid black;
+    position: absolute;
+    top: 1500px;
+
+}
+
+
+
 
 
 /* Progress bar */
