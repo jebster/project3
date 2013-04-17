@@ -53,6 +53,9 @@ function SimulationManager(){
 
 		destinationUni = document.getElementById('location').options[document.getElementById('location').selectedIndex].parentNode.label;
 		document.getElementById('display-uni').innerHTML = destinationUni;
+
+		//unfocus on the select dropbox
+		document.getElementById('location').blur();
 		
 		switch(destinationFaculty){
 			case "engineNUS":
