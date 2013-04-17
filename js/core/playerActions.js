@@ -11,6 +11,7 @@ var PlayerActions = function(){
 				player.talent += 0.1;
 			}
 		}
+
 		//timeTravel(2);
 		performingAction = false;
 	}

@@ -276,5 +276,9 @@ var PlayerObj = function(x, y){
 
     	//push it to the laidList array
     	laidList.push(this.targetNPC);
+
+    	laidCount++;
+    	document.getElementById('laid-count-dis').innerHTML = laidCount;
+
     }
 }
