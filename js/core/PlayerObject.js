@@ -11,7 +11,7 @@ var PlayerObj = function(x, y){
 	this.keepMoving = false;
 	this.animSpeed;
 	this.lastRender;
-	this.success = true;
+	this.success;
 	this.currInteractionStage = 0;
 
 	//a NPC object that he interacts with
@@ -50,24 +50,26 @@ var PlayerObj = function(x, y){
 			this.interactionWithNPC(this.targetNPC);
 		}
 		if(performingAction){
-			if(_keys[K_A].press){
-				if(this.currInteractionStage == 1){
+			if(this.currInteractionStage == 1){
+				if(_keys[K_A].press){
 					this.befriend(this.targetNPC);
+					_keys[K_A].press = false;
 				}
-				if(this.currInteractionStage == 2){
-					this.hangout(this.targetNPC);
-				}
-				_keys[K_A].press = false;
-			}
-			if(_keys[K_D].press){
-				if(this.currInteractionStage == 1){
+				if(_keys[K_D].press){
 					this.date(this.targetNPC);
+					_keys[K_D].press = false;
 				}
-				if(this.currInteractionStage == 2){
-					this.laid(this.targetNPC);
-				}
-				_keys[K_D].press = false;
 			}
+			if(this.currInteractionStage == 2){
+				if(_keys[K_A].press){
+					this.hangout(this.targetNPC);
+					_keys[K_A].press = false;
+				}
+				if(_keys[K_D].press){
+					this.laid(this.targetNPC);
+					_keys[K_D].press = false;
+				}
+			}	
 			if(_keys[K_R].press){
 				this.resume();
 			}
@@ -199,7 +201,6 @@ var PlayerObj = function(x, y){
     }
 	
 	this.interactionWithNPC = function(npc){
-		console.log("You are talking with " + npc.gender + npc.id);
 		
 		var finalFacing;
 		switch(this.facingWhichDirection){
@@ -224,15 +225,16 @@ var PlayerObj = function(x, y){
 				finalFacing = "left";
 				break;				
 		}
-		this.moveNPC(npc);
-		if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
+		//this.moveNPC(npc);
+		//if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
 			performingAction = true;
-			this.currInteractionStage = 1;
+			if(this.currInteractionStage == 0){
+				this.currInteractionStage = 1;
+			//}
 		}
 	}
 	
 	this.moveNPC = function(npc){
-		console.log("function called");
 		var finalFacing;
 		switch(this.facingWhichDirection){
 			case "up":
@@ -257,7 +259,8 @@ var PlayerObj = function(x, y){
 				break;				
 		}
 		npc.move();
-		if(npc.pos_x == npc.target_x && npc.pos_y == npc.target_y){
+		if(npc.pos_x <= npc.target_x+4 && npc.pos_x >= npc.target-4	&& 
+			npc.pos_y <= npc.target_y+4 && npc.pos_y >= npc.target_y+4){
 			npc.facingWhichDirection = finalFacing;
 			npc.isMoving = false;
 		}
@@ -300,6 +303,8 @@ var PlayerObj = function(x, y){
 	
 	this.resume = function(){
 		this.targetNPC.isMoving = true;
+		this.targetNPC.target_x = Math.floor(Math.random()*24) * 32 + 32;
+		this.targetNPC.target_y = Math.floor(Math.random()*17) * 32 + 32;
 		this.targetNPC = 0;
 		performingAction = false;
 		this.currInteractionStage = 0;
@@ -314,11 +319,13 @@ var PlayerObj = function(x, y){
 	}
 	
 	this.date = function(npc){
-		alert(npc.gender + " " + npc.id + " is making a decision");
+		this.success = npc.dateDaveDecision();
 		if(this.success){
-			currInteractionStage = 2;
+			alert(npc.gender + " " + npc.id + " has decided to go on a date with you!");
+			this.currInteractionStage = 2;
 		}
 		if(!this.success){
+			alert("You have been rejected");
 			this.resume();
 		}
 	}
