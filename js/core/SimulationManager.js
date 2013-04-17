@@ -134,6 +134,8 @@ function SimulationManager(){
 		//add here? - Jensen - clarification needed
 		this.decompressAbstractTwo();
 
+		//Clear inflight list after adding them to current faculty
+		inFlightList = [];
 
 	}
 
@@ -234,6 +236,10 @@ function SimulationManager(){
 
 				abstractTwoContainer.statsList[k].mean = new_mean_1;
 				abstractTwoContainer.statsList[k].variance = new_var_1;
+
+				console.log(currentFaculty);
+				console.log(new_mean_1, abstractTwoContainer.faculties[k], currentUni);
+				console.log(new_var_1,abstractTwoContainer.faculties[k], currentUni);
 
 				
 
@@ -336,6 +342,10 @@ function SimulationManager(){
 							inFlightArray_daveRep.push(inFlight_daveRep);
 
 							array_index++;
+
+							if(array_index >= daveReputationArray.length){
+								array_index = 0;
+							}
 						}
 					}
 				}
@@ -347,8 +357,8 @@ function SimulationManager(){
 
 
 				console.log(currentFaculty);
-				console.log(new_mean, abstractTwoContainer.faculties[k]);
-				console.log(new_variance,abstractTwoContainer.faculties[k]);
+				console.log(new_mean, abstractTwoContainer.faculties[k], currentUni);
+				console.log(new_variance,abstractTwoContainer.faculties[k], currentUni);
 
 
 				abstractTwoContainer.statsList[k].mean = new_mean;
@@ -511,7 +521,7 @@ function SimulationManager(){
 		var otherUni_index = abstractThreeContainer.universities.indexOf(currentUni);
 
 		var current_time = getCurTime();
-		var time_elapsed = current_time - abstractThreeContainer.universityStats[university_index].lastSeen;
+		var time_cycle = current_time - abstractThreeContainer.universityStats[university_index].lastSeen;
 
 		var facultiesMeanStats = abstractThreeContainer.universityStats[university_index].facultyMeanStats;
 		var facultiesVarStats = abstractThreeContainer.universityStats[university_index].facultyVarStats;
