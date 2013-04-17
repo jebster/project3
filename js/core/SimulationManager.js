@@ -526,88 +526,75 @@ function SimulationManager(){
 		/*****************************************
 		==== Factors that Affect Decompression ==
 		******************************************/
+		
+		/* 1. TIME FACTOR
+		==============
+	 	Ranges from 1.0 to 2.0
+		1.0 means no time factor (upon multiplication, will not affect)
+		2.0 means double the time factor */
+		var time_factor;
 
-		// //1. TIME FACTOR
-		// //==============
-		// 	//Get the last four digits of the time (133122334)
-		// 	var temp_end_index = time_elapsed.length;
-		// 	var temp_beginning_index = temp_end_index-4;
+		if(time_cycle>600){
+			//if Dave leaves a uni for more than 10 minutes, time factor is capped
+			time_factor = 2;
+		}else{
+			time_factor = time_cycle/600 + 1;
+		}
 
-		// 	//ranges from 0000 - 9999 seconds (almost 2 hours)
-		// 	var time_cycle = time_elapsed.substring( temp_beginning_index , temp_end_index );
+		
+		/* 2. TRAFFIC FLOW FACTOR
+		======================
+		Ranges from 1.0 to 2.0
+		1.0 means no traffic flow from other uni (upon multiplication, will not affect)
+		2.0 means max high traffic flow effect */
+		var traffic_flow_factor = 1.2; //random number
 
-		// 	var time_factor; //different for variance and mean
-
-
-		//2. TRAFFIC FLOW FACTOR
-		//======================
-		var traffic_flow_factor = 0.3;
-
-		var rep_factor;
-
-		//ranges from 0.5 to 1.5
+		
+		/* 3. Reputation Influence from Origin Uni
+		=======================================
+		Ranges from 0.5 to 1.5
+		0.5 means it's bad influence, will pull down score
+		1.5 is good influence, will pull up score */
 		var rep_factor = (otherUniAvgDaveRepMean - 0.5) +1;
 
+		// Will be tweaked based on Implement 1 or Implement 2
+		var overall_inf_factor;
 
-		// 1.Reputation spread within destination university for the time passed
-		//=====================================================================
+		
+		/* Implement 1: Reputation spread within destination university
+		===============================================================
+		Only take into account time_factor
+		Note: time_factor ranges from 1.0 to 2.0
+		Need to convert it to 0.9 to 0.5 (upon multiplication will always decrease variance)
+		Think: the longer it is, larger the time, multiplication needs to result it a smaller variance. Hence a 2.0 time factor will result in a multiplication of 0.5 (half the variance) */
+		
+		//this formula converts 1.0-2.0 to 0.9-0.5
+		overall_inf_factor = time_factor*(-0.4) + 1.3;
 
-		//range of variance decrease is from 0 to 0.01
-		//time_factor = time_cycle/999900;
-		var time_factor = time_elapsed/1200;
+		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
 
-	
-		//Assume after 9999, spreading effect within university will stabilize
-		if(getCurTime()<9999){
-
-			//QUESTION: Where do you get abstractTwoContainer?
-			for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
-
-				abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] - (time_factor * facultiesVarStats[i]);
-
-				//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor;
-				//abstractTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor;
-			}
+			abstractTwoContainer.statsList[i].variance = facultiesVarStats[i]*overall_inf_factor;
 
 		}
 
-		// 2. Reputation spread from other university
-		//=====================================================================
-
-		/*
-			//For now, ranges from 0.5 to 1.5
-			//0.5 means it's bad influence, 1.5 is good
-			1. rep_factor = ; 
-
-			// Ranges from 0 to 1.0
-			2. traffic_flow_factor = ; //
-
-			// Ranges from 0.0 to 1.0
-			3. time_factor
-		*/
-
-		//1.0 to 2.0
-		//time_factor = time_cycle/9999 + 1;
-
-		//ranges 0.5 to 3.0
-		//0.5 to 1.75 = -ve
-		// 1.75 to 3 = +ve
- 
-		var overall_inf_factor = (time_factor * rep_factor * traffic_flow_factor) - 1.75;
-
-		//ranges from 0 to 2
-		var overall_inf_factor = ( (traffic_flow_factor + time_factor)/1.5 )*rep_factor;
-		
+		/* Implement 2:Reputation spread from other university
+		=====================================================================
+		Combine all factors: time_factor * rep_factor * traffic_flow_factor, the range is from 0.5 to 6.
+		Convert this range to 0.9 to 1.1 */
+		overall_inf_factor = (time_factor * rep_factor * traffic_flow_factor)*0.036 + 0.882;
 
 		for(i=0; i<abstractTwoContainer.faculties.length; ++i){
 
-			abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * 1;
-
-			//abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i] * rep_factor * time_factor * traffic_flow_factor;   
-			//abstracTwoContainer.statsList[i].variance = facultiesVarStats[i] * rep_factor * time_factor * traffic_flow_factor;
+			//if the result of mean is more than 1, cap it
+			if(facultiesMeanStats[i]*overall_inf_factor>1){
+				abstractTwoContainer.statsList[i].mean = 1;
+			}else{
+				abstractTwoContainer.statsList[i].mean = facultiesMeanStats[i]*overall_inf_factor;
+			}
+			
 		}
 
-
+		// TO-DO: Have not thought of it yet
 		//Also need to get information about PreferenceType distribution
 		//Apply rules to the preference type distribution, taking into 
 		//consideration exam week, vday events and time passed
