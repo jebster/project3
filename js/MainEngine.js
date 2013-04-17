@@ -48,13 +48,27 @@ function influence_btwn_NPCS(daveRep1, daveRep2){
             //daveRep2 will not be influenced
             daveRep1 += daveRep_inf;
 
-        }else if(daveRep2 > 0.4 && daveRep2 < 0.6){         
+            
+        }else if(daveRep2 > 0.4 && daveRep2 < 0.6){ 
+
             daveRep2 -= daveRep_inf;
+
+            
         }
         else{
             daveRep1 += daveRep_inf;
             daveRep2 -= daveRep_inf;
         }
+
+        //Make sure they don't exceed
+        if(daveRep2 > 1){
+            daveRep2 = 0.99;
+        }
+
+        if(daveRep1 < 0){
+            daveRep1 = 0.1;
+        }
+
 
         daveRepArray[0] = daveRep1;
         daveRepArray[1] = daveRep2;

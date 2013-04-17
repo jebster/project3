@@ -590,6 +590,7 @@ function SimulationManager(){
 		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
 
 			abstractTwoContainer.statsList[i].variance = facultiesVarStats[i]*overall_inf_factor;
+			var test = facultiesVarStats[i]*overall_inf_factor;
 
 		}
 
