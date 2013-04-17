@@ -245,7 +245,7 @@ function GameEngine(){
             newEntryFlag = 1;
             simulation.decompressAbstractTwo();
         }
-		
+		displayGlobalEvents();
 		tempRenderList = toRenderList;
 		for(var i = 0; i < toRenderList.NPCList.length; ++i){
 			removeNPCFlag = 0;
@@ -307,7 +307,7 @@ function GameEngine(){
 			displayDecisionBox();
 		}
 		updateAttributes();
-		displayGlobalEvents();
+		
 		
     }
 
