@@ -177,6 +177,20 @@ canvas {
         margin-top: 0;
     }
 
+    #evaluation-modal span {
+        font-size: 20px;
+        font-weight: bold;
+        color: green;
+    }
+
+    #evaluation-modal h2 {
+        text-align: center;
+    }
+
+    #evaluation-modal h3 {
+        text-decoration: underline;
+    }
+
 header h1 {
   text-align: center;
   margin: 0;

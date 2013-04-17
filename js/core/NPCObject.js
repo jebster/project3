@@ -29,6 +29,8 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 
     this.daveReputation = daveRep;
 
+    this.checkDaveScore = 0;
+
     //to keep track of movement within university
     this.currUniversity;
     this.currFaculty = destinationFaculty;
@@ -92,7 +94,7 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
         this.preferenceType = preferenceType;
 
         // each interaction, girl goes into guy this.primaryTypeScore, and updates primaryPreferenceScore
-        this.primaryPreference_best;
+        this.primaryPreference_best = 0.5;
 
         this.laidWithDave = false;
 		
@@ -317,16 +319,32 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 
     this.dateDaveDecision = function(){
 		//will date Dave when daveReputation is more than 0.7 and Dave's skill is higher than her best score
-		if( 
-			(player.primaryType == this.preferenceType) &&
-			(this.daveReputation > 0.7) &&
-			(player.primaryTypeScore > this.primaryPreference_best)
-																	){
 
+
+		
+		//Get Dave's Value
+		if(this.preferenceType == 'nerd'){
+			this.checkDaveScore = player.intellect; 
+		}else if(this.preferenceType == 'talent'){
+			this.checkDaveScore = player.talent;
+		} else {
+			this.checkDaveScore = player.fitness;
+		}
+
+		//Debug
+		document.getElementById('skill-level').innerHTML = this.checkDaveScore;
+		document.getElementById('girl-preference').innerHTML = this.preferenceType;
+		document.getElementById('best-man-score').innerHTML = this.primaryPreference_best;
+		document.getElementById('daveRep').innerHTML = this.daveReputation;
+
+		if((this.daveReputation > 0.55) && (this.checkDaveScore > this.primaryPreference_best)){
+
+		document.getElementById('laid-result').innerHTML = 'SUCCESS';
 		//will choose to date Dave.
 		return true;
 
 		}else{
+			document.getElementById('laid-result').innerHTML = 'REJECTED';
 			return false;
 		}
 

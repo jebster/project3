@@ -15,24 +15,35 @@ function viewCalendar(){
 	document.getElementById('calendar-modal').style.left = "-5px";
 	document.getElementById('date-list-modal').style.left = "-1000px";
 	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	document.getElementById('evaluation-modal').style.left = "-1000px";
 }
 
 function viewCompetitors(){
 	document.getElementById('calendar-modal').style.left = "-1000px";
 	document.getElementById('date-list-modal').style.left = "-1000px";
-	document.getElementById('competitor-list-modal').style.left = "-5px";	
+	document.getElementById('competitor-list-modal').style.left = "-5px";
+	document.getElementById('evaluation-modal').style.left = "-1000px";	
 }
 
 function viewDateList(){
 	document.getElementById('calendar-modal').style.left = "-1000px";
 	document.getElementById('date-list-modal').style.left = "-5px";
 	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	document.getElementById('evaluation-modal').style.left = "-1000px";
+}
+
+function viewInteractionEva(){
+	document.getElementById('calendar-modal').style.left = "-1000px";
+	document.getElementById('date-list-modal').style.left = "-1000pxpx";
+	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	document.getElementById('evaluation-modal').style.left = "-5px";
 }
 
 function closeModal(){
 	document.getElementById('calendar-modal').style.left = "-1000px";
 	document.getElementById('date-list-modal').style.left = "-1000px";
 	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	document.getElementById('evaluation-modal').style.left = "-1000px";
 }
 
 function globalTimer(){

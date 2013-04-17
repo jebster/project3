@@ -19,16 +19,17 @@ var PlayerObj = function(x, y){
 	
     this.category;
     
-    this.intellect = 0.3;
+    this.intellect = 0.9;
     this.talent = 0.7;
-    this.fitness = 0.5;
+    this.fitness = 0.3;
 
     //will store the player's primary type
+    /*
     this.primaryType;
     this.primaryTypeScore;
     this.primaryTypeIndex;
 	
-	this.skillArray = [this.intellect, this.talent, this.fitness];
+	this.skillArray = [this.intellect, this.talent, this.fitness];*/
     
     this.girlsList = [];
     this.laidList = [];
@@ -289,7 +290,8 @@ var PlayerObj = function(x, y){
 		
 
 	    //Updates player's primaryType parameters
-	    this.primaryTypeScore = Array.max(this.skillArray);
+	    //this.primaryTypeScore = Array.max(this.skillArray);
+	    /*
 	    this.primaryTypeIndex = this.skillArray.indexOf(this.primaryTypeScore);
 
 	    if(this.primaryTypeIndex == 0){
@@ -298,7 +300,7 @@ var PlayerObj = function(x, y){
 	    	this.primaryType = 'talent';
 	    }else{
 	    	this.primaryType = 'fitness';
-	    }
+	    }*/
     }
 	
 	this.resume = function(){
@@ -321,11 +323,14 @@ var PlayerObj = function(x, y){
 	this.date = function(npc){
 		this.success = npc.dateDaveDecision();
 		if(this.success){
-			alert(npc.name + " has decided to go on a date with you!");
+
+			alert(npc.gender + " " + npc.id + " has decided to go on a date with you!");
+			viewInteractionEva();
 			this.currInteractionStage = 2;
 		}
 		if(!this.success){
 			alert("You have been rejected");
+			viewInteractionEva();
 			this.resume();
 		}
 	}
@@ -340,17 +345,18 @@ var PlayerObj = function(x, y){
 	this.laid = function(npc){
 		alert("You just banged " + npc.name);
 		this.successfulLaid();
+
 		this.resume();
 		
 	}
 	
-	this.successfulLaid = function(){
+	this.successfulLaid = function(npc){
 
     	//change the target NPC as status laid
-    	this.targetNPC.laidWithDave = true;
+    	npc.laidWithDave = true;
 
     	//push it to the laidList array
-    	laidList.push(this.targetNPC);
+    	laidList.push(npc);
 		laidCount++;
 		document.getElementById('laid-count-dis').innerHTML = laidCount;
 

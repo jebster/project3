@@ -237,12 +237,9 @@ function SimulationManager(){
 				//Dave moves out of this faculty, will take down his last seen time. (his reputation wil have some spreading effect among the NPCs when he's away)
 
 				//If Dave is performing Action, we will accelerate time, hence don't take down current Time
-				if(performingAction){
-					//
-				}else{
-					abstractTwoContainer.statsList[k].lastSeen = getCurTime();
-				}
+
 				
+				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
 				abstractTwoContainer.statsList[k].mean = new_mean_1;
 				abstractTwoContainer.statsList[k].variance = new_var_1;
@@ -482,7 +479,7 @@ function SimulationManager(){
 				NPC.primaryType = preferenceTypeList[type_index];
 			}
 
-			console.log(range_index, currNPCDaveReputation, gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
+			//console.log(range_index, currNPCDaveReputation, gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
 
 			absList.NPCList.push(NPC);
 		}
