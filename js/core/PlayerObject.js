@@ -308,7 +308,9 @@ var PlayerObj = function(x, y){
 	this.befriend = function(npc){
 		alert("You have befriended " + npc.gender + " " + npc.id);
 		this.resume();
-		npc.daveReputation += 0.1;
+
+		if(npc.daveReputation < 0.9)
+			npc.daveReputation += 0.1;
 	}
 	
 	this.date = function(npc){
@@ -324,7 +326,8 @@ var PlayerObj = function(x, y){
 	this.hangout = function(npc){
 		alert("You have just hanged out with " + npc.gender + " " + npc.id);
 		this.resume();
-		npc.daveReputation += 0.2;
+		if(npc.daveReputation < 0.8)
+			npc.daveReputation += 0.2;
 	}
 	
 	this.laid = function(npc){
@@ -343,5 +346,9 @@ var PlayerObj = function(x, y){
     	laidList.push(this.targetNPC);
 		laidCount++;
 		document.getElementById('laid-count-dis').innerHTML = laidCount;
+
+		//decrease reputation
+		if(npc.daveReputation > 0.3)
+			npc.daveReputation -= 0.3;
     }
 }
