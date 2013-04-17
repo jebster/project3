@@ -1,5 +1,5 @@
 var NPCObj = function(id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
-	
+
     this.id = id;
     this.name = gender+"_"+id;
     this.pos_x = Math.floor(Math.random()*24) * 32 + 32;
@@ -138,7 +138,18 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 					toRenderList.NPCList[iter].interaction == false &&
 					this.interactionTarget.id != toRenderList.NPCList[iter].id){
 					//collided
+
+					//if NPC has been laid, will increase her weightage of pulling down the reputation.
+					if(this.laidWithDave){
+						this.daveReputation -= 0.2;
+					}
+					//make sure reputation doesn't fall below 0
+					if(this.daveReputation < 0){
+						this.daveReputation = 0.1;
+					}
+					
 					npcInteraction(this, toRenderList.NPCList[iter]);
+					
 					var tmpArray = influence_btwn_NPCS(this.daveReputation, toRenderList.NPCList[iter].daveReputation);
 					//console.log(tmpArray[0] + ", " + tmpArray[1]);
 					this.daveReputation = tmpArray[0];
