@@ -263,9 +263,11 @@ function GameEngine(){
 				case "engine":
 				case "arts":
 				case "law":
-					currNPC.currFaculty = movement;
-					inFlightList.push(currNPC);
-					removeNPCFlag = 1;
+					if(!currNPC.interaction){
+						currNPC.currFaculty = movement;
+						inFlightList.push(currNPC);
+						removeNPCFlag = 1;
+					}
 					break;
 				case "nothing":
 				default:

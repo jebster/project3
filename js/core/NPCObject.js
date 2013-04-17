@@ -17,6 +17,7 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 	this.interactionTarget = this;
 	this.interactionReached = false;
 	this.interactionTime = 0;
+	this.interactionType;
 	this.leftAtTime = getCurTime();
 	this.destFaculty = "nothing";
 
@@ -188,6 +189,28 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 		}
 		npc1.interactionTarget = npc2;
 		npc2.interactionTarget = npc1;
+		npc1.interactionType = npc2.interactionType = "normal";
+		femaleMaleInteraction(npc1,npc2);
+	}
+	
+	femaleMaleInteraction = function(npc1, npc2){
+		if(	(npc1.gender == "male" && npc2.gender == "female") ||
+			(npc1.gender == "female" && npc2.gender == "male")){
+			if(npc1.gender == "male")
+				var mnpc = npc1;
+			if(npc2.gender == "male")
+				var mnpc = npc2;
+			if(npc1.gender == "female")
+				var fnpc = npc1;
+			if(npc2.gender == "female")
+				var fnpc = npc2;
+			if(fnpc.preferenceType == mnpc.primaryType){
+				if(fnpc.primaryPreference_best < mnpc.primaryTypeScore){
+					fnpc.primaryPreference_best = mnpc.primaryTypeScore;
+					npc1.interactionType = npc2.interactionType = "like";
+				}
+			}
+		}
 	}
 	
 	this.move = function(){
@@ -278,7 +301,10 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 				if(this.interactionReached == true){
 					//render speech bubble
 					var speechImage = new Image();
+					if(this.interactionType == "normal")
 					speechImage.src = "images/normal_interaction2.png";
+					if(this.interactionType == "like")
+					speechImage.src = "images/love_interaction.png";
 					context.drawImage(	speechImage, this.pos_x - 32, this.pos_y - 64);
 					if(!performingAction)
 						this.interactionTime++;

@@ -76,14 +76,16 @@ function displayStats(){
 		
 		if (currNPC.gender == "female"){
 			context.fillStyle = "#B0171F";
-			context.fillText(currNPC.preferenceType, currNPC.pos_x, currNPC.pos_y-16);
-			context.fillStyle = "rgb(0,0,0)";
+			context.fillText(currNPC.preferenceType, currNPC.pos_x, currNPC.pos_y-32);
+			context.fillText(currNPC.primaryPreference_best.toFixed(2), currNPC.pos_x, currNPC.pos_y-16);
+			context.fillStyle = "#000000";
 			context.fillText(currNPC.daveReputation.toFixed(2), currNPC.pos_x, currNPC.pos_y);
 		}
 		else{
-			//context.fillStyle = "rgb(1,0,0)";
+			context.fillStyle = "#0000A0";
 			context.fillText(currNPC.primaryType, currNPC.pos_x, currNPC.pos_y - 32);
 			context.fillText(currNPC.primaryTypeScore.toFixed(2), currNPC.pos_x, currNPC.pos_y-16);
+			context.fillStyle = "#000000";
 			context.fillText(currNPC.daveReputation.toFixed(2), currNPC.pos_x, currNPC.pos_y);
 		}
 	}
