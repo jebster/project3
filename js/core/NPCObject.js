@@ -303,6 +303,12 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 
     }
 
+    this.dateDaveDecision = function(){
+
+    	
+
+    }
+
 }
 
 collisionChecker = function(o1, o2){

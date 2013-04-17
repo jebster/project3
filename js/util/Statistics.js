@@ -226,4 +226,9 @@ var NormalDistribution = function(u, vaR){
 
 }
 
+//Return largest number in an array
+Array.max = function( array ){
+    return Math.max.apply( Math, array );
+};
+
 var normalDis = new NormalDistribution(daveReputation_nusArt);

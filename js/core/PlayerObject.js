@@ -17,7 +17,14 @@ var PlayerObj = function(x, y){
     
     this.intellect = 0.1;
     this.talent = 0.7;
-    this.fitness = 0.8;
+    this.fitness = 0.5;
+
+    //will store the player's primary type
+    this.primaryType;
+    this.primaryTypeScore;
+    this.primaryTypeIndex;
+
+    this.skillArray = [this.intellect, this.talent, this.fitness];
     
     
     this.girlsList = [];
@@ -240,13 +247,24 @@ var PlayerObj = function(x, y){
 							this.pos_y, 32, 32);
     }
 
-    this.skillDecay = function(){
+    this.skillRender = function(){
 
-    	
+    	//Player skill decay over time
     	this.intellect -= 0.0001;
 	    this.talent -= 0.0001;
 	    this.fitness -= 0.0001;
 
+	    //Updates player's primaryType parameters
+	    this.primaryTypeScore = Array.max(this.skillArray);
+	    this.primaryTypeIndex = this.skillArray.indexOf(this.primaryTypeScore);
+
+	    if(this.primaryTypeIndex == 0){
+	    	this.primaryType = 'nerd';
+	    }else if(this.primaryTypeIndex == 1) {
+	    	this.primaryType = 'talent';
+	    }else{
+	    	this.primaryType = 'fitness';
+	    }
 
     }
 }

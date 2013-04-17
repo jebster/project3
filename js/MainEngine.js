@@ -153,18 +153,9 @@ function GameEngine(){
         //Decompress for first time and populate faculty
         faculty_index = 0;
         simulation.decompressAbstractTwo();
-
-/*
-        var time1 = getCurTime();
-        alert('pause');
-        var time2 = getCurTime();
-        alert(time2-time1);
-        
-*/
 							
         gameEngine.run();
-        
-        
+
 
     }
 
@@ -215,7 +206,7 @@ function GameEngine(){
         inputManager.processEntry(player);
         player.move();
 		player.draw();
-        player.skillDecay();
+        player.skillRender();
 		
 
         timeUnit += _inverseFPS;
