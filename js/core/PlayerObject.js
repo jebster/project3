@@ -321,7 +321,7 @@ var PlayerObj = function(x, y){
 	this.date = function(npc){
 		this.success = npc.dateDaveDecision();
 		if(this.success){
-			alert(npc.gender + " " + npc.id + " has decided to go on a date with you!");
+			alert(npc.name + " has decided to go on a date with you!");
 			this.currInteractionStage = 2;
 		}
 		if(!this.success){
@@ -331,14 +331,14 @@ var PlayerObj = function(x, y){
 	}
 	
 	this.hangout = function(npc){
-		alert("You have just hanged out with " + npc.gender + " " + npc.id);
+		alert("You have just hanged out with " + npc.name);
 		this.resume();
 		if(npc.daveReputation < 0.8)
 			npc.daveReputation += 0.2;
 	}
 	
 	this.laid = function(npc){
-		alert("You have successfully get yourself laid with " + npc.gender + " " + npc.id);
+		alert("You just banged " + npc.name);
 		this.successfulLaid();
 		this.resume();
 		
@@ -355,7 +355,7 @@ var PlayerObj = function(x, y){
 		document.getElementById('laid-count-dis').innerHTML = laidCount;
 
 		//decrease reputation
-		if(npc.daveReputation > 0.3)
-			npc.daveReputation -= 0.3;
+		if(this.targetNPC.daveReputation > 0.3)
+			this.targetNPC.daveReputation -= 0.3;
     }
 }
