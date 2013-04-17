@@ -37,7 +37,7 @@ function closeModal(){
 
 function globalTimer(){
 
-	document.getElementById('global-timer').innerHTML = getCurTime();
+	document.getElementById('global-timer').innerHTML = Math.round(getCurTime());
 
 }
 

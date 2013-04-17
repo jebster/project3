@@ -124,7 +124,7 @@ function SimulationManager(){
 
 	this.abstractTwoMovement = function(){
 
-		alert('moving within same uni');
+		//alert('moving within same uni');
 
 		//Moving out of faculty
 		//withinFac = false;
@@ -143,7 +143,7 @@ function SimulationManager(){
 	}
 
 	this.abstractThreeMovement = function(){
-		alert('going out of uni');
+		//alert('going out of uni');
 
 		//Moving out of faculty
 		withinFac = false;

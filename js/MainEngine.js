@@ -211,6 +211,8 @@ function GameEngine(){
         player.move();
 		player.draw();
         player.skillRender();
+
+        globalTimer();
 		
 
         timeUnit += _inverseFPS;

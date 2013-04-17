@@ -12,7 +12,7 @@ var PlayerActions = function(){
 			}
 		}
 
-		//timeTravel(2);
+		timeTravel(2);
 		performingAction = false;
 	}
 
@@ -101,6 +101,9 @@ var PlayerActions = function(){
 
 		// Accelerate Time
 		//=================
+		timeUnit += timeTaken;
+
+		/*
 		//1. For inFlightList
 		for(var i = 0; i < inFlightList.length; ++i){
 			inFlightList[i].lastSeen -= timeTaken;
@@ -112,7 +115,7 @@ var PlayerActions = function(){
 		//3. For university
 		abstractThreeContainer.universityStats[0].lastSeen -= timeTaken;
 		abstractThreeContainer.universityStats[1].lastSeen -= timeTaken;
-
+		*/
 
 		// Exit Current Uni
 		//=================
