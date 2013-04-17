@@ -308,6 +308,7 @@ var PlayerObj = function(x, y){
 	this.befriend = function(npc){
 		alert("You have befriended " + npc.gender + " " + npc.id);
 		this.resume();
+		npc.daveReputation += 0.1;
 	}
 	
 	this.date = function(npc){
@@ -323,11 +324,14 @@ var PlayerObj = function(x, y){
 	this.hangout = function(npc){
 		alert("You have just hanged out with " + npc.gender + " " + npc.id);
 		this.resume();
+		npc.daveReputation += 0.2;
 	}
 	
 	this.laid = function(npc){
 		alert("You have successfully get yourself laid with " + npc.gender + " " + npc.id);
+		this.successfulLaid();
 		this.resume();
+		
 	}
 	
 	this.successfulLaid = function(){
