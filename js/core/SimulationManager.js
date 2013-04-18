@@ -454,7 +454,7 @@ function SimulationManager(){
 
 			if(gender_assign == "female"){
 				//set preferenceType for GIRLS
-				var preferencetype_index = AssignDistributionRange(preferenceTypeStats["nerd"], preferenceTypeStats["hunk"], preferenceTypeStats["talent"]);
+				var preferencetype_index = AssignDistributionRange(preferenceTypeStats[0], preferenceTypeStats[1], preferenceTypeStats[2]);
 				currNPCPreferenceType = preferenceTypeList[preferencetype_index];
 			}
 			
