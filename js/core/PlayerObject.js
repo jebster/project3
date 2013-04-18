@@ -30,12 +30,7 @@ var PlayerObj = function(x, y){
     this.primaryTypeIndex;
 	
 	this.skillArray = [this.intellect, this.talent, this.fitness];*/
-    
-    this.girlsList = [];
-    this.laidList = [];
-
-
-
+   
     //other attributes to be added
     this.move = function(){
 	    if(_keys[K_SPACE].press){

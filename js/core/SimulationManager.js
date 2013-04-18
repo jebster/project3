@@ -503,6 +503,11 @@ function SimulationManager(){
 					absList.NPCList.push(inFlightList[i]);
 				}
 			}
+			for(i = 0; i<laidList.length; ++i){
+				if(laidList[i].category == destinationFaculty_trunc){
+					absList.NPCList.push(laidList[i]);
+				}
+			}
 		}
 
 		//render this newly created list

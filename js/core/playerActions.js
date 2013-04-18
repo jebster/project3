@@ -138,33 +138,38 @@ var PlayerActions = function(){
 		var returnBack = currentFaculty;
 		var returnUni = currentUni;
 
-		//4. Simulate Going Out of Uni
 
-		//New Logic
+		//Compress current Uni, make changes for time spent
 		simulation.compressLevelOne();
 		simulation.compressLevelTwo();
-		simualtion.decompressAbstractThree();
+		//Account for changes in other Uni during time spent
+		simulation.decompressAbstractThree();
+		//Compress the changes and add back to abstract3 container
+		currentUni = destinationUni;
+		simulation.compressLevelTwo();
 
-		//simulation.abstractThreeMovement();
+		//Get back the stats of current Uni and repopulate
 
-		currentUni = destinationUni
+		var uni_index = abstractThreeContainer.universities.indexOf(returnUni);
 
-		// Re-enter Current Uni
-		//=====================
-		//1. Change destinationUni to current uni
-		destinationUni = returnUni;
+		var meanStats = abstractThreeContainer.universityStats[uni_index].facultyMeanStats;
+		var varStats = abstractThreeContainer.universityStats[uni_index].facultyVarStats;
 
-		//2. Change destinationFaculty to returnBack (back to original faculty)
+		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+
+			abstractTwoContainer.statsList[i] = new AbstractTwoParameters(abstractTwoContainer.faculties[i], meanStats[i], varStats[i]);
+
+		}
+
+		populateCount = initialPopulation;
+		inFlightList = [];
+
 		destinationFaculty_trunc = returnBack;
 
+		simulation.decompressAbstractTwo();
 
-		//3. Simulate abstractThreeMovement
-		
-		simulation.abstractThreeMovement();
-
-		currentUni = destinationUni;
+		currentUni = returnUni;
 		currentFaculty = destinationFaculty_trunc;
 		
-
 	}
 }
