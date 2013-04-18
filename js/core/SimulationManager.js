@@ -156,6 +156,10 @@ function SimulationManager(){
 		//Moving out of faculty
 		withinFac = false;
 
+		//increment time
+		timeUnit += 20;
+		globalTimer += 20;
+
 		this.compressLevelOne();
 
 		this.compressLevelTwo();

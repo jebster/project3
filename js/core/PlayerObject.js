@@ -400,6 +400,11 @@ var PlayerObj = function(x, y){
 	
 	this.hangout = function(npc){
 		alert("You have just hanged out with " + npc.name);
+
+		//increment time
+		timeUnit += 50;
+		globalTimer += 50;
+
 		this.resume();
 		if(npc.daveReputation < 0.8)
 			npc.daveReputation += 0.2;
@@ -414,6 +419,10 @@ var PlayerObj = function(x, y){
 	}
 	
 	this.successfulLaid = function(){
+		//increment time
+		timeUnit += 50;
+		globalTimer += 50;
+		
 		viewInteractionEva();
     	//change the target NPC as status laid
     	this.targetNPC.laidWithDave = true;
