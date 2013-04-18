@@ -113,3 +113,25 @@ function displayGlobalEvents(){
 	}
 	
 }
+
+function displayCurFacStats(){
+
+	document.getElementById('curFac-modal').style.left = "-5px";
+}
+
+	function closeModalStats(){
+		document.getElementById('curFac-modal').style.left = "-1000px";
+	}
+
+	function liveUpdate_curFacStats(){
+
+		//Girl's Primary Preference(% of Population)
+		document.getElementById('stats-girl-nerd').innerHTML = abstractTwoContainer.preferenceTypeStats[0];
+		document.getElementById('stats-girl-hunk').innerHTML = abstractTwoContainer.preferenceTypeStats[1];
+		document.getElementById('stats-girl-talent').innerHTML = abstractTwoContainer.preferenceTypeStats[2];
+
+		//Guy's Primary Type(% of Population)
+		document.getElementById('stats-guy-nerd').innerHTML = 0;
+		document.getElementById('stats-guy-hunk').innerHTML = 0;
+		document.getElementById('stats-guy-talent').innerHTML = 0;
+	}

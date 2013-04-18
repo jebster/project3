@@ -128,13 +128,34 @@
 
 	  	<!-- Toggle between Abstracts -->
 	  	<section id="ui-controllers">
-		  	<button onclick="displayAbstractOne()">Abstract 1</button>
-		  	<button onclick="displayAbstractTwo()">Abstract 2</button>
+		  	<button onclick="displayCurFacStats()">Current Faculty Statistics</button>
+		  	
 	  	</section>
 
 
 	  	<!-- Modals for Different Items -->
 	  	<!-- ========================== -->
+
+	  	<!-- Display Current Faculty's Statistics -->
+	  	<section class='modal' id='curFac-modal'>
+	  		<h2>Current Faculty's Stats</h2>
+	  		<h3>Girl's Primary Preference(% of Population)</h3>
+		  		<ul>
+		  			<li>Nerd: <span id='stats-girl-nerd'>NA</span></li>
+		  			<li>Talent: <span id='stats-girl-talent'>NA</span></li>
+		  			<li>Hunk: <span id='stats-girl-hunk'>NA</span></li>
+		  		</ul>
+	  		<h3>Guy's Primary Type(% of Population)</h3>
+	 			<ul>
+		  			<li>Nerd: <span id='stats-guy-nerd'>NA</span></li>
+		  			<li>Talent: <span id='stats-guy-talent'>NA</span></li>
+		  			<li>Hunk: <span id='stats-guy-hunk'>NA</span></li>
+		  		</ul>
+
+
+	  		<button onclick="closeModalStats()">CLOSE</button>
+	  	</section>
+
 
 
 	  	<!-- Player interaction evaluation -->
@@ -166,7 +187,6 @@
 	  		<h2>Girls List</h2>
 	  		<button onclick="closeModal()">Close</button>
 	  	</section>
-
 
 	  	<!-- Competitor's List View -->
 	  	<section class='modal' id='competitor-list-modal'>

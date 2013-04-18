@@ -235,6 +235,7 @@ function GameEngine(){
         player.skillRender();
 
         globalTimer();
+        liveUpdate_curFacStats();
 		
 
         timeUnit += _inverseFPS;

@@ -177,6 +177,10 @@ canvas {
         margin-top: 0;
     }
 
+    #curFac-modal{
+        width: 360px;
+    }
+
 header h1 {
   text-align: center;
   margin: 0;
