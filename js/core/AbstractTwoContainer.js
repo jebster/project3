@@ -10,12 +10,7 @@ var AbstractTwoContainer = function(){
 
 	this.statsList = [];
 
-	this.preferenceTypeStats = {
-		nerd : 0.3,
-		hunk : 0.4,
-		talent : 0.3
-	}
-
+	this.preferenceTypeStats = [0.3, 0.4, 0.3];
  
 	this.init = function(meanArray, varianceArray){		
 		for(var i = 0; i < this.faculties.length; ++i){

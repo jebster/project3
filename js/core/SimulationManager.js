@@ -155,9 +155,14 @@ function SimulationManager(){
 		withinFac = false;
 
 		this.compressLevelOne();
+
 		this.compressLevelTwo();
+		
 		this.decompressAbstractThree();
+		
 		populateCount = initialPopulation;
+		inFlightList = [];
+		
 		this.decompressAbstractTwo();
 
 		/*
@@ -466,7 +471,7 @@ function SimulationManager(){
 
 				currNPCPrimaryTypeIndex =  GetWithinRange(primaryTypeIndex_start[type_index], primaryTypeIndex_end[type_index]);
 
-				score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index])*10;
+				score = ((currNPCPrimaryTypeIndex - primaryTypeIndex_start[type_index])/primaryTypeIndex_end[type_index]);
 
 			}
 			
@@ -487,8 +492,7 @@ function SimulationManager(){
 		//add in the inflight persons
 		if(newEntryFlag == 0){
 			for(var i = 0; i < inFlightList.length; ++i){
-				if(inFlightList[i].currFaculty == absList.faculty &&
-					inFlightList[i].currUniversity == absList.university){
+				if(inFlightList[i].currFaculty == absList.faculty){
 					absList.NPCList.push(inFlightList[i]);
 				}
 			}
@@ -604,7 +608,14 @@ function SimulationManager(){
 		//this formula converts range 1.0-2.0 to 0.9-0.5
 		overall_inf_factor = time_factor*(-0.4) + 1.3;
 
+		//Load destination Uni's stats 
 		for(var i=0; i<abstractTwoContainer.faculties.length; ++i){
+
+			abstractTwoContainer.statsList[i] = new AbstractTwoParameters(abstractTwoContainer.faculties[i], facultiesMeanStats[i], facultiesVarStats[i]);
+
+		}
+
+		for( i=0; i<abstractTwoContainer.faculties.length; ++i){
 
 			abstractTwoContainer.statsList[i].variance = facultiesVarStats[i]*overall_inf_factor;
 			var test = facultiesVarStats[i]*overall_inf_factor;
