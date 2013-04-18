@@ -377,8 +377,7 @@ var PlayerObj = function(x, y){
 	
 	this.befriend = function(npc){
 		overlayImg.src = "images/befriend.png";
-		context.drawImage(overlayImg, 0, 0);
-		alert("You have befriended " + npc.gender + " " + npc.id);
+		drawOverlay = true;
 		
 		this.resume();
 
