@@ -388,7 +388,7 @@ var PlayerObj = function(x, y){
 		if(this.success){
 
 			alert(npc.gender + " " + npc.id + " has decided to go on a date with you!");
-			
+			viewInteractionEva();
 			this.currInteractionStage = 2;
 		}
 		if(!this.success){
@@ -422,8 +422,7 @@ var PlayerObj = function(x, y){
 		//increment time
 		timeUnit += 50;
 		globalTimer += 50;
-		
-		viewInteractionEva();
+
     	//change the target NPC as status laid
     	this.targetNPC.laidWithDave = true;
 

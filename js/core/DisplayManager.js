@@ -153,11 +153,11 @@ function displayCurFacStats(){
 
 	}
 
-	function introduceNPC(){
+	function spawnLaidGirl(){
 
-		var NPC = new NPCObj(j, destinationFaculty_trunc, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
-		
-		toRenderList.NPCList.push(object);
+		var NPC = new NPCObj('fake', 'engine', 'engine', 'female', 0.3, 'hunk', 0.2);
+		NPC.laidWithDave = true;
+		toRenderList.NPCList.push(NPC);
 	}
 	
 	function toggleDebug(){

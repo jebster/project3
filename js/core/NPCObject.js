@@ -367,10 +367,11 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 		}
 
 		//Debug
-		document.getElementById('skill-level').innerHTML = this.checkDaveScore;
+		document.getElementById('skill-level').innerHTML = Math.ceil(this.checkDaveScore * 100) / 100;
 		document.getElementById('girl-preference').innerHTML = this.preferenceType;
 		document.getElementById('best-man-score').innerHTML = this.primaryPreference_best;
-		document.getElementById('daveRep').innerHTML = this.daveReputation;
+		document.getElementById('daveRep').innerHTML = Math.ceil(this.daveReputation * 100) / 100;
+
 
 		if((this.daveReputation > 0.55) && (this.checkDaveScore > this.primaryPreference_best)){
 
