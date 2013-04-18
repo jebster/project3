@@ -27,7 +27,7 @@
 	</head>
 
 	<header>
-	  	<h1>Global Timer: <span id="global-timer">NA</span></h1>
+	  	<h1>Game World Timer: <span id="gameWorld-timer">NA</span></h1>
 	</header>
 	<body onload="gameInit('abstractOne','abstractTwo')">
 
@@ -39,6 +39,11 @@
 
 	    	<!-- Heads Up Display -->
 	      	<aside id="sideDisplay">
+	      		<!-- No. of laid girls -->
+	      		<div id='laid-count'>
+	      			<h3 class="section-header">Girls Laid: <span id="laid-count-dis">0</span></h3>
+	      		</div>
+
 	      		<div id='travel'>
 	      			<h3 class="section-header">Travel</h3>
 	      			<h4 id="display-uni">NUS</h4>
@@ -101,27 +106,8 @@
 	      			</ul>
 	      		</div>
 
-	      		<div id="other-items">
-	      			<h3 class="section-header">Other Items</h3>
-	      			<ul>
-	      				<li>
-	      					Calendar View
-	      					<button onclick="viewCalendar()">Open</button>
-	      				</li>
-	      				<li>
-	      					Competitor List
-	      					<button onclick="viewCompetitors()">Open</button>
-	      				</li>
-	      				<li>
-	      					Date List
-	      					<button onclick="viewDateList()">Open</button>
-	      				</li>
-	      			</ul>
-	      		</div>
 
-	      		<div id='laid-count'>
-	      			<h3 class="section-header">Girls Laid: <span id="laid-count-dis">0</span></h3>
-	      		</div>
+	      		
 	    	</aside>  
 	    	
 	  	</section>
@@ -139,20 +125,24 @@
 	  	<!-- Display Current Faculty's Statistics -->
 	  	<section class='modal' id='curFac-modal'>
 	  		<h2>Current Faculty's Stats</h2>
-	  		<h3>Girl's Primary Preference(% of Population)</h3>
+	  		<h3>Girl's Primary Preference (% of Population)</h3>
 		  		<ul>
-		  			<li>Nerd: <span id='stats-girl-nerd'>NA</span></li>
-		  			<li>Talent: <span id='stats-girl-talent'>NA</span></li>
-		  			<li>Hunk: <span id='stats-girl-hunk'>NA</span></li>
+		  			<li>Nerd (high on Exam Week): <b><span id='stats-girl-nerd'>NA</span></b></li>
+		  			<li>Talent (high on V Day): <b><span id='stats-girl-talent'>NA</span></b></li>
+		  			<li>Hunk (high on Sports Week): <b><span id='stats-girl-hunk'>NA</span></b></li>
 		  		</ul>
-	  		<h3>Guy's Primary Type(% of Population)</h3>
+	  		<h3>Guy's Primary Type (no. of them)</h3>
 	 			<ul>
-		  			<li>Nerd: <span id='stats-guy-nerd'>NA</span></li>
-		  			<li>Talent: <span id='stats-guy-talent'>NA</span></li>
-		  			<li>Hunk: <span id='stats-guy-hunk'>NA</span></li>
+	 				<li>Total Guys: <b><span id='stats-guy-total'>NA</span></b></li>
+		  			<li>Nerd (most in Engin): <b><span id='stats-guy-nerd'>NA</span></b></li>
+		  			<li>Talent (most in Arts): <b><span id='stats-guy-talent'>NA</span></b></li>
+		  			<li>Hunk (most in Law): <b><span id='stats-guy-hunk'>NA</span></b></li>
 		  		</ul>
-
-
+		  	<h3>Dave Reputation Stats</h3>
+		  		<ul>
+	 				<li>Mean: <b><span id='daveRep-mean'>NA</span></b></li>
+		  			<li>Variance: <b><span id='daveRep-var'>NA</span></b></li>
+		  		</ul>
 	  		<button onclick="closeModalStats()">CLOSE</button>
 	  	</section>
 
@@ -171,28 +161,12 @@
 	  		<h3>If SUCCESS: You can choose the following options next:</h3>
 	  		<p>Hangout with her: <b>result in your reputation increase</b></p>
 	  		<p>LAY her: <b>Your Girls Laid Count will +1. But your reputation will decrease.</b></p>
-
-
 	  		<button onclick="closeModal()">Got it!</button>
+
 	  	</section>
 
-	  	<!-- Calendar View -->
-	  	<section class='modal' id='calendar-modal'>
-	  		<h2>Calender of Events</h2>
-	  		<button onclick="closeModal()">Close</button>
-	  	</section>
 
-	  	<!-- Date List View -->
-	  	<section class='modal' id='date-list-modal'>
-	  		<h2>Girls List</h2>
-	  		<button onclick="closeModal()">Close</button>
-	  	</section>
 
-	  	<!-- Competitor's List View -->
-	  	<section class='modal' id='competitor-list-modal'>
-	  		<h2>Competitor's List</h2>
-	  		<button onclick="closeModal()">Close</button>
-	  	</section>
           <canvas id="Debug" width="578" height="300"></canvas>
           <script>
               function Graph(config) {

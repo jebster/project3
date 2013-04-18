@@ -48,7 +48,7 @@ function closeModal(){
 
 function globalTimerWorld(){
 
-	document.getElementById('global-timer').innerHTML = Math.round(getCurTime());
+	document.getElementById('gameWorld-timer').innerHTML = Math.round(getCurTime());
 
 }
 
@@ -126,12 +126,70 @@ function displayCurFacStats(){
 	function liveUpdate_curFacStats(){
 
 		//Girl's Primary Preference(% of Population)
+		//*******************************************
 		document.getElementById('stats-girl-nerd').innerHTML = abstractTwoContainer.preferenceTypeStats[0];
 		document.getElementById('stats-girl-hunk').innerHTML = abstractTwoContainer.preferenceTypeStats[1];
 		document.getElementById('stats-girl-talent').innerHTML = abstractTwoContainer.preferenceTypeStats[2];
 
+
+		//Update Guy's Percentage in a Faculty
+		//*******************************************
+		var nerdCount=0;
+		var talentCount=0;
+		var hunkCount=0;
+		var totalGuys=0;
+
+		var daveRep = [];
+
+		for(var i=0; i<toRenderList.NPCList.length; i++){
+			//only check guys
+			if(toRenderList.NPCList[i].gender == 'male'){
+
+				totalGuys++;
+
+				switch(toRenderList.NPCList[i].primaryType){
+					case 'nerd':
+						nerdCount++;
+						break;
+					case 'talent':
+						talentCount++;
+						break;
+					case 'hunk':
+						hunkCount++;
+						break;
+				}
+
+
+			//to collect Dave's Reputation
+			daveRep.push(toRenderList.NPCList[i].daveReputation);
+
+			}
+			
+		}
+
 		//Guy's Primary Type(% of Population)
-		document.getElementById('stats-guy-nerd').innerHTML = 0;
-		document.getElementById('stats-guy-hunk').innerHTML = 0;
-		document.getElementById('stats-guy-talent').innerHTML = 0;
+		document.getElementById('stats-guy-total').innerHTML = totalGuys;
+		document.getElementById('stats-guy-nerd').innerHTML = nerdCount;
+		document.getElementById('stats-guy-hunk').innerHTML = talentCount;
+		document.getElementById('stats-guy-talent').innerHTML = hunkCount;
+
+		//Update Dave's Reputation in Faculty
+		//*******************************************
+
+		document.getElementById('daveRep-mean').innerHTML = Math.ceil(mean(daveRep) * 1000) / 1000;
+		document.getElementById('daveRep-var').innerHTML = Math.ceil(variance(daveRep) * 100000) / 100000;
+		
+		
+
+
+
 	}
+
+	function introduceNPC(){
+
+		var NPC = new NPCObj(j, destinationFaculty_trunc, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
+		
+		toRenderList.NPCList.push(object);
+	}
+
+

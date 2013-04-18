@@ -14,6 +14,12 @@ aside {
     padding: 0;
 }
 
+span {
+    font-weight: bold;
+    color: green;
+    font-size: 20px;
+}
+
 /* UI Element Styles */
 #game-section {
     width: 1032px;
@@ -139,9 +145,8 @@ canvas {
 
 }
 
-    #laid-count .section-header {
-        font-weight: 100;
-        font-size: 30px;
+    #laid-count .section-header{
+        border-bottom: 1px solid white;
     }
 
 #ui-controllers {
@@ -150,8 +155,7 @@ canvas {
 }
 
 .modal {
-    width: 700px;
-    height: 500px;
+
     border: 1px solid black;
     position: absolute;
     top: 50px;
@@ -173,13 +177,17 @@ canvas {
     }
 
     .modal h2 {
-        text-align: right;
+        text-align: left;
+        text-decoration: underline;
         margin-top: 0;
     }
 
     #curFac-modal{
-        width: 360px;
+
+        background-color: rgba(255, 255, 255, 0.7);
     }
+
+
 
 header h1 {
   text-align: center;
