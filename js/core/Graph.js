@@ -158,9 +158,11 @@ Graph.prototype.drawBarEquation = function(color, thickness) {
 	context.stroke();
 	context.restore();
 
-	context.save();
-	this.transformContext();
+
+
 	for(x=0.05;x<1;x+=0.05){
+        context.save();
+        this.transformContext();
 		context.beginPath();
 		context.moveTo(x-0.05,daveReputation_distribution.get_Fx(x-0.05));
 		//console.log(" checkValu is  ", daveReputation_distribution.get_Fx(x-0.05));
