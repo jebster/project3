@@ -151,6 +151,7 @@ function GameEngine(){
         
         _abstract1_canvas = document.getElementById(abs1_canvas);
         _abstract2_canvas = document.getElementById(abs2_canvas);
+       
 
         //initialize player object
         player = new PlayerObj(0,0);
@@ -318,6 +319,18 @@ function GameEngine(){
 			displayDecisionBox();
 		}
 		updateAttributes();
+
+        var myGraph = new Graph({
+                      canvasId: 'Debug',
+                      minX: 0,
+                      minY:0,
+                      maxX: 1,
+                      maxY:5,
+                      unitsPerTick: 1
+                  });
+        myGraph.drawBarEquation('green', 1);
+
+        /*
 		if(debug){
 			var myGraph = new Graph({
 					  canvasId: 'Debug',
@@ -328,7 +341,7 @@ function GameEngine(){
 					  unitsPerTick: 1
 				  });
 			myGraph.drawBarEquation('green', 1);
-		}
+		} */
 			
 		
     }

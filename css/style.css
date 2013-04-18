@@ -52,6 +52,8 @@ canvas {
         z-index: 4;
     }
 
+
+
 #travel {
 
 }
@@ -150,9 +152,14 @@ canvas {
     }
 
 #ui-controllers {
-    width: 1040px;
+    width: 200px;
     margin: 0 auto;
+    padding: 20px;
 }
+
+    #ui-controllers button {
+        float: left;
+    }
 
 .modal {
 
@@ -183,8 +190,16 @@ canvas {
     }
 
     #curFac-modal{
+        top: -2px;
+        background-color: rgba(0,0,0, 0.8);
+        color: white;
 
-        background-color: rgba(255, 255, 255, 0.7);
+        
+    }
+
+    #Debug {
+        position: relative;
+        clear: both;
     }
 
 

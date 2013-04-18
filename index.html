@@ -107,6 +107,13 @@
 	      			</ul>
 	      		</div>
 
+            <!-- Buttons -->
+            <section id="ui-controllers">
+              <button onclick="displayCurFacStats()">Current Faculty Statistics</button>
+              <button onclick="toggleDebug()">Debug Mode Toggle</button>
+              <button onclick='spawnLaidGirl()'>Spawn Laid Girl</button>
+            </section>
+
     
 
 
@@ -115,13 +122,6 @@
 	    	
 	  	</section>
 
-	  	<!-- Toggle between Abstracts -->
-	  	<section id="ui-controllers">
-		  	<button onclick="displayCurFacStats()">Current Faculty Statistics</button>
-        <button onclick="toggleDebug()">Debug Mode Toggle</button>
-        <button onclick='spawnLaidGirl()'>Spawn Laid Girl</button>
-		  	
-	  	</section>
 
 
 	  	<!-- Modals for Different Items -->
@@ -148,6 +148,8 @@
 	 				<li>Mean: <b><span id='daveRep-mean'>NA</span></b></li>
 		  			<li>Variance: <b><span id='daveRep-var'>NA</span></b></li>
 		  		</ul>
+
+        <canvas id="Debug" width="300" height="200"></canvas>
 	  		<button onclick="closeModalStats()">CLOSE</button>
 	  	</section>
 
@@ -172,7 +174,7 @@
 
 
 
-          <canvas id="Debug" width="578" height="300"></canvas>
+          
           <!--script>
               function Graph(config) {
                   // user defined properties
