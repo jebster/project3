@@ -127,35 +127,31 @@ var PlayerActions = function(){
 		}
 
 		//2. Default arrival of uni will be in engin
-		destinationFaculty = "engine";
+		destinationFaculty_trunc = "engine";
 
 		//3. Store current faculty in a returnback
 		var returnBack = currentFaculty;
+		var returnUni = currentUni;
 
 		//4. Simulate Going Out of Uni
 		simulation.abstractThreeMovement();
 
+		currentUni = destinationUni
+
 		// Re-enter Current Uni
 		//=====================
 		//1. Change destinationUni to current uni
-		destinationUni = currentUni;
+		destinationUni = returnUni;
 
 		//2. Change destinationFaculty to returnBack (back to original faculty)
-		destinationFaculty = returnBack;
+		destinationFaculty_trunc = returnBack;
+
 
 		//3. Simulate abstractThreeMovement
 		simulation.abstractThreeMovement();
 
-
-
-
-
-
-
-
-
-
-
+		currentUni = destinationUni;
+		currentFaculty = destinationFaculty_trunc;
 
 	}
 }

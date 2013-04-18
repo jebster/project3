@@ -249,6 +249,9 @@ function SimulationManager(){
 				abstractTwoContainer.statsList[k].lastSeen = getCurTime();
 
 				abstractTwoContainer.statsList[k].mean = new_mean_1;
+				if(new_var_1 < 0.01){
+					new_var_1 = 0.01;
+				}
 				abstractTwoContainer.statsList[k].variance = new_var_1;
 
 				console.log(currentFaculty);
@@ -369,7 +372,9 @@ function SimulationManager(){
 				var new_mean = mean(daveReputationArray);
 				var new_variance = variance(daveReputationArray);
 
-
+				if(new_variance < 0.01){
+					new_variance = 0.01;
+				}
 				console.log(currentFaculty);
 				console.log(new_mean, abstractTwoContainer.faculties[k], currentUni);
 				console.log(new_variance,abstractTwoContainer.faculties[k], currentUni);
@@ -651,7 +656,12 @@ function SimulationManager(){
 		overall_inf_factor = time_factor*0.2 + 0.6;
 
 		for(var i=0; i<abstractTwoContainer.preferenceTypeStats.length; ++i){
-			abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * overall_inf_factor;
+			if(!(abstractThreeContainer.preferenceTypeModifier[i] == 1.0)){
+				abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * overall_inf_factor;
+				if(abstractTwoContainer.preferenceTypeStats[i] < 0.15){
+					abstractTwoContainer.preferenceTypeStats[i] = 0.15;
+				}
+			}
 		}
 	}
 
