@@ -171,49 +171,10 @@ function SimulationManager(){
 		
 		this.decompressAbstractTwo();
 
-		/*
 
-		// Dave is in NUS, Dave goes to NTU - Compression
-		1. Get all stats from Engin, Arts, Law
-		2. Make it into NUS_stats [mean, variance]
-
-		//Entry to NTU - Decompression
-		3. Get NTU_stats
-		4. Apply RULES2(NTU_stats)
-			- time - evolution rule
-			- spilloverFactor
-			- trafficFlow
-		5. Get stats for Engin, Arts, Law in NTU
-
-		*/
 	}
 
-	
-	/*========================================
-	***** Every 1 minute Refresh Stats *******
-	========================================*/
-	/*
-	this.autoCompress = function(){
 
-		//Will autoCompress every 100 seconds
-
-		//Get the last two digits of the time (133122334)
-		var the_number = getCurTime().toString();
-		var temp_end_index = the_number.length;
-		var temp_beginning_index = temp_end_index-2;
-
-		var hundred_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index );
-		
-
-		//Still within faculty
-		withinFac = true;
-
-		//if last two digits is 00, it means it has gone through 100 seconds (except first iteration)
-		if(hundred_sec_cycle == 00){
-			this.compressLevelOne(withinFac);
-		}
-
-	} */
 
 	/*
 	==========================================
@@ -288,8 +249,6 @@ function SimulationManager(){
 				var npcCount = 0;
 				daveReputationArray = [] //clear the array first
 
-
-
 				//loop through each reputation, get no. of NPC with that reputation
 				for(daveRep; daveRep<=1.0; daveRep += 0.03){
 
@@ -300,13 +259,9 @@ function SimulationManager(){
 						daveReputationArray.push(daveRep);
 					}
 				}
-
 				
-
 				// Randomize order of daveReputationArray - Jensen
 				daveReputationArray = randomizeArray(daveReputationArray);
-
-			
 
 				//Array of daveReputation extracted from inFlight Objects in a faculty
 				var inFlightArray_daveRep = [];
