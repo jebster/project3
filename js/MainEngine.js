@@ -311,6 +311,7 @@ function GameEngine(){
 		
     }
 
+    //for NPC only
     this.checkFacultyMovement = function(object){
         if(object.currFaculty == "engine"){
             if(	object.pos_y <= TOP_DOOR_BOUND_Y && 

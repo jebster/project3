@@ -139,22 +139,41 @@ var PlayerObj = function(x, y){
 			//var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 			switch(cur_location){
 				case "artsNUS":
+					var indexDes = findIndexDes("lawNUS");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Law";
+					changeHtmlDOM(indexDes,'artsNUS');
+
 					break;
 				case "engineNUS":
+					var indexDes = findIndexDes("artsNUS");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Arts";
+					changeHtmlDOM(indexDes,'engineNUS');
 					break;
 				case "lawNUS":
+					var indexDes = findIndexDes("engineNUS");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Engine";
+					changeHtmlDOM(indexDes,'lawNUS');
 					break;
 				case "artsNTU":
+					var indexDes = findIndexDes("lawNTU");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Law";
+					changeHtmlDOM(indexDes,'artsNTU');
 					break;
 				case "engineNTU":
+					var indexDes = findIndexDes("artsNTU");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Arts";
+					changeHtmlDOM(indexDes,'engineNTU');
 					break;
 				case "lawNTU":
+					var indexDes = findIndexDes("engineNTU");
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Engine";
+					changeHtmlDOM(indexDes,'lawNTU');
 					break;
 			}			
 			simulation.changeLocation();
@@ -172,22 +191,71 @@ var PlayerObj = function(x, y){
 			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 			switch(cur_location){
 				case "artsNUS":
+
+					var indexDes = findIndexDes("engineNUS");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Engine";
+
+					changeHtmlDOM(indexDes,'artsNUS');
+
 					break;
 				case "engineNUS":
+
+				//Store index of Law
+				//I change current active selection to Law
+				//Use index of Law, to change it to Engine
+
+					var indexDes = findIndexDes("lawNUS");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Law";
+
+					//Change destination fac DOM to current fac DOM
+					changeHtmlDOM(indexDes, "engineNUS");
+					
+
 					break;
 				case "lawNUS":
+
+					var indexDes = findIndexDes("artsNUS");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNUS";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Arts";
+
+					changeHtmlDOM(indexDes, 'lawNUS');
+
 					break;
 				case "artsNTU":
+
+					var indexDes = findIndexDes("engineNTU");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "engineNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Engine";
+
+					changeHtmlDOM(indexDes, 'artsNTU');
+
+
 					break;
 				case "engineNTU":
+
+					var indexDes = findIndexDes("lawNTU");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Law";
+
+					changeHtmlDOM(indexDes, 'engineNTU');
+
 					break;
 				case "lawNTU":
+
+					var indexDes = findIndexDes("artsNTU");
+
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "artsNTU";
+					document.getElementById('location').options[document.getElementById('location').selectedIndex].innerHTML = "Arts";
+
+					changeHtmlDOM(indexDes, 'lawNTU');
+
 					break;
 			}			
 			simulation.changeLocation();
@@ -363,5 +431,52 @@ var PlayerObj = function(x, y){
 		//decrease reputation
 		if(this.targetNPC.daveReputation > 0.3)
 			this.targetNPC.daveReputation -= 0.3;
+    }
+
+    function findIndexDes(des) {
+    	//Go through the dropdown
+    	for(var i=0; i<6; i++){
+
+    		if(document.getElementById('location').options[i].value == des)
+    			return i;
+    	}
+
+    }
+
+    function changeHtmlDOM(index, location) {
+
+    	var value;
+    	var innerHTML;
+
+    	switch(location){
+    		case "engineNUS":
+				value = "engineNUS";
+				innerHTML = "Engine";
+				break;
+			case "artsNUS":
+				value = "artsNUS";
+				innerHTML = "Arts";
+				break;
+			case "lawNUS":
+				value = "lawNUS";
+				innerHTML = "Law";
+				break;
+			case "engineNTU":
+				value = "engineNTU";
+				innerHTML = "Engine";
+				break;
+			case "artsNTU":
+				value = "artsNTU";
+				innerHTML = "Arts";
+				break;
+			case "lawNTU":
+				value = "lawNTU";
+				innerHTML = "Law";
+				break;
+    	}
+
+		document.getElementById('location').options[index].value = value;
+		document.getElementById('location').options[index].innerHTML = innerHTML;
+
     }
 }
