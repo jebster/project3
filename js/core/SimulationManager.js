@@ -8,6 +8,8 @@ var destinationFaculty = "engine";
 
 var destinationFaculty_trunc = "engine";
 
+var daveReputation_distribution;
+
 function SimulationManager(){
 
 	var _NPCList = [];
@@ -15,7 +17,7 @@ function SimulationManager(){
 	var _decompressFlag = 1;
 	var storedListIndex;
 
-	var daveReputation_distribution;
+	//var daveReputation_distribution;
 	var probBadReputation;
 	var probNeutralReputation;
 	var probGoodReputation;
@@ -484,7 +486,7 @@ function SimulationManager(){
 				NPC.primaryType = preferenceTypeList[type_index];
 			}
 
-			//console.log(range_index, currNPCDaveReputation, gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
+			console.log(range_index, currNPCDaveReputation, gender_assign, NPC.category, NPC.preferenceType, NPC.primaryType);
 
 			absList.NPCList.push(NPC);
 		}

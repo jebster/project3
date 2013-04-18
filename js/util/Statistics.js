@@ -232,3 +232,6 @@ Array.max = function( array ){
 };
 
 var normalDis = new NormalDistribution(daveReputation_nusArt);
+
+
+
