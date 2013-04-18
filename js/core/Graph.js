@@ -41,8 +41,8 @@ Graph.prototype.drawXAxis = function() {
     var context = this.context;
     context.save();
     context.beginPath();
-    context.moveTo(0, this.centerY);
-    context.lineTo(this.canvas.width, this.centerY);
+    context.moveTo(0, this.canvas.height);
+    context.lineTo(this.canvas.width, this.canvas.height);
     context.strokeStyle = this.axisColor;
     context.lineWidth = 2;
     context.stroke();
@@ -51,9 +51,10 @@ Graph.prototype.drawXAxis = function() {
     var xPosIncrement = this.unitsPerTick * this.unitX;
     var xPos, unit;
     context.font = this.font;
-    context.textAlign = 'center';
-    context.textBaseline = 'top';
+    context.textAlign = 'left';
+    context.textBaseline = 'bottom';
 
+    /*
     // draw left tick marks
     xPos = this.centerX - xPosIncrement;
     unit = -1 * this.unitsPerTick;
@@ -64,17 +65,17 @@ Graph.prototype.drawXAxis = function() {
 		context.fillText(unit, xPos, this.centerY + this.tickSize / 2 + 3);
 		unit -= this.unitsPerTick;
 		xPos = Math.round(xPos - xPosIncrement);
-    }
+    }    */
 
 
 	// draw right tick marks
-	xPos = this.centerX + xPosIncrement;
+	xPos = 0 + xPosIncrement;
 	unit = this.unitsPerTick;
 	while(xPos < this.canvas.width) {
-		context.moveTo(xPos, this.centerY - this.tickSize / 2);
-		context.lineTo(xPos, this.centerY + this.tickSize / 2);
+		context.moveTo(xPos, this.canvas.height - this.tickSize / 2);
+		context.lineTo(xPos, this.canvas.height);
 		context.stroke();
-		context.fillText(unit, xPos, this.centerY + this.tickSize / 2 + 3);
+		context.fillText(unit, xPos, this.canvas.height - this.tickSize / 2 - 3);
 		unit += this.unitsPerTick;
 		xPos = Math.round(xPos + xPosIncrement);
 		}
@@ -85,8 +86,8 @@ Graph.prototype.drawYAxis = function() {
     var context = this.context;
     context.save();
     context.beginPath();
-    context.moveTo(this.centerX, 0);
-    context.lineTo(this.centerX, this.canvas.height);
+    context.moveTo(0,this.canvas.height);
+    context.lineTo(0,0);
     context.strokeStyle = this.axisColor;
     context.lineWidth = 2;
     context.stroke();
@@ -96,20 +97,21 @@ Graph.prototype.drawYAxis = function() {
     var yPos, unit;
     context.font = this.font;
     context.textAlign = 'right';
-    context.textBaseline = 'middle';
+    context.textBaseline = 'bottom';
 
     // draw top tick marks
-    yPos = this.centerY - yPosIncrement;
+    yPos = this.canvas.height - yPosIncrement;
     unit = this.unitsPerTick;
     while(yPos > 0) {
-		context.moveTo(this.centerX - this.tickSize / 2, yPos);
-		context.lineTo(this.centerX + this.tickSize / 2, yPos);
+		context.moveTo(0, yPos);
+		context.lineTo(0+ this.tickSize / 2, yPos);
 		context.stroke();
-		context.fillText(unit, this.centerX - this.tickSize / 2 - 3, yPos);
+		context.fillText(unit, 0 +  this.tickSize / 2 + 3, yPos);
 		unit += this.unitsPerTick;
 		yPos = Math.round(yPos - yPosIncrement);
     }
-
+}  ;
+    /*
 	// draw bottom tick marks
 	yPos = this.centerY + yPosIncrement;
 	unit = -1 * this.unitsPerTick;
@@ -123,7 +125,7 @@ Graph.prototype.drawYAxis = function() {
 	}
 	context.restore();
 };
-
+      */
 Graph.prototype.drawEquation = function(equation, color, thickness) {
 	var context = this.context;
 	context.save();
@@ -165,6 +167,7 @@ Graph.prototype.drawBarEquation = function(color, thickness) {
         this.transformContext();
 		context.beginPath();
 		context.moveTo(x-0.05,daveReputation_distribution.get_Fx(x-0.05));
+        console.log(daveReputation_distribution.get_Fx(x-0.05))
 		//console.log(" checkValu is  ", daveReputation_distribution.get_Fx(x-0.05));
 		context.lineTo(x-0.05, 0);
 		context.moveTo(x,daveReputation_distribution.get_Fx(x));
@@ -184,7 +187,7 @@ Graph.prototype.transformContext = function() {
 	var context = this.context;
 
 	// move context to center of canvas
-	this.context.translate(this.centerX, this.centerY);
+	this.context.translate(0, this.canvas.height);
 
 	/*
 	 * stretch grid to fit the canvas window, and

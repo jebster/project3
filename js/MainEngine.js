@@ -321,10 +321,10 @@ function GameEngine(){
 		if(debug){
 			var myGraph = new Graph({
 					  canvasId: 'Debug',
-					  minX: -2,
-					  minY: -2,
-					  maxX: 2,
-					  maxY: 2,
+					  minX: 0,
+					  minY:0,
+					  maxX: 5,
+					  maxY:5,
 					  unitsPerTick: 1
 				  });
 			myGraph.drawBarEquation('green', 1);
