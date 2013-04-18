@@ -136,7 +136,7 @@ var PlayerObj = function(x, y){
 			this.pos_x >= DOOR_LEFT_X && 
 			this.pos_x <= DOOR_RIGHT_X){
 			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
-			var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
+			//var cur_location = document.getElementById('location').options[document.getElementById('location').selectedIndex].value;
 			switch(cur_location){
 				case "artsNUS":
 					document.getElementById('location').options[document.getElementById('location').selectedIndex].value = "lawNUS";

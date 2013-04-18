@@ -154,6 +154,9 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 					npcInteraction(this, toRenderList.NPCList[iter]);
 					
 					var tmpArray = influence_btwn_NPCS(this.daveReputation, toRenderList.NPCList[iter].daveReputation);
+
+					this.daveReputation +=0.2;
+
 					//console.log(tmpArray[0] + ", " + tmpArray[1]);
 					this.daveReputation = tmpArray[0];
 					toRenderList.NPCList[iter].daveReputation = tmpArray[1];
