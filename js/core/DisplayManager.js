@@ -95,10 +95,9 @@ function displayCurFacStats(){
 
 		//Girl's Primary Preference(% of Population)
 		//*******************************************
-		document.getElementById('stats-girl-nerd').innerHTML = abstractTwoContainer.preferenceTypeStats[0];
-		document.getElementById('stats-girl-hunk').innerHTML = abstractTwoContainer.preferenceTypeStats[1];
-		document.getElementById('stats-girl-talent').innerHTML = abstractTwoContainer.preferenceTypeStats[2];
-
+		document.getElementById('stats-girl-nerd').innerHTML = Math.ceil(abstractTwoContainer.preferenceTypeStats[0] * 1000) / 1000;
+		document.getElementById('stats-girl-hunk').innerHTML = Math.ceil(abstractTwoContainer.preferenceTypeStats[1] * 1000) / 1000;
+		document.getElementById('stats-girl-talent').innerHTML = Math.ceil(abstractTwoContainer.preferenceTypeStats[2] * 1000) / 1000;
 
 		//Update Guy's Percentage in a Faculty
 		//*******************************************
@@ -138,8 +137,9 @@ function displayCurFacStats(){
 		//Guy's Primary Type(% of Population)
 		document.getElementById('stats-guy-total').innerHTML = totalGuys;
 		document.getElementById('stats-guy-nerd').innerHTML = nerdCount;
-		document.getElementById('stats-guy-hunk').innerHTML = talentCount;
-		document.getElementById('stats-guy-talent').innerHTML = hunkCount;
+		document.getElementById('stats-guy-talent').innerHTML = talentCount;
+		document.getElementById('stats-guy-hunk').innerHTML = hunkCount;
+		
 
 		//Update Dave's Reputation in Faculty
 		//*******************************************

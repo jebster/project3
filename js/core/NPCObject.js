@@ -95,7 +95,7 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
         this.preferenceType = preferenceType;
 
         // each interaction, girl goes into guy this.primaryTypeScore, and updates primaryPreferenceScore
-        this.primaryPreference_best = 0.5;
+        this.primaryPreference_best = 0.1;
 
         this.laidWithDave = false;
 		
