@@ -33,16 +33,16 @@ function viewDateList(){
 }
 
 function viewInteractionEva(){
-	document.getElementById('calendar-modal').style.left = "-1000px";
-	document.getElementById('date-list-modal').style.left = "-1000pxpx";
-	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	// document.getElementById('calendar-modal').style.left = "-1000px";
+	// document.getElementById('date-list-modal').style.left = "-1000pxpx";
+	// document.getElementById('competitor-list-modal').style.left = "-1000px";
 	document.getElementById('evaluation-modal').style.left = "-5px";
 }
 
 function closeModal(){
-	document.getElementById('calendar-modal').style.left = "-1000px";
-	document.getElementById('date-list-modal').style.left = "-1000px";
-	document.getElementById('competitor-list-modal').style.left = "-1000px";
+	// document.getElementById('calendar-modal').style.left = "-1000px";
+	// document.getElementById('date-list-modal').style.left = "-1000px";
+	// document.getElementById('competitor-list-modal').style.left = "-1000px";
 	document.getElementById('evaluation-modal').style.left = "-1000px";
 }
 
@@ -88,6 +88,11 @@ function displayStats(){
 			context.fillStyle = "#000000";
 			context.fillText(currNPC.daveReputation.toFixed(2), currNPC.pos_x, currNPC.pos_y);
 		}
+		context.fillStyle = "#000000";
+		if(currNPC.gender == "male")
+		context.fillText(currNPC.gender + currNPC.id, currNPC.pos_x-5, currNPC.pos_y-48);
+		if(currNPC.gender == "female")
+		context.fillText(currNPC.gender + currNPC.id, currNPC.pos_x-13, currNPC.pos_y-48);
 	}
 }
 
@@ -190,6 +195,15 @@ function displayCurFacStats(){
 		var NPC = new NPCObj(j, destinationFaculty_trunc, currNPCcategory, gender_assign, currNPCDaveReputation, currNPCPreferenceType, currNPCPrimaryTypeIndex);
 		
 		toRenderList.NPCList.push(object);
+	}
+	
+	function toggleDebug(){
+		if (debug){
+			debug = false;
+		}
+		else{
+			debug = true;
+		}
 	}
 
 

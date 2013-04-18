@@ -343,6 +343,12 @@ var NPCObj = function(id, destinationFaculty, category, gender, daveRep, prefere
 		context.drawImage(	this.image, this.whichSprite, 0,
 							32, 32, this.pos_x,
 							this.pos_y, 32, 32);
+		if(this.gender == "female" && this.laidWithDave){
+			var heartImg = new Image();
+			heartImg.src = "images/heart.png";
+			context.drawImage(heartImg,this.pos_x, this.pos_y);
+		}
+		
 
     }
 
