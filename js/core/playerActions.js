@@ -144,8 +144,12 @@ var PlayerActions = function(){
 		simulation.compressLevelTwo();
 		//Account for changes in other Uni during time spent
 		simulation.decompressAbstractThree();
+
+		//Assumption: During that time, people in inFlightList would have gone to spread reputation in other faculties
+
 		//Compress the changes and add back to abstract3 container
 		currentUni = destinationUni;
+		//Compress destination uni
 		simulation.compressLevelTwo();
 
 		//Get back the stats of current Uni and repopulate
@@ -166,6 +170,7 @@ var PlayerActions = function(){
 
 		destinationFaculty_trunc = returnBack;
 
+		//Decompress origin university
 		simulation.decompressAbstractTwo();
 
 		currentUni = returnUni;

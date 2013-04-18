@@ -596,7 +596,7 @@ function SimulationManager(){
 		var traffic_flow_factor = 1.2; //random number
 
 		
-		/* 3. Reputation Influence from Origin Uni
+		/* 3. REPUTATION INFLUENCE from Origin Uni
 		==========================================
 		Ranges from 0.5 to 1.5
 		0.5 means it's bad influence, will pull down score
