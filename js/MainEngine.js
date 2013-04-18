@@ -84,6 +84,7 @@ var populateCount = initialPopulation;
 var toRenderList;
 var debug = false;
 
+
 var abstractTwoContainer;
 var abstractThreeContainer;
 
@@ -317,7 +318,18 @@ function GameEngine(){
 			displayDecisionBox();
 		}
 		updateAttributes();
-		
+		if(debug){
+			var myGraph = new Graph({
+					  canvasId: 'Debug',
+					  minX: -5,
+					  minY: -5,
+					  maxX: 5,
+					  maxY: 5,
+					  unitsPerTick: 1
+				  });
+			myGraph.drawBarEquation('green', 1);
+		}
+			
 		
     }
 

@@ -163,6 +163,9 @@ function displayCurFacStats(){
 	function toggleDebug(){
 		if (debug){
 			debug = false;
+			var tmpCanvas = document.getElementById('Debug');
+			var tmpContext = tmpCanvas.getContext('2d');
+			tmpContext.clearRect(0,0,1000,1000);
 		}
 		else{
 			debug = true;
