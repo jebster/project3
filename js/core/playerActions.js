@@ -12,7 +12,7 @@ var PlayerActions = function(){
 			}
 		}
 
-		timeTravel(2);
+		timeTravel(0.5);
 		performingAction = false;
 	}
 
@@ -26,7 +26,7 @@ var PlayerActions = function(){
 			}
 		}
 
-		timeTravel(2);
+		timeTravel(0.5);
 		performingAction = false;
 	}
 
@@ -40,7 +40,7 @@ var PlayerActions = function(){
 			}
 		}
 
-		timeTravel(3);
+		timeTravel(0.8);
 		performingAction = false;
 	}
 
@@ -101,7 +101,9 @@ var PlayerActions = function(){
 
 		// Accelerate Time
 		//=================
-		timeUnit += timeTaken;
+
+		timeUnit += timeTaken; //Game World Timer
+		globalTimer += timeTaken; // Global Events Timer
 
 		/*
 		//1. For inFlightList
@@ -120,6 +122,9 @@ var PlayerActions = function(){
 		// Exit Current Uni
 		//=================
 		//1. Change destinationUni to the other uni
+
+
+		
 		if(currentUni == "NUS"){
 			destinationUni = "NTU";
 		}else{
@@ -134,7 +139,13 @@ var PlayerActions = function(){
 		var returnUni = currentUni;
 
 		//4. Simulate Going Out of Uni
-		simulation.abstractThreeMovement();
+
+		//New Logic
+		simulation.compressLevelOne();
+		simulation.compressLevelTwo();
+		simualtion.decompressAbstractThree();
+
+		//simulation.abstractThreeMovement();
 
 		currentUni = destinationUni
 
@@ -148,10 +159,12 @@ var PlayerActions = function(){
 
 
 		//3. Simulate abstractThreeMovement
+		
 		simulation.abstractThreeMovement();
 
 		currentUni = destinationUni;
 		currentFaculty = destinationFaculty_trunc;
+		
 
 	}
 }

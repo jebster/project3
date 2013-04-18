@@ -125,6 +125,9 @@ var DOOR_RIGHT_X = 500;
 var TOP_DOOR_BOUND_Y = 44;
 var BOT_DOOR_BOUND_Y = 500;
 
+//To track global events
+var globalTimer=0
+
 var newEntryFlag = 0;
 
 
@@ -234,11 +237,17 @@ function GameEngine(){
 		player.draw();
         player.skillRender();
 
-        globalTimer();
+        globalTimerWorld();
         liveUpdate_curFacStats();
 		
 
         timeUnit += _inverseFPS;
+
+        //For global events
+        globalTimer += _inverseFPS;
+        if(globalTimer > 995){
+            globalTimer = 0;
+        }
 
         //Check if too many people have left the faculty, introduce new ones
         if(toRenderList.NPCList.length < facPopulation_thresh){

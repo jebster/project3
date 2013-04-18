@@ -46,7 +46,7 @@ function closeModal(){
 	document.getElementById('evaluation-modal').style.left = "-1000px";
 }
 
-function globalTimer(){
+function globalTimerWorld(){
 
 	document.getElementById('global-timer').innerHTML = Math.round(getCurTime());
 

@@ -8,41 +8,44 @@ var AbstractThreeContainer = function(){
 	this.preferenceTypeModifier = [1.0, 1.0, 1.0]
 	this.timeOutOfUniversity;
 
-	this.globalTimer;
 
 	this.updatePreference = function(){
 
 		//Purpose: Loop through all events every 999 seconds = 16 minutes
 		//Get the last three digits of the time (22334) - time keeps increasing in seconds
+
+		/*
 		var the_number = getCurTime().toString();
 		var temp_end_index = the_number.length;
 		var temp_beginning_index = temp_end_index-3;
 
 		//Ranges from 000 - 999 
-		var thousand_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index );
+		var thousand_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index ); */
+
 
 		//As long as it is within the cycle
-		if(this.globalTimer < 995){
+		/*
+		if(globalTimer < 995){
 			this.globalTimer = thousand_sec_cycle;
 		}else{
 			this.globalTimer = 0;
-		}
+		} *.
 		
 		/*************
 			Events
 		**************/
 
 		//Exam week
-		if(this.globalTimer > 200 && this.globalTimer<500){
-		 	this.preferenceTypeModifier = [1.5, 0.7, 0.7];
+		if(globalTimer > 200 && globalTimer<500){
+		 	this.preferenceTypeModifier = [1.4, 0.9, 0.9];
 		}
 		//Sports Week
-		else if(this.globalTimer > 500 && this.globalTimer < 700){
-			this.preferenceTypeModifier = [0.6, 1.5, 0.7];
+		else if(globalTimer > 500 && globalTimer < 700){
+			this.preferenceTypeModifier = [0.9, 1.4, 0.9];
 		}
 		//V day (Talent)
-		else if(this.globalTimer > 700){
-			this.preferenceTypeModifier = [0.6, 0.6, 1.5];
+		else if(globalTimer > 700){
+			this.preferenceTypeModifier = [0.9, 0.9, 1.4];
 		}
 
 		

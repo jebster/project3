@@ -652,14 +652,23 @@ function SimulationManager(){
 		if preferenceTypeModifier is [1.5, 0.7, 0.7] as the maximum effect, it will start off with say [1.1, 0.5, 0.5] and then slowly increase to reach [1.5, 0.7, 0.7]
 
 		So as time_factor ranges from 1.0 to 2.0,
+
 		the overall_inf_factor needs to range from 0.8 to 1.0 (assume it will start with 80% of the max effect) */
-		overall_inf_factor = time_factor*0.2 + 0.6;
+		//overall_inf_factor = time_factor*0.2 + 0.6;
+
+		//test range from 1.0 to 1.2
+		overall_inf_factor = time_factor*0.2 + 0.8
 
 		for(var i=0; i<abstractTwoContainer.preferenceTypeStats.length; ++i){
+
 			if(!(abstractThreeContainer.preferenceTypeModifier[i] == 1.0)){
 				abstractTwoContainer.preferenceTypeStats[i] *= abstractThreeContainer.preferenceTypeModifier[i] * overall_inf_factor;
 				if(abstractTwoContainer.preferenceTypeStats[i] < 0.15){
 					abstractTwoContainer.preferenceTypeStats[i] = 0.15;
+				}
+
+				if(abstractTwoContainer.preferenceTypeStats[i] > 0.7){
+					abstractTwoContainer.preferenceTypeStats[i] = 0.7;
 				}
 			}
 		}
