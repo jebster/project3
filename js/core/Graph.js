@@ -23,10 +23,10 @@ function Graph(config) {
 
     this.rangeX = this.maxX - this.minX;
     this.rangeY = this.maxY - this.minY;
-    this.unitX = this.canvas.width / this.rangeX;
+   // this.unitX = this.canvas.width / this.rangeX;
     this.unitY = this.canvas.height / this.rangeY;
-    this.centerY = Math.round(Math.abs(this.minY / this.rangeY) * this.canvas.height);
-    this.centerX = Math.round(Math.abs(this.minX / this.rangeX) * this.canvas.width);
+   // this.centerY = Math.round(Math.abs(this.minY / this.rangeY) * this.canvas.height);
+  //  this.centerX = Math.round(Math.abs(this.minX / this.rangeX) * this.canvas.width);
     this.iteration = (this.maxX - this.minX) / 1000;
     this.scaleX = this.canvas.width / this.rangeX;
     this.scaleY = this.canvas.height / this.rangeY;
@@ -48,10 +48,12 @@ Graph.prototype.drawXAxis = function() {
     context.stroke();
 
     // draw tick marks
-    var xPosIncrement = this.unitsPerTick * this.unitX;
-    var xPos, unit;
+
+
+  //  var xPosIncrement = 2 * this.unitX;
+  //  var xPos, unit;
     context.font = this.font;
-    context.textAlign = 'left';
+    context.textAlign = 'top';
     context.textBaseline = 'bottom';
 
     /*
@@ -69,16 +71,14 @@ Graph.prototype.drawXAxis = function() {
 
 
 	// draw right tick marks
-	xPos = 0 + xPosIncrement;
-	unit = this.unitsPerTick;
-	while(xPos < this.canvas.width) {
-		context.moveTo(xPos, this.canvas.height - this.tickSize / 2);
-		context.lineTo(xPos, this.canvas.height);
-		context.stroke();
-		context.fillText(unit, xPos, this.canvas.height - this.tickSize / 2 - 3);
-		unit += this.unitsPerTick;
-		xPos = Math.round(xPos + xPosIncrement);
-		}
+
+		//context.moveTo(this.canvas.width-15, this.canvas.height-15);
+		//context.lineTo(this.canvas.width, this.canvas.height);
+		//context.stroke();
+		context.fillText("1", this.canvas.width -15, this.canvas.height -15);
+		//unit += this.unitsPerTick;
+		//xPos = Math.round(xPos + xPosIncrement);
+		//}
 	context.restore();
 };
 
@@ -153,7 +153,7 @@ Graph.prototype.drawBarEquation = function(color, thickness) {
 	this.transformContext();
 	context.beginPath();
 	context.moveTo(0,daveReputation_distribution.get_Fx(0));
-	context.lineTo(0.05, daveReputation_distribution.get_Fx(0.05));
+	context.lineTo(0.02, daveReputation_distribution.get_Fx(0.02));
 	context.restore();
 	context.lineWidth = thickness;
 	context.strokeStyle = color;
@@ -162,17 +162,17 @@ Graph.prototype.drawBarEquation = function(color, thickness) {
 
 
 
-	for(x=0.05;x<1;x+=0.05){
+	for(x=0.02;x<1;x+=0.02){
         context.save();
         this.transformContext();
 		context.beginPath();
-		context.moveTo(x-0.05,daveReputation_distribution.get_Fx(x-0.05));
-        console.log(daveReputation_distribution.get_Fx(x-0.05))
+		context.moveTo(x-0.02,daveReputation_distribution.get_Fx(x-0.02));
+        console.log(daveReputation_distribution.get_Fx(x-0.02))
 		//console.log(" checkValu is  ", daveReputation_distribution.get_Fx(x-0.05));
-		context.lineTo(x-0.05, 0);
+		context.lineTo(x-0.02, 0);
 		context.moveTo(x,daveReputation_distribution.get_Fx(x));
-		context.lineTo(x-0.05, daveReputation_distribution.get_Fx(x));
-		context.lineTo(x-0.05, daveReputation_distribution.get_Fx(x-0.05));
+		context.lineTo(x-0.02, daveReputation_distribution.get_Fx(x));
+		context.lineTo(x-0.02, daveReputation_distribution.get_Fx(x-0.02));
 		context.moveTo(x,daveReputation_distribution.get_Fx(x));
 		context.lineTo(x, 0);
 		context.restore();

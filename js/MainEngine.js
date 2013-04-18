@@ -323,7 +323,7 @@ function GameEngine(){
 					  canvasId: 'Debug',
 					  minX: 0,
 					  minY:0,
-					  maxX: 5,
+					  maxX: 1,
 					  maxY:5,
 					  unitsPerTick: 1
 				  });
