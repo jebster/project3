@@ -64,19 +64,19 @@ function displayGlobalEvents(){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(366,50,104,30);
 		context.fillStyle = "#000000";
-		context.fillText("EXAM WEEK", 386, 70);
+		context.fillText("EXAM WEEK", 368, 70);
 	}
 	if(getCurTime()%1000 > 500 && getCurTime()%1000 < 700){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(358,50,120,30);
 		context.fillStyle = "#000000";
-		context.fillText("SPORTS WEEK", 378, 70);
+		context.fillText("SPORTS WEEK", 360, 70);
 	}
 	if(getCurTime()%1000 > 700 && getCurTime()%1000 < 995){
 		context.fillStyle = "#FFFFFF";
 		context.fillRect(385,50,55,30);
 		context.fillStyle = "#000000";
-		context.fillText("V DAY", 398, 70);
+		context.fillText("V DAY", 388, 70);
 	}
 	
 }

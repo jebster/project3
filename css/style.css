@@ -190,7 +190,8 @@ canvas {
     left: -1000px;
     margin: 0 auto;
     z-index: 10;
-    background-color: white;
+    background-color: rgba(0,0,0, 0.8);
+    color: white;
     padding: 20px;
     transition: left 0.5s;
     -moz-transition: left 0.5s; /* Firefox 4 */
