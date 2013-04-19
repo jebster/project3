@@ -459,12 +459,25 @@ function SimulationManager(){
 		if(newEntryFlag == 0){
 			for(var i = 0; i < inFlightList.length; ++i){
 				if(inFlightList[i].currFaculty == absList.faculty){
+					inFlightList[i].pos_x = Math.floor(Math.random()*24) * 32 + 32;
+    				inFlightList[i].pos_y = Math.floor(Math.random()*17) * 32 + 32;
+    				inFlightList[i].interaction = false;
 					absList.NPCList.push(inFlightList[i]);
 				}
 			}
 			for(i = 0; i<laidList.length; ++i){
 				if(laidList[i].category == destinationFaculty_trunc){
-					absList.NPCList.push(laidList[i]);
+					laidList[i].pos_x = Math.floor(Math.random()*24) * 32 + 32;
+    				laidList[i].pos_y = Math.floor(Math.random()*17) * 32 + 32;
+    				laidList[i].interaction = false;
+    				if(laidList.length > 15){
+    					if(ProbabilityChecker(0.5) == 1){
+    						absList.NPCList.push(laidList[i]);
+    					}
+    				}
+    				else{
+    					absList.NPCList.push(laidList[i]);
+    				}
 				}
 			}
 		}
