@@ -10,13 +10,32 @@ ul {
     margin: 0;
 }
 
+header h1 {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+  header span {
+    font-size: 30px;
+  }
+
+
+
+body {
+  background-image: url('../images/background.png');
+  background-color: black;
+}
+
 aside {
     padding: 0;
+    background-color: white;
 }
 
 span {
     font-weight: bold;
-    color: green;
+    color: rgb(133, 247, 133);
     font-size: 20px;
 }
 
@@ -159,6 +178,8 @@ canvas {
 
     #ui-controllers button {
         float: left;
+        width: 100%;
+        font-size: 15px;
     }
 
 .modal {
@@ -204,11 +225,7 @@ canvas {
 
 
 
-header h1 {
-  text-align: center;
-  margin: 0;
-  font-size: 20px;
-}
+
 
 #sideDisplay {
 
