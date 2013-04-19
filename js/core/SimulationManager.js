@@ -1,3 +1,9 @@
+//========================
+//Authors:
+//Jensen Tan (U084010H)
+//Varun Ganesh (U095159L)
+//========================
+
 /* Global Variables */
 //Track Location
 var currentUni = "NUS"; // always start in NUS

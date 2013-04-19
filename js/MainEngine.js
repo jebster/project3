@@ -1,3 +1,14 @@
+//========================
+//Authors:
+//Jensen Tan (U084010H)
+//Varun Ganesh (U095159L)
+//Soong Cun Kang (A0072987L)
+//Chow Yuan Ing (U094667E)
+//========================
+
+
+
+
 function gameInit(abstract1_canvas, abstract2_canvas){
 
 	gameEngine.init(abstract1_canvas,abstract2_canvas);

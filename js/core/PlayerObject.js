@@ -1,3 +1,9 @@
+//========================
+//Authors:
+//Chow Yuan Ing (u094667E)
+//========================
+
+
 var PlayerObj = function(x, y){
     this.pos_x = x;
     this.pos_y = y;

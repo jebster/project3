@@ -1,3 +1,9 @@
+//========================
+//Authors:
+//Varun Ganesh (U095159L)
+//Jensen Tan (U084010H)
+//========================
+
 var AbstractThreeContainer = function(){
 
 	this.universities = ["NUS", "NTU"];
@@ -10,30 +16,6 @@ var AbstractThreeContainer = function(){
 
 
 	this.updatePreference = function(){
-
-		//Purpose: Loop through all events every 999 seconds = 16 minutes
-		//Get the last three digits of the time (22334) - time keeps increasing in seconds
-
-		/*
-		var the_number = getCurTime().toString();
-		var temp_end_index = the_number.length;
-		var temp_beginning_index = temp_end_index-3;
-
-		//Ranges from 000 - 999 
-		var thousand_sec_cycle = the_number.substring( temp_beginning_index , temp_end_index ); */
-
-
-		//As long as it is within the cycle
-		/*
-		if(globalTimer < 995){
-			this.globalTimer = thousand_sec_cycle;
-		}else{
-			this.globalTimer = 0;
-		} *.
-		
-		/*************
-			Events
-		**************/
 
 		//Exam week
 		if(globalTimer > 200 && globalTimer<500){

@@ -1,3 +1,8 @@
+//========================
+//Authors:
+//Chow Yuan Ing (U094667E)
+//========================
+
 var NPCObj = function(id, destinationFaculty, category, gender, daveRep, preferenceType, primaryTypeIndex) {
 
     this.id = id;
