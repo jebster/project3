@@ -167,7 +167,7 @@ Graph.prototype.drawBarEquation = function(color, thickness) {
         this.transformContext();
 		context.beginPath();
 		context.moveTo(x-0.02,daveReputation_distribution.get_Fx(x-0.02));
-        console.log(daveReputation_distribution.get_Fx(x-0.02))
+        //console.log(daveReputation_distribution.get_Fx(x-0.02))
 		//console.log(" checkValu is  ", daveReputation_distribution.get_Fx(x-0.05));
 		context.lineTo(x-0.02, 0);
 		context.moveTo(x,daveReputation_distribution.get_Fx(x));

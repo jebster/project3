@@ -7,8 +7,9 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_talent.png";
-			if(player.talent<1){
-				player.talent += 0.1;
+			player.talent += 0.1;
+			if(player.talent>1){
+				player.talent = 1;
 			}
 		}
 
@@ -21,8 +22,9 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_fitness.png";
-			if(player.fitness<1){
-				player.fitness += 0.1;
+			player.fitness += 0.1;
+			if(player.fitness > 1){
+				player.fitness = 1;
 			}
 		}
 
@@ -35,8 +37,9 @@ var PlayerActions = function(){
 		if(drawOverlay == false){
 			drawOverlay = true;
 			overlayImg.src = "images/improving_intellect.png";
-			if(player.intellect < 1){
-				player.intellect += 0.1;
+			player.intellect += 0.1;
+			if(player.intellect > 1){
+				player.intellect = 1;
 			}
 		}
 
