@@ -3,7 +3,7 @@ var PlayerObj = function(x, y){
     this.pos_y = y;
 	this.width = 32;
     this.radius = 10;
-    this.playerSpeed = 4;
+    this.playerSpeed = 4
 	this.image = new Image();
 	this.image.src = "images/main_char.png";
 	this.whichSprite = 0;
@@ -106,7 +106,7 @@ var PlayerObj = function(x, y){
 					this.whichSprite = this.width * 9;
 				}	else if (this.whichSprite == this.width * 9) {
 						this.whichSprite = this.width * 10;
-				} else if (this.whichSprite == this.width * 10) {
+				} else if (this.whichSprite == this.width * 11) {
 						this.whichSprite = this.width * 11;
 				} else {
 						this.whichSprite = this.width * 8;
