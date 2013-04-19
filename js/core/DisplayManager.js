@@ -158,6 +158,9 @@ function displayCurFacStats(){
 		NPC.laidWithDave = true;
 		toRenderList.NPCList.push(NPC);
 		laidList.push(NPC);
+
+		laidCount++;
+		document.getElementById('laid-count-dis').innerHTML = laidCount;
 	}
 	
 	function toggleDebug(){
