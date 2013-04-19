@@ -376,8 +376,9 @@ var PlayerObj = function(x, y){
 	}
 	
 	this.befriend = function(npc){
-		overlayImg.src = "images/befriend.png";
-		drawOverlay = true;
+		context.drawImage(befriendImg, 0, 0);
+		alert("You have befriended " + npc.name);
+		
 		
 		this.resume();
 
@@ -388,25 +389,24 @@ var PlayerObj = function(x, y){
 	this.date = function(npc){
 		this.success = npc.dateDaveDecision();
 		if(this.success){
-			overlayImg.src = "images/success.png";
-			drawOverlay = true;
+			context.drawImage(successImg,0,0);
+			alert("You have successfully asked " + npc.name + "out on a date!");
 			
 			viewInteractionEva();
 			this.currInteractionStage = 2;
 		}
 		if(!this.success){
-			overlayImg.src = "images/rejected.png";
-			drawOverlay = true;
+			context.drawImage(rejectedImg, 0,0);
+			alert("You have been rejected!");
 			viewInteractionEva();
 			this.resume();
 		}
 	}
 	
 	this.hangout = function(npc){
-		//alert("You have just hanged out with " + npc.name);
-		overlayImg.src = "images/hangout.png";
-		context.drawImage(overlayImg, 0, 0);
-		drawOverlay = true;
+		context.drawImage(hangoutImg, 0, 0);
+		alert("You have just hanged out with " + npc.name);
+		
 		//increment time
 		timeUnit += 50;
 		globalTimer += 50;

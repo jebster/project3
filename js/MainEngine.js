@@ -119,6 +119,16 @@ var canvas;
 var drawOverlay = false;
 var overlayTimer = 0;
 var overlayImg = new Image();
+var befriendImg = new Image();
+befriendImg.src = "images/befriend.png";
+var successImg = new Image();
+successImg.src = "images/success.png";
+var rejectedImg = new Image();
+rejectedImg.src = "images/rejected.png";
+var hangoutImg = new Image();
+hangoutImg.src = "images/hangout.png";
+var laidImg = new Image();
+laidImg.src = "images/laid.png";
 var bgImg = new Image();
 bgImg.src = "images/nus_engin.png";
 var DOOR_LEFT_X = 284;
@@ -219,6 +229,7 @@ function GameEngine(){
             context = canvas.getContext('2d'); 
             context.clearRect(0,0,canvas.width,canvas.height);
 			context.drawImage(bgImg, 0, 0);
+			context.font = "16px Helvetica";
         }
         else{
             canvas = _abstract2_canvas;
@@ -227,6 +238,7 @@ function GameEngine(){
             context.fillStyle = "rgb(138, 234, 203)";
             context.fillRect(0,0,canvas.width,canvas.height);
             context.fill();         
+			context.font = "16px Helvetica";
         }
     }
 
