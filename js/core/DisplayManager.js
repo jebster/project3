@@ -157,6 +157,7 @@ function displayCurFacStats(){
 		var NPC = new NPCObj('fake', 'engine', 'engine', 'female', 0.3, 'hunk', 0.2);
 		NPC.laidWithDave = true;
 		toRenderList.NPCList.push(NPC);
+		laidList.push(NPC);
 	}
 	
 	function toggleDebug(){
